@@ -2,6 +2,7 @@
 
  $(function(){ // on dom ready
 
+ ///////// get the json file
   var json = (function () {
     var json = null;
     $.ajax({
@@ -14,10 +15,11 @@
         }
     });
   return json;
-})(); 
-  
-///// checkBox  
+})();
 
+//////////////////////////////// 
+  
+///// checkBox  for Labels
 var showNodeLabel = "data(label)";
 var showEdgeLabel = "data(label)";
 
@@ -49,10 +51,9 @@ var showEdgeLabel = "data(label)";
 			.update() ;
     });
 
-///////// end checkBox
+///////// END checkBox for labels
 
-//////// selectionBox
-
+//////// selectionBox for the shape
 $('#selectShape').change(function() {
 	var shape="";
         $( "select option:selected" ).each(function() {
@@ -63,11 +64,75 @@ $('#selectShape').change(function() {
 			
 	});
 
-//////// end selectionBox
+//////// END selectionBox for the shape
 
+//////// checkBox for highlighting outgoing nodes
+var show=false; 
+	$('#showOutNode').change(function() {
+		
+        if($(this).is(":checked")) {
+			show = true;
+			showOutNodes(show);
+        }
+		else{ 
+			show = false;
+			showOutNodes(show);
+		}
+    });  
+//////// END checkBox for highlighting outgoing nodes
 	
+//////// function for finding outgoing nodes
+function showOutNodes(show){
+	
+	if(show){
+		
+			
+			
+		cy.nodes().on("click",  function(){
+			
+			var selectedNode = this;
+			//var child = selectedNode.children();
+			
+			
+			var connectedEdges = selectedNode.connectedEdges(function(){
+										return !this.target().anySame( selectedNode );
+									});
+    
+			var connectedNodes = connectedEdges.targets();
+			
+		
+			connectedNodes.flashClass('sNode',1500);			
+			connectedEdges.flashClass('sNode',1500);		
+			
+			
+			
+			cy.style()
+			.selector('.sNode')
+			.css({
+					'background-color': 'green',
+					'line-color': 'green',
+					'target-arrow-color': 'green',
+					'source-arrow-color': 'green',
+					'opacity': 1
+					
+					})
+			.update() ;
+			
+		});
+		
+	}
+	else {
+		cy.nodes().off("click");
+	}
 
-  var cy = cytoscape({
+}
+
+//////// END function for finding outgoing nodes
+
+
+///////// create graph
+
+  var cy = cytoscape({		
 
 	container: document.getElementById('cy'), 
 	
@@ -116,16 +181,8 @@ $('#selectShape').change(function() {
         'source-arrow-color': '#FE2E64',
         'opacity': 1
       })
-  });
+  });  	// END create graph
+			
 	
-	
-////////higlight
 
-//cy.on('tap', 'node', function(){
-
-
-  
-//}); // on tap
-//////////////////////////
-
-}); // on dom ready
+}); // END on dom ready
