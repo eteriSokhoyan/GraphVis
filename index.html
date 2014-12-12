@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="style.css" rel="stylesheet" />
+<meta charset=utf-8 />
+<title>index</title>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
+<script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script src="graphVis.js"></script>
+
+
+</head>
+<body>
+
+
+<div id="cy" ></div>
+<div id="toolPanel"  style="float:left; width:20%; height:100%; background-color:#D8D8D8;"> 
+<br>
+<div id="toolPanelHeader">ToolPanel</div>
+
+<br>
+<input type="file" onchange="onFileSelected(event)"> <br>
+
+<input type="checkbox" name="nlabelSelection" id="nodeLabelCheck" checked = "checked">show node label<br>	
+<input type="checkbox" name="elabelSelection" id="linkLabelCheck" checked = "checked">show edge label<br>		
+
+The shape of the graph
+<select name="select" id="selectShape"> 
+  <option value="random">random</option> 
+  <option value="circle" selected>circle</option>
+  <option value="grid">grid</option>
+  <option value="concentric">concentric</option> 
+  <option value="breadthfirst">breadthfirst</option>
+  
+</select>
+
+</div>
+</body>
+</html>

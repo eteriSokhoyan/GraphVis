@@ -1,0 +1,44 @@
+body { 
+  font: 14px helvetica neue, helvetica, arial, sans-serif;
+  
+}
+
+#cy {
+  height: 100%;
+  width: 80%;
+  position: absolute;
+  left: 20%;
+  top: 0;
+  float:right;
+
+  
+}
+
+#toolPanel {
+  height: 10%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  float:top; 
+  background-color: #F5A9F2;
+  border-style: groove;
+  
+  
+   
+}
+
+#toolPanelHeader {
+  height: 0%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  float: top;
+  font-weight: bold;
+ 
+ } 
+
+
+
+ 

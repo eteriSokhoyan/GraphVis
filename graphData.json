@@ -1,0 +1,111 @@
+{
+    "nodes": [
+        {
+            "data": {
+                "id": "1",
+                "label": "1",
+				"value": "10"
+            }
+        },
+        {
+            "data": {
+                "id": "2",
+                "label": "2",
+				"value": "20"
+            }
+        },
+        {
+            "data": {
+                "id": "3",
+                "label": "3",
+				"value": "30"
+            }
+        },
+		{
+            "data": {
+                "id": "4",
+                "label": "4",
+				"value": "40"
+            }
+        },
+        {
+            "data": {
+                "id": "5",
+                "label": "5",
+				"value": "50"
+            }
+        },
+        {
+            "data": {
+                "id": "6",
+                "label": "6",
+				"value": "60"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "data": {
+                "source": 1,
+                "target": 2,
+				"label": "a"
+            }
+        },
+        {
+            "data": {
+                "source": 2,
+                "target": 3,
+				"label": "b"
+            }
+        },
+        {
+            "data": {
+                "source": 3,
+                "target": 1,
+				"label": "c"
+            }
+        },
+		 {
+            "data": {
+                "source": 3,
+                "target": 4,
+				"label": "d"
+            }
+        },
+        {
+            "data": {
+                "source": 4,
+                "target": 1,
+				"label": "e"
+            }
+        },
+        {
+            "data": {
+                "source": 5,
+                "target": 2,
+				"label": "f"
+            }
+        },
+		 {
+            "data": {
+                "source": 1,
+                "target": 6,
+				"label": "g"
+            }
+        },
+        {
+            "data": {
+                "source": 4,
+                "target": 5,
+				"label": "h"
+            }
+        },
+        {
+            "data": {
+                "source": 1,
+                "target": 3,
+				"label": "i"
+            }
+        }
+    ]
+}
