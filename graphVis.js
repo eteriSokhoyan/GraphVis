@@ -51,7 +51,6 @@ var showEdgeLabel = "data(label)";
 			.update() ;
     });
 
-///////// END checkBox for labels
 
 //////// selectionBox for the shape
 $('#selectShape').change(function() {
@@ -64,31 +63,40 @@ $('#selectShape').change(function() {
 			
 	});
 
-//////// END selectionBox for the shape
-
 //////// checkBox for highlighting outgoing nodes
-var show=false; 
+var showOut=false; 
+
 	$('#showOutNode').change(function() {
 		
         if($(this).is(":checked")) {
-			show = true;
-			showOutNodes(show);
+			showOut = true;
+			showOutNodes(showOut);
         }
 		else{ 
-			show = false;
-			showOutNodes(show);
+			showOut = false;
+			showOutNodes(showOut);
 		}
     });  
-//////// END checkBox for highlighting outgoing nodes
-	
-//////// function for finding outgoing nodes
-function showOutNodes(show){
-	
-	if(show){
+
+
+//////// checkBox for highlighting incoming nodes
+var showIn=false; 
+
+	$('#showInNode').change(function() {
 		
-			
-			
-		cy.nodes().on("click",  function(){
+        if($(this).is(":checked")) {
+			showIn = true;
+			showInNodes(showIn);
+        }
+		else{ 
+			showIn = false;
+			showInNodes(showIn);
+		}
+    });  
+
+
+///////// finding outgoing Nodes		
+	function highlightOut(){
 			
 			var selectedNode = this;
 			//var child = selectedNode.children();
@@ -99,6 +107,53 @@ function showOutNodes(show){
 									});
     
 			var connectedNodes = connectedEdges.targets();
+			
+			connectedNodes.flashClass('sNode',1500);			
+			connectedEdges.flashClass('sNode',1500);		
+			
+			cy.style()
+			.selector('.sNode')
+			.css({
+					'background-color': 'green',
+					'line-color': 'green',
+					'target-arrow-color': 'green',
+					'source-arrow-color': 'green',
+					'opacity': 1
+					
+					})
+			.update() ;
+			
+	}
+		
+//////// OnClick show outgoing nodes
+function showOutNodes(showOut){
+	
+	if(showOut){
+				
+		cy.nodes().on("click", highlightOut);
+		
+	}
+	else {
+	
+		cy.nodes().off("click", highlightOut);
+	
+	}
+
+}
+
+//////////// find inComing nodes
+
+	function highlightIn (){
+			
+			var selectedNode = this;
+			//var child = selectedNode.children();
+			
+			
+			var connectedEdges = selectedNode.connectedEdges(function(){
+										return !this.source().anySame( selectedNode );
+									});
+    
+			var connectedNodes = connectedEdges.sources();
 			
 		
 			connectedNodes.flashClass('sNode',1500);			
@@ -118,16 +173,24 @@ function showOutNodes(show){
 					})
 			.update() ;
 			
-		});
+		}
+
+
+
+//////// OnClick show inComing nodes
+function showInNodes(showIn){
+	
+	
+	if(showIn){
+		
+		cy.nodes().on("click", highlightIn);
 		
 	}
 	else {
-		cy.nodes().off("click");
+		cy.nodes().off("click", highlightIn);
 	}
 
 }
-
-//////// END function for finding outgoing nodes
 
 
 ///////// create graph
