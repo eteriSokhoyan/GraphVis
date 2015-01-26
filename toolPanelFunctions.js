@@ -49,11 +49,11 @@ var showOut=false;
 		
         if($(this).is(":checked")) {
 			showOut = true;
-			showOutNodes(showOut);
+			cy.nodes().on("click", highlightOut);
         }
 		else{ 
 			showOut = false;
-			showOutNodes(showOut);
+			cy.nodes().off("click", highlightOut);
 		}
     });  
 
@@ -65,11 +65,11 @@ var showIn=false;
 		
         if($(this).is(":checked")) {
 			showIn = true;
-			showInNodes(showIn);
+			cy.nodes().on("click", highlightIn);
         }
 		else{ 
 			showIn = false;
-			showInNodes(showIn);
+			cy.nodes().off("click", highlightIn);
 		}
     });  
 
@@ -90,6 +90,9 @@ var showIn=false;
 			connectedNodes.flashClass('sNode',1500);			
 			connectedEdges.flashClass('sNode',1500);		
 			
+			//connectedNodes.toggleClass('sNode', true);
+			//connectedEdges.toggleClass('sNode', true);
+			
 			cy.style()
 			.selector('.sNode')
 			.css({
@@ -101,24 +104,10 @@ var showIn=false;
 					
 					})
 			.update() ;
-			
+			//connectedNodes.toggleClass('sNode', false);
+			//connectedEdges.toggleClass('sNode', false);
 	}
 		
-//////// OnClick show outgoing nodes
-function showOutNodes(showOut){
-	
-	if(showOut){
-				
-		cy.nodes().on("click", highlightOut);
-		
-	}
-	else {
-	
-		cy.nodes().off("click", highlightOut);
-	
-	}
-
-}
 
 //////////// find inComing nodes
 
@@ -154,19 +143,65 @@ function showOutNodes(showOut){
 			
 		}
 
+//// node Collapse
 
+var collapse=false;
+$('#compressNodeCheck').change(function() {
+        if($(this).is(":checked")) {
+			collapse = true;
+			cy.nodes().on("cxttap ", colNode);
+        }
+        else{
+			collapse = false;
+			cy.nodes().off("cxttap ", colNode);
+		}
+		
+});
 
-//////// OnClick show inComing nodes
-function showInNodes(showIn){
+function colNode(){
 	
+	var selectedNode = this;
+			//var child = selectedNode.children();
+			
+			
+			var connectedEdges = selectedNode.connectedEdges(function(){
+										return !this.source().anySame( selectedNode );
+									});
+    
+			var connectedNodes = connectedEdges.sources();
+			
+		
+			connectedNodes.toggleClass('hNode',true);					
+			connectedEdges.toggleClass('hNode',true);		
+			
+			selectedNode.toggleClass('cNode',true);
+			
+			cy.style()
+			.selector('.hNode')
+			.css({
+					'background-color': 'green',
+					'line-color': 'green',
+					'target-arrow-color': 'green',
+					'source-arrow-color': 'green',
+					'opacity': 1,
+					'visibility': 'hidden'
+					})
+			.update() ;
+			
+			cy.style()
+			.selector('.cNode')
+			.css({
+					'opacity': 1,
+					'width': 50,
+					'height': 50
+					
+					})
+			.update() ;
+			
 	
-	if(showIn){
-		
-		cy.nodes().on("click", highlightIn);
-		
-	}
-	else {
-		cy.nodes().off("click", highlightIn);
-	}
 
 }
+
+
+
+
