@@ -23,7 +23,7 @@ var demoEdges = [];
         'url': url,
         'dataType': "json",
         'success': function (data) {
-           createGraphforJson(data);
+           createGraph(data);
         },
 		'error' :  function (data) {
 			           
@@ -31,10 +31,8 @@ var demoEdges = [];
 				var lines = this.result.split('\n');
 				var chars;
 				for(var line = 0; line < lines.length; line++){
-					console.log(lines[line]);
 					chars = lines[line].split(/,?\s+/);  // split by comma or space
-					console.log("split = " + chars);
-				
+								
 					demoNodes.push({
 						data: {
 							id: chars[0],
@@ -62,11 +60,7 @@ var demoEdges = [];
 } //// end document.getElementById
 
  
-
-
-//////////////////////////////// 
-  
-///// checkBox  for Labels
+ ///// checkBox  for Labels
 var showNodeLabel = "data(label)";
 var showEdgeLabel = "data(label)";
 
@@ -239,61 +233,61 @@ function showInNodes(showIn){
 
 }
 
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 ///////// create graph
  function createGraph(data) {
-  var cy = cytoscape({		
+	var cy = cytoscape({		
 
-	container: document.getElementById('cy'), 
+		container: document.getElementById('cy'), 
 	
-	elements : data ,
-				
-	layout: {
-		// name: 'random',
-		   name: 'circle'
-		//avoidOverlap: true,
-		//padding: 10
-			},
-  
-	ready: function(){
-				//mychange();
-				window.cy = this;
-			},
-	
-	
-	
-	  style: cytoscape.stylesheet()
-    .selector('node')
-      .css({
-        'content': showNodeLabel,
-		'text-valign':'center'
-	/*	'pie-size': '100%',
-        'pie-1-background-color': '#E8747C',
-        'pie-1-background-size': '50%',
-		//'pie-1-background-size': 'mapData(value, 0, 40, 0, 100)',
-		'pie-2-background-color': '#74E883',
-        'pie-2-background-size': '50%'
-	*/	
-      })
-    .selector('edge')
-      .css({
-        'target-arrow-shape': 'triangle',
-        'width': 4,
-        'line-color': '#ddd',
-        'target-arrow-color': '#ddd',
-		'content': showEdgeLabel
-      })
-	  .selector(':selected')
-      .css({
-		'background-color': '#FE2E64',
-        'line-color': '#FE2E64',
-        'target-arrow-color': '#FE2E64',
-        'source-arrow-color': '#FE2E64',
-        'opacity': 1
-      })
+		elements : data ,	
+		layout: {
+			// name: 'random',
+			name: 'circle'
+			//avoidOverlap: true,
+			//padding: 10
+		},
+		ready: function(){
+			//mychange();
+			window.cy = this;
+		},	
+		style: cytoscape.stylesheet()
+						.selector('node')
+						.css({
+							'content': showNodeLabel,
+							'text-valign':'center'
+						/*	'pie-size': '100%',
+							'pie-1-background-color': '#E8747C',
+							'pie-1-background-size': '50%',
+							'pie-1-background-size': 'mapData(value, 0, 40, 0, 100)',
+							'pie-2-background-color': '#74E883',
+							'pie-2-background-size': '50%'
+						*/	
+						})
+						.selector('edge')
+						.css({
+							'target-arrow-shape': 'triangle',
+							'width': 4,
+							'line-color': '#ddd',
+							'target-arrow-color': '#ddd',
+							'content': showEdgeLabel
+						})
+						.selector(':selected')
+						.css({
+							'background-color': '#FE2E64',
+							'line-color': '#FE2E64',
+							'target-arrow-color': '#FE2E64',
+							'source-arrow-color': '#FE2E64',
+							'opacity': 1
+						})
   });  	// END create graph
 }			
-
 
  function parseAndCreate(demoNodes,demoEdges){
 	var data = {
