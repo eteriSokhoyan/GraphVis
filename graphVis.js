@@ -2,20 +2,67 @@
 
  $(function(){ // on dom ready
 
+var demoNodes = [];
+var demoEdges = [];
+
+ 
  ///////// get the json file
-  var json = (function () {
-    var json = null;
+ 
+ document.getElementById('openFile').onchange = function(){
+
+    var file = this.files[0];
+	var url = file.name;
+	var reader = new FileReader();
+	//alert(url);
+ 
+  
+    //var json = null;
     $.ajax({
         'async': false,
         'global': false,
-        'url': 'graphData.json',
+        'url': url,
         'dataType': "json",
         'success': function (data) {
-            json = data;
+           createGraphforJson(data);
+        },
+		'error' :  function (data) {
+			           
+			reader.onload = function(){
+				var lines = this.result.split('\n');
+				var chars;
+				for(var line = 0; line < lines.length; line++){
+					console.log(lines[line]);
+					chars = lines[line].split(/,?\s+/);  // split by comma or space
+					console.log("split = " + chars);
+				
+					demoNodes.push({
+						data: {
+							id: chars[0],
+							name:chars[0]
+						}
+					});
+	
+					for (var i = 1; i < chars.length; i++) {
+						demoEdges.push({
+							data: {
+								source: chars[0],
+								target: chars[i]
+							}
+						})
+					}			  
+				}
+		
+				parseAndCreate(demoNodes,demoEdges);
+			};
+			 reader.readAsText(file);
         }
     });
-  return json;
-})();
+  
+
+} //// end document.getElementById
+
+ 
+
 
 //////////////////////////////// 
   
@@ -194,12 +241,12 @@ function showInNodes(showIn){
 
 
 ///////// create graph
-
+ function createGraph(data) {
   var cy = cytoscape({		
 
 	container: document.getElementById('cy'), 
 	
-	elements : json ,
+	elements : data ,
 				
 	layout: {
 		// name: 'random',
@@ -245,7 +292,16 @@ function showInNodes(showIn){
         'opacity': 1
       })
   });  	// END create graph
-			
-	
+}			
+
+
+ function parseAndCreate(demoNodes,demoEdges){
+	var data = {
+            nodes: demoNodes,
+            edges: demoEdges };
+	createGraph(data);
+ }
+
+ 
 
 }); // END on dom ready

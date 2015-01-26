@@ -11,8 +11,8 @@
 <script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+<!--script src="graphVis.js"></script-->
 <script src="graphVis.js"></script>
-
 
 </head>
 <body>
@@ -24,7 +24,13 @@
 <div id="toolPanelHeader">ToolPanel</div>
 
 <br>
-<input type="file" onchange="onFileSelected(event)"> <br>
+
+<!--select> 
+  <option value="matrix">Matrix</option>
+  <option value="graph">Graph</option>
+</select>
+Select the format of the input file <br-->
+<input type="file" id="openFile"> <br>
 
 <input type="checkbox" name="nlabelSelection" id="nodeLabelCheck" checked = "checked">show node label<br>	
 <input type="checkbox" name="elabelSelection" id="linkLabelCheck" checked = "checked">show edge label<br>		
