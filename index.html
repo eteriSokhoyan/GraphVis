@@ -11,8 +11,27 @@
 <script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" />
-<!--script src="graphVis.js"></script-->
-<script src="graphVis.js"></script>
+
+<!--script src="graphVis.js"></script>
+<script src="toolPanelFunctions.js"></script-->
+
+<script>
+
+(function(d){
+    var s=d.getElementsByTagName('script')[0],f=d.createElement('script');
+    f.type='text/javascript';
+    f.async=true;
+    f.src='graphVis.js';
+    s.parentNode.insertBefore(f,s);
+    f=d.createElement('script');
+    f.type='text/javascript';
+    f.async=true;
+    f.src='toolPanelFunctions.js';
+    s.parentNode.insertBefore(f,s);
+})(document)
+
+</script>
+
 
 </head>
 <body>
@@ -34,8 +53,8 @@ Select the format of the input file <br-->
 
 <input type="checkbox" name="nlabelSelection" id="nodeLabelCheck" checked = "checked">show node label<br>	
 <input type="checkbox" name="elabelSelection" id="linkLabelCheck" checked = "checked">show edge label<br>		
-<input type="checkbox" name="showOutgoing" id="showOutNode">show outgoing nodes<br>		
-<input type="checkbox" name="showInComing" id="showInNode">show incoming nodes<br>		
+<input type="checkbox" name="showOutgoing" id="showOutNode">highlight outgoing nodes<br>		
+<input type="checkbox" name="showInComing" id="showInNode">highlight incoming nodes<br>		
 
 The shape of the graph
 <select name="select" id="selectShape"> 
