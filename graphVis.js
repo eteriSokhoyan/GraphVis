@@ -5,13 +5,25 @@
 var demoNodes = [];
 var demoEdges = [];
 
+ //var url = 'graphData.json';
+ 
+  $.ajax({
+        'async': false,
+        'global': false,
+        'url': 'graphData.json',
+        'dataType': "json",
+        'success': function (data) {
+           createGraph(data);
+        }
+ });
+ 
  
  ///////// get the json file
  
  document.getElementById('openFile').onchange = function(){
 
     var file = this.files[0];
-	var url = file.name;
+	 url = file.name;
 	var reader = new FileReader();
 	//alert(url);
  
@@ -79,7 +91,7 @@ var demoEdges = [];
 		style: cytoscape.stylesheet()
 						.selector('node')
 						.css({
-							'content': showNodeLabel,
+							//'content': showNodeLabel,
 							'text-valign':'center',
 							'background-color': '#888888',
 							'opacity': 0.8
@@ -97,7 +109,7 @@ var demoEdges = [];
 							'width': 4,
 							'line-color': '#ddd',
 							'target-arrow-color': '#ddd',
-							'content': showEdgeLabel
+						//	'content': showEdgeLabel
 						})
 						.selector(':selected')
 						.css({
