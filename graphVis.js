@@ -80,7 +80,9 @@ var demoEdges = [];
 						.selector('node')
 						.css({
 							'content': showNodeLabel,
-							'text-valign':'center'
+							'text-valign':'center',
+							'background-color': '#888888',
+							'opacity': 0.8
 						/*	'pie-size': '100%',
 							'pie-1-background-color': '#E8747C',
 							'pie-1-background-size': '50%',

@@ -54,6 +54,7 @@ var showOut=false;
 		else{ 
 			showOut = false;
 			cy.nodes().off("click", highlightOut);
+			resetHighlightOut(showIn,showOut); 
 		}
     });  
 
@@ -70,6 +71,8 @@ var showIn=false;
 		else{ 
 			showIn = false;
 			cy.nodes().off("click", highlightIn);
+			resetHighlightIn(showIn,showOut);
+			cy.nodes().removeClass('connectedNodeIn');
 		}
     });  
 
@@ -85,27 +88,31 @@ var showIn=false;
 			
 			if(selectedNode.hasClass('selectedNodeOut')){
 			
-				connectedNodes.toggleClass('connectedNode', false);
-				connectedEdges.toggleClass('connectedNode', false);
-				selectedNode.toggleClass('selectedNodeOut', false);
+				connectedNodes.removeClass('connectedNodeOut');
+				connectedEdges.removeClass('connectedNodeOut');
+				selectedNode.removeClass('selectedNodeOut');
 
 				cy.style()
-				  .selector('.connectedNode')
+				  .selector('.connectedNodeOut')
 				  .css({
-					'opacity': 1
+					'opacity': 0.8
 					})
 				  .update() ;
 			}
 			
 			else {
-				//connectedNodes.flashClass('connectedNode',1500);			
-				//connectedEdges.flashClass('connectedNode',1500);		
+				//connectedNodes.flashClass('connectedNodeOut',1500);			
+				//connectedEdges.flashClass('connectedNodeOut',1500);		
 			
-				connectedNodes.toggleClass('connectedNode', true);
-				connectedEdges.toggleClass('connectedNode', true);
-				selectedNode.toggleClass('selectedNodeOut', true);
+				cy.nodes().not(this).removeClass('connectedNodeOut');
+				cy.nodes().not(this).removeClass('selectedNodeOut');
+				cy.edges().not(this).removeClass('connectedNodeOut');
+			
+				connectedNodes.addClass('connectedNodeOut');
+				connectedEdges.addClass('connectedNodeOut');
+				selectedNode.addClass('selectedNodeOut');
 				cy.style()
-				  .selector('.connectedNode')
+				  .selector('.connectedNodeOut')
 				  .css({
 					'background-color': 'green',
 					'line-color': 'green',
@@ -129,6 +136,65 @@ var showIn=false;
 			}
 	}
 		
+		
+	function resetHighlightOut(showIn,showOut){
+	
+			cy.style()
+				  .selector('.connectedNodeOut')
+				  .css({
+					'opacity': 0.8,
+					'background-color': '#888888',
+					'line-color': '#ddd',
+					'target-arrow-color': '#ddd'
+					})
+				  .update() ;
+				  
+				  
+			if(!showIn && !showOut){		
+				cy.style()		
+				  .selector('.selectedNodeOut')
+				  .css({
+					'opacity': 0.8,
+					'background-color': '#888888', //
+					'border-width': 0
+					})	
+				  .update() ;
+		
+			}
+				cy.nodes().removeClass('selectedNodeOut');
+				cy.nodes().removeClass('connectedNodeOut');
+				cy.edges().removeClass('connectedNodeOut');
+		}
+	
+	
+	function resetHighlightIn(showIn,showOut){
+	
+			cy.style()
+				  .selector('.connectedNodeIn')
+				  .css({
+					'opacity': 0.8,
+					'background-color': '#888888',
+					'line-color': '#ddd',
+					'target-arrow-color': '#ddd'
+					})
+					.update() ;
+					
+			if(!showIn && !showOut){		
+				cy.style()		
+				  .selector('.selectedNodeIn')
+				  .css({
+					'opacity': 0.8,
+					'background-color': '#888888', //
+					'border-width': 0
+					})	
+				  .update() ;
+			}	  
+		
+	}
+		
+		
+		
+		
 
 //////////// find inComing nodes
 
@@ -144,23 +210,28 @@ var showIn=false;
 		
 			if(selectedNode.hasClass('selectedNodeIn')){
 			
-				connectedNodes.toggleClass('connectedNode', false);
-				connectedEdges.toggleClass('connectedNode', false);
-				selectedNode.toggleClass('selectedNodeIn', false);
+				connectedNodes.removeClass('connectedNodeIn');
+				connectedEdges.removeClass('connectedNodeIn');
+				selectedNode.removeClass('selectedNodeIn');
 				cy.style()
-				  .selector('.connectedNode')
+				  .selector('.connectedNodeIn')
 				  .css({
-					'opacity': 1
+					'opacity': 0.8
 					})
 				  .update() ;
 			}
 			else {
+			
+			
+				cy.nodes().not(this).removeClass('connectedNodeIn');
+				cy.nodes().not(this).removeClass('selectedNodeIn');
+				cy.edges().not(this).removeClass('connectedNodeIn');
 				
-				connectedNodes.toggleClass('connectedNode', true);
-				connectedEdges.toggleClass('connectedNode', true);
-				selectedNode.toggleClass('selectedNodeIn', true);
+				connectedNodes.addClass('connectedNodeIn');
+				connectedEdges.addClass('connectedNodeIn');
+				selectedNode.addClass('selectedNodeIn');
 				cy.style()
-				  .selector('.connectedNode')
+				  .selector('.connectedNodeIn')
 				  .css({
 					'background-color': 'green',
 					'line-color': 'green',
@@ -221,14 +292,14 @@ function colNode(){
 				'line-color': 'green',
 				'target-arrow-color': 'green',
 				'source-arrow-color': 'green',
-				'opacity': 1,
+				'opacity': 0.8,
 				})
 			 .update() ;
 		
 			cy.style()
 			  .selector('.superNode')
 			  .css({
-				'opacity': 1,	
+				'opacity': 0.8,	
 				})
 			  .update() ;
 			
@@ -236,6 +307,7 @@ function colNode(){
 			//// collapse node if it was not collaped before
 	else {
 
+	
 		connectedNodes.toggleClass('collapsedNode',true);					
 		connectedEdges.toggleClass('collapsedNode',true);		
 		selectedNode.toggleClass('superNode',true);
@@ -247,7 +319,7 @@ function colNode(){
 				'line-color': 'green',
 				'target-arrow-color': 'green',
 				'source-arrow-color': 'green',
-				'opacity': 1,
+				'opacity': 0.8,
 				'visibility': 'hidden'
 				})
 			  .update() ;
@@ -255,7 +327,7 @@ function colNode(){
 			cy.style()
 			  .selector('.superNode')
 			  .css({
-				'opacity': 1,
+				'opacity': 0.8,
 				'width': 50,
 				'height': 50
 				})
