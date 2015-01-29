@@ -18,7 +18,7 @@ var showEdgeLabel = "data(label)";
 	
 	$('#linkLabelCheck').change(function() {
         if($(this).is(":checked")) {
-			showEdgeLabel = "data(label)";		
+			showEdgeLabel = "data(id)";		////// change back to label!!!!
         }
         else{
 			showEdgeLabel = "";
@@ -164,7 +164,7 @@ var showIn=false;
 				cy.nodes().removeClass('selectedNodeOut');
 				cy.nodes().removeClass('connectedNodeOut');
 				cy.edges().removeClass('connectedNodeOut');
-		}
+	}
 	
 	
 	function resetHighlightIn(showIn,showOut){
@@ -257,7 +257,7 @@ var showIn=false;
 		}
 
 //// node Collapse
-
+/*
 var collapse=false;
 $('#compressNodeCheck').change(function() {
         if($(this).is(":checked")) {
@@ -318,7 +318,7 @@ function colNode(){
 	}
 
 }
-
+*/
 
 
 

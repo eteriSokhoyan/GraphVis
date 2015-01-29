@@ -48,7 +48,7 @@ var demoEdges = [];
 					demoNodes.push({
 						data: {
 							id: chars[0],
-							name:chars[0]
+							label:chars[0]
 						}
 					});
 	
@@ -56,7 +56,9 @@ var demoEdges = [];
 						demoEdges.push({
 							data: {
 								source: chars[0],
-								target: chars[i]
+								target: chars[i],
+								id: chars[0] + chars[i],
+								
 							}
 						})
 					}			  
