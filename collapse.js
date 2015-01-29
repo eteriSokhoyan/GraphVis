@@ -3,11 +3,11 @@ var collapse=false;
 $('#compressNodeCheck').change(function() {
         if($(this).is(":checked")) {
 			collapse = true;
-			cy.nodes().on("cxttap ", colNode);
+			cy.nodes().on("cxttap", colNode);  //// "cxttap " doesn't work anymore?!
         }
         else{
 			collapse = false;
-			cy.nodes().off("cxttap ", colNode);
+			cy.nodes().off("cxttap ", colNode);	//// "cxttap " doesn't work anymore?!
 			resetCollapse();
 		}
 		
@@ -29,7 +29,9 @@ function colNode(){
 		connectedNodes.removeClass('collapsedNode');					
 		connectedEdges.removeClass('collapsedNode');		
 		selectedNode.removeClass('superNode');
-				
+			
+		removeCollapsedEdges(selectedNode);
+		
 		cy.style()
 		  .update() ;// remove invisibility
 			
@@ -38,7 +40,6 @@ function colNode(){
 			//// collapse node if it was not collaped before
 	else {
 
-	
 		connectedNodes.addClass('collapsedNode');					
 		connectedEdges.addClass('collapsedNode');		
 		selectedNode.addClass('superNode');
@@ -86,8 +87,8 @@ function addCollapsedEdges(selectedNode){
 	var newTargetNodes = newTargetEdges.targets();
 	var newSourceNodes = newSourceEdges.sources();	
 	
-	console.log("target edges = " + newTargetEdges.data('id'));
-	console.log("source edges = " + newSourceEdges.data('id'));
+//	console.log("target edges = " + newTargetEdges.data('id'));
+//	console.log("source edges = " + newSourceEdges.data('id'));
 	
 	cy.add({
 			group: "edges", 
@@ -95,45 +96,51 @@ function addCollapsedEdges(selectedNode){
 				
 				source: selectedNode.data('id'), 
 				target: newTargetNodes.data('id')
+			//	classes: 'virtualEdges'
 				} 
 		})
+		.addClass('virtualEdges')
+	
+//console.log(selectedNode.connectedEdges().data('id'));
+		
+		//console.log(selectedNode.connectedEdges().hasClass('virtualEdges'));
 	
 	cy.add({
 			group: "edges", 
 			data: {
 				source: newSourceNodes.data('id'),
-				target: selectedNode.data('id')
+				target: selectedNode.data('id'),
+				classes: 'virtualEdges'
 				} 
 		})	
-				
+		.addClass('virtualEdges')
+			
+			
+	/*	selectedNode.connectedEdges().each(function(i, ele){
+		console.log( ele.id() + ' has virtual class ' + ele.hasClass('virtualEdges') );
+		});
+		*/	
 }
 
-/*
+
 function removeCollapsedEdges(selectedNode){
 
-	var connectedEdges = selectedNode.connectedEdges(function(){
-										return !this.target().anySame( selectedNode );
-									});
-									
-									
-	var connectedNodes = connectedEdges.targets();
+	selectedNode.connectedEdges().each(function(i, ele){
+	
+		if(ele.hasClass('virtualEdges')){
+		
+			cy.remove(ele);
+		}			
+	});
+	
+	
+	//cy.$('newTargetEdges').remove();
 
-	var newTargetEdges = connectedNodes.connectedEdges(function(){
-										return !this.target().anySame( connectedNodes );
-									});
-	var newSourceEdges = connectedNodes.connectedEdges(function(){
-										return !this.source().anySame( connectedNodes );
-									});
-	
-	var newTargetNodes = newTargetEdges.targets();
-	var newSourceNodes = newSourceEdges.sources();	
-	
-	cy.remove()
 
 
 }
 
-*/
+
 function resetCollapse(){
 
 	cy.style()
