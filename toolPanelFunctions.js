@@ -189,13 +189,14 @@ var showIn=false;
 					})	
 				  .update() ;
 			}	  
+			
+			cy.nodes().removeClass('selectedNodeIn');
+			cy.nodes().removeClass('connectedNodeIn');
+			cy.edges().removeClass('connectedNodeIn');
 		
 	}
 		
 		
-		
-		
-
 //////////// find inComing nodes
 
 	function highlightIn (){
@@ -279,47 +280,28 @@ function colNode(){
 	var connectedNodes = connectedEdges.targets();
 			
 			// expand node if it was collapsed before
-	if(connectedNodes.hasClass('collapsedNode')){
+	if(selectedNode.hasClass('superNode')){
 			
-		connectedNodes.toggleClass('collapsedNode',false);					
-		connectedEdges.toggleClass('collapsedNode',false);		
-		selectedNode.toggleClass('superNode',false);
+		connectedNodes.removeClass('collapsedNode');					
+		connectedEdges.removeClass('collapsedNode');		
+		selectedNode.removeClass('superNode');
 				
-			cy.style()
-			  .selector('.collapsedNode')
-			  .css({
-				'background-color': 'green',
-				'line-color': 'green',
-				'target-arrow-color': 'green',
-				'source-arrow-color': 'green',
-				'opacity': 0.8,
-				})
-			 .update() ;
-		
-			cy.style()
-			  .selector('.superNode')
-			  .css({
-				'opacity': 0.8,	
-				})
-			  .update() ;
+		cy.style()
+		  .update() ;// remove invisibility
 			
+		
 	}
 			//// collapse node if it was not collaped before
 	else {
 
 	
-		connectedNodes.toggleClass('collapsedNode',true);					
-		connectedEdges.toggleClass('collapsedNode',true);		
-		selectedNode.toggleClass('superNode',true);
+		connectedNodes.addClass('collapsedNode');					
+		connectedEdges.addClass('collapsedNode');		
+		selectedNode.addClass('superNode');
 			
 			cy.style()
 			  .selector('.collapsedNode')
 		      .css({
-				'background-color': 'green',
-				'line-color': 'green',
-				'target-arrow-color': 'green',
-				'source-arrow-color': 'green',
-				'opacity': 0.8,
 				'visibility': 'hidden'
 				})
 			  .update() ;
