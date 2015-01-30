@@ -68,14 +68,14 @@ function colNode(){
 
 function addCollapsedEdges(selectedNode){
 			
-	
-	
 	var connectedEdges = selectedNode.connectedEdges(function(){
 										return !this.target().anySame( selectedNode );
-									});
-									
+									});					
 									
 	var connectedNodes = connectedEdges.targets();
+console.log("connectedNodes = " + connectedEdges.data('id'));
+
+
 
 	var newTargetEdges = connectedNodes.connectedEdges(function(){
 										return !this.target().anySame( connectedNodes );
@@ -87,39 +87,50 @@ function addCollapsedEdges(selectedNode){
 	var newTargetNodes = newTargetEdges.targets();
 	var newSourceNodes = newSourceEdges.sources();	
 	
-//	console.log("target edges = " + newTargetEdges.data('id'));
-//	console.log("source edges = " + newSourceEdges.data('id'));
+	console.log("target edges = " + newTargetEdges.data('id'));
+	console.log("source edges = " + newSourceEdges.data('id'));
 	
-	cy.add({
-			group: "edges", 
-			data: {
-				
-				source: selectedNode.data('id'), 
-				target: newTargetNodes.data('id')
-			//	classes: 'virtualEdges'
-				} 
-		})
-		.addClass('virtualEdges')
+	newTargetNodes.each(function(i, ele){
 	
-//console.log(selectedNode.connectedEdges().data('id'));
 		
-		//console.log(selectedNode.connectedEdges().hasClass('virtualEdges'));
-	
-	cy.add({
+			cy.add({
 			group: "edges", 
 			data: {
-				source: newSourceNodes.data('id'),
-				target: selectedNode.data('id'),
-				classes: 'virtualEdges'
+				source: selectedNode.data('id'), 
+				target: ele.data('id')
+				} 
+			})
+			  .addClass('virtualEdges')
+
+		});
+		
+		
+	
+	
+	newSourceNodes.each(function(i, ele){
+	
+			cy.add({
+			group: "edges", 
+			data: {
+				source: ele.data('id'),
+				target: selectedNode.data('id')
 				} 
 		})	
 		.addClass('virtualEdges')
+	
+		});
+	
+	
+	
+//console.log(selectedNode.connectedEdges().data('id'));
+		
+//console.log(selectedNode.connectedEdges().hasClass('virtualEdges'));		
 			
-			
-	/*	selectedNode.connectedEdges().each(function(i, ele){
+		selectedNode.connectedEdges().each(function(i, ele){
 		console.log( ele.id() + ' has virtual class ' + ele.hasClass('virtualEdges') );
 		});
-		*/	
+		
+	
 }
 
 
