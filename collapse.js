@@ -87,12 +87,26 @@ console.log("connectedNodes = " + connectedEdges.data('id'));
 	var newTargetNodes = newTargetEdges.targets();
 	var newSourceNodes = newSourceEdges.sources();	
 	
-	console.log("target edges = " + newTargetEdges.data('id'));
-	console.log("source edges = " + newSourceEdges.data('id'));
+	newTargetNodes.each(function(i,ele){
+	
+	console.log("target Nodes = " + ele.data('id'));
+	
+	});	
+	
+//	console.log("source Nodes = " + newSourceNodes.data('id'));
 	
 	newTargetNodes.each(function(i, ele){
 	
 		
+			//console.log(ele.data('id') + " is going to = " + ele.edgesTo(selectedNode).targets().data('id'));
+			
+		if(ele.edgesTo(selectedNode).sources().data('id') == selectedNode.data('id')){
+			console.log("first ele = " + ele.data('id'));
+			ele=ele+1;			
+		}
+		else {		
+		
+		console.log("second ele = " + ele.data('id'));
 			cy.add({
 			group: "edges", 
 			data: {
@@ -101,7 +115,7 @@ console.log("connectedNodes = " + connectedEdges.data('id'));
 				} 
 			})
 			  .addClass('virtualEdges')
-
+		}
 		});
 		
 		
@@ -109,15 +123,21 @@ console.log("connectedNodes = " + connectedEdges.data('id'));
 	
 	newSourceNodes.each(function(i, ele){
 	
+		if(ele.edgesTo(selectedNode).targets().data('id') == selectedNode.data('id')){
+			console.log("first ele = " + ele.data('id'));
+			ele=ele+1;			
+		}
+		else {		
+		
 			cy.add({
 			group: "edges", 
-			data: {
+			data: { 
 				source: ele.data('id'),
 				target: selectedNode.data('id')
 				} 
 		})	
 		.addClass('virtualEdges')
-	
+		}
 		});
 	
 	
