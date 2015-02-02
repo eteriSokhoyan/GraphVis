@@ -107,6 +107,13 @@
                 "target": 3,
 				"label": "i"
             }
+        },
+		{
+            "data": {
+                "source": 6,
+                "target": 6,
+				"label": "j"
+            }
         }
     ]
 }
