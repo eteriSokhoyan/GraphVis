@@ -1,10 +1,10 @@
 ///// checkBox  for Labels
-var showNodeLabel = "data(label)";
+var showNodeLabel = "data(id)";
 var showEdgeLabel = "data(label)";
 
   $('#nodeLabelCheck').change(function() {
         if($(this).is(":checked")) {
-			showNodeLabel = "data(label)";		
+			showNodeLabel = "data(id)";		
         }
         else{
 			showNodeLabel = "";	
