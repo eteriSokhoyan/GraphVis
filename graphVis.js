@@ -83,7 +83,7 @@ var demoEdges = [];
 		elements : data,	
 		layout: {
 			// name: 'random',
-			name: 'circle'
+			name: 'breadthfirst'
 			//avoidOverlap: true,
 			//padding: 10
 		},

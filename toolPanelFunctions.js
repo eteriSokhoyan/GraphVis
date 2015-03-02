@@ -255,6 +255,14 @@ var showIn=false;
 				  .update() ;
 			}
 		}
+ function exportFunction(){
+ 
+ var png64 = cy.png();
 
+	// put the png data in an img tag
+	$('#png-eg').attr('src', png64);
+
+	console.log("working");
+}
 
 
