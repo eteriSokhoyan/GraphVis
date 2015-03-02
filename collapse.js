@@ -25,18 +25,22 @@ function colNode(){
 	
 			// expand node if it was collapsed before
 	if(selectedNode.hasClass('superNode')){
-			collapseOrder --;	
-		connectedNodes.removeClass('collapsedNode'+ collapseOrder);					
-		connectedEdges.removeClass('collapsedNode' + collapseOrder);		
-		selectedNode.removeClass('superNode');
-		
-		removeCollapsedEdges(selectedNode, collapseOrder);
-		
-		cy.style()
-		  .update() ;// remove invisibility
-		
-		
-		
+			
+		for(var i=collapseOrder; i>= 0; i--){
+			
+			if(connectedNodes.hasClass('collapsedNode'+ i) && connectedEdges.hasClass('collapsedNode'+ i)){
+				
+				connectedNodes.removeClass('collapsedNode'+ i);					
+				connectedEdges.removeClass('collapsedNode' + i);		
+				selectedNode.removeClass('superNode');
+				console.log("class remove = " + 'collapsedNode' + i + connectedNodes.hasClass('collapsedNode' + i));
+				removeCollapsedEdges(selectedNode, i);
+			
+				cy.style()
+					.update() ;// remove invisibility
+			}
+		}
+		collapseOrder --;	
 	}
 			//// collapse node if it was not collaped before
 	else {
@@ -45,6 +49,7 @@ function colNode(){
 		connectedEdges.addClass('collapsedNode' + collapseOrder);		
 		selectedNode.addClass('superNode');
 		
+		console.log("class = " + 'collapsedNode' + collapseOrder + connectedNodes.hasClass('collapsedNode' + collapseOrder));
 		
 		addCollapsedEdges(selectedNode, collapseOrder);	
 			
