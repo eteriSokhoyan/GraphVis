@@ -35,10 +35,11 @@ var demoEdges = [];
         'url': url,
         'dataType': "json",
         'success': function (data) {
+		 //  console.log("no error");
            createGraph(data);
         },
 		'error' :  function (data) {
-			           
+			//console.log("error");           
 			reader.onload = function(){
 				var lines = this.result.split('\n');
 				var chars;
@@ -79,7 +80,7 @@ var demoEdges = [];
 
 		container: document.getElementById('cy'), 
 	
-		elements : data ,	
+		elements : data,	
 		layout: {
 			// name: 'random',
 			name: 'circle'
