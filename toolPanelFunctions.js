@@ -255,14 +255,19 @@ var showIn=false;
 				  .update() ;
 			}
 		}
+		
+		
  function exportFunction(){
  
- var png64 = cy.png();
+ var pngPic = cy.png();
+   downloadURI(pngPic, "test");
 
-	// put the png data in an img tag
-	$('#png-eg').attr('src', png64);
-
-	console.log("working");
+	//console.log(pngPic);
 }
-
+function downloadURI(uri, name) {
+  var link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  link.click();
+}
 
