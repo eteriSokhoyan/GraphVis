@@ -5,6 +5,7 @@
 var demoNodes = [];
 var demoEdges = [];
 
+
  //var url = 'graphData.json';
  
   $.ajax({
@@ -74,6 +75,7 @@ var demoEdges = [];
 
 } //// end document.getElementById
  
+
 ///////// create graph
  function createGraph(data) {
 	var cy = cytoscape({		
@@ -94,7 +96,7 @@ var demoEdges = [];
 		style: cytoscape.stylesheet()
 						.selector('node')
 						.css({
-							//'content': showNodeLabel,
+							'content': showNodeLabel,
 							'text-valign':'center',
 							'background-color': '#888888',
 							'opacity': 0.8
@@ -112,7 +114,7 @@ var demoEdges = [];
 							'width': 4,
 							'line-color': '#ddd',
 							'target-arrow-color': '#ddd',
-						//	'content': showEdgeLabel
+							'content': showEdgeLabel
 						})
 						.selector(':selected')
 						.css({
@@ -122,7 +124,8 @@ var demoEdges = [];
 							'source-arrow-color': '#FE2E64',
 							'opacity': 1
 						})
-  });  	// END create graph
+  });
+	// END create graph
 }			
 
  function parseAndCreate(demoNodes,demoEdges){
@@ -132,6 +135,36 @@ var demoEdges = [];
 	createGraph(data);
  }
 
- 
-
 }); // END on dom ready
+
+
+var showNodeLabel;
+var showEdgeLabel;
+var showOut=false; 
+var showIn=false; 
+
+
+if( document.getElementById("nodeLabelCheck").checked){
+	 showNodeLabel = "data(id)";
+	 showEdgeLabel = "data(id)";
+}
+else{
+	 showNodeLabel = "";
+	 showEdgeLabel = "";
+}
+/*
+if( document.getElementById("showOutNode").checked){
+	 showOut=true;
+}
+else{
+	 showOut=false;
+}
+
+if( document.getElementById("showInNode").checked){
+	 showIn=true;
+}
+else{
+	 showIn=false;
+}
+
+*/
