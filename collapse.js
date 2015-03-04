@@ -1,19 +1,21 @@
 
 var collapse=false;
-$('#compressNodeCheck').change(function() {
+$('#collapseNode').change(function() {
         if($(this).is(":checked")) {
 			collapse = true;
-			cy.nodes().on("cxttap", colNode);  //// "cxttap " sometimes not working ?!
+			cy.nodes().on("click", colNode);  //// "cxttap " sometimes not working ?!
         }
         else{
 			collapse = false;
-			cy.nodes().off("cxttap ", colNode);	//// "cxttap " sometimes not working ?!
+			cy.nodes().off("click ", colNode);	//// "cxttap " sometimes not working ?!
 			resetCollapse();
 		}
 		
 });
 
 var collapseOrder = 0;	
+var collapseNodeCount=0;
+
 function colNode(){
 	
 	var selectedNode = this;
@@ -21,7 +23,8 @@ function colNode(){
 										return !this.target().anySame( selectedNode );
 									});
 	var connectedNodes = connectedEdges.targets();
-	
+	 
+	//console.log("collapseNodeCount = " + collapseNodeCount);
 	
 			// expand node if it was collapsed before
 	if(selectedNode.hasClass('superNode')){
@@ -43,13 +46,13 @@ function colNode(){
 				cy.style()
 					.update() ;// remove invisibility
 			}
-			
+			//collapseNodeCount = connectedNodes.length -collapseNodeCount ;
 		}
 		collapseOrder --;	
 	}
 			//// collapse node if it was not collaped before
 	else {
-		
+		collapseNodeCount = connectedNodes.length;  // working wrong on expanding nodes..
 		connectedNodes.addClass('collapsedNode' + collapseOrder);					
 		connectedEdges.addClass('collapsedNode' + collapseOrder);		
 		selectedNode.addClass('superNode');
@@ -216,3 +219,34 @@ function resetCollapse(){
 	console.log("collapseOrder = " + collapseOrder);
 	}
 }
+
+
+$('#nodeInfo').change(function() {
+        if($(this).is(":checked")) {
+			
+			cy.nodes().on("mouseover", function(event){
+				var nd = event.cyTarget;
+			//	var str=nd.data().value;
+			//	str+= " " + nd.data().label;
+			//	Tip(str, PADDING, 10);
+				//Tip(nd.data('value'), PADDING, 10);
+				
+					//var collapseNodeCount=getConnectedNodes(nd).length;
+					//console.log(getConnectedNodes(nd).length);
+				Tip('contains ' + collapseNodeCount + ' node(s)', PADDING, 10);
+				
+				
+				
+			});
+			cy.nodes().on("mouseout", function(event){
+				var nd = event.cyTarget;
+				UnTip();
+			});
+        }
+        else{
+			cy.nodes().off("mouseover");
+		}
+		
+		
+});
+

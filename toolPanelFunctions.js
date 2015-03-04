@@ -1,10 +1,8 @@
 ///// checkBox  for Labels
-var showNodeLabel = "data(id)";
-var showEdgeLabel = "data(label)";
 
   $('#nodeLabelCheck').change(function() {
         if($(this).is(":checked")) {
-			showNodeLabel = "data(id)";		
+			showNodeLabel = "data(id)";			
         }
         else{
 			showNodeLabel = "";	
@@ -43,7 +41,7 @@ $('#selectShape').change(function() {
 	});
 
 //////// checkBox for highlighting outgoing nodes
-var showOut=false; 
+
 
 	$('#showOutNode').change(function() {
 		
@@ -60,7 +58,6 @@ var showOut=false;
 
 
 //////// checkBox for highlighting incoming nodes
-var showIn=false; 
 
 	$('#showInNode').change(function() {
 		
@@ -259,10 +256,24 @@ var showIn=false;
 		
  function exportFunction(){
  
- var pngPic = cy.png();
-   downloadURI(pngPic, "test");
+  var pngPic = cy.png();
+   downloadURI(pngPic, "graph");
+	console.log(pngPic);
 
-	//console.log(pngPic);
+ 
+ /*
+  var e = document.createElement('script'); 
+    if (window.location.protocol === 'https:') { 
+        e.setAttribute('src', 'https://rawgit.com/NYTimes/svg-crowbar/gh-pages/svg-crowbar.js'); 
+    } else { 
+        e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); 
+    } 
+    e.setAttribute('class', 'svg-crowbar'); 
+    document.body.appendChild(e); 
+
+		
+*/
+	//downloadURI(pngPic, "graph");
 }
 function downloadURI(uri, name) {
   var link = document.createElement("a");
@@ -270,4 +281,19 @@ function downloadURI(uri, name) {
   link.href = uri;
   link.click();
 }
+
+
+//////////////////////////
+/*
+(function (){ 
+    var e = document.createElement('script'); 
+    if (window.location.protocol === 'https:') { 
+        e.setAttribute('src', 'https://rawgit.com/NYTimes/svg-crowbar/gh-pages/svg-crowbar.js'); 
+    } else { 
+        e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); 
+    } 
+    e.setAttribute('class', 'svg-crowbar'); 
+    document.body.appendChild(e); 
+})();
+*/
 
