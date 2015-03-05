@@ -282,7 +282,16 @@ function downloadURI(uri, name) {
   link.click();
 }
 
+function restorGraphStructure(){
 
+	var shape="";
+        $( "select option:selected" ).each(function() {
+		shape = $( this ).text();
+    });
+	cy.makeLayout({'name': shape})
+	  .run() ;
+			
+}
 //////////////////////////
 /*
 (function (){ 
