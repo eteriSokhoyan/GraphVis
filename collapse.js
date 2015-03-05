@@ -15,6 +15,7 @@ $('#collapseNode').change(function() {
 
 var collapseOrder = 0;	
 var collapseNodeCount=0;
+var num=0;
 
 function colNode(){
 	
@@ -52,7 +53,10 @@ function colNode(){
 	}
 			//// collapse node if it was not collaped before
 	else {
+		
 		collapseNodeCount = connectedNodes.length;  // working wrong on expanding nodes..
+		num = selectedNode.data('colNum',collapseNodeCount );
+	//	console.log("this node contains " + num.data().colNum + " nodes" );
 		connectedNodes.addClass('collapsedNode' + collapseOrder);					
 		connectedEdges.addClass('collapsedNode' + collapseOrder);		
 		selectedNode.addClass('superNode');
@@ -226,14 +230,20 @@ $('#nodeInfo').change(function() {
 			
 			cy.nodes().on("mouseover", function(event){
 				var nd = event.cyTarget;
+				if(nd.hasClass('superNode')){
+					Tip('contains ' + nd.data().colNum + ' node(s)', PADDING, 10);
+				}
+				else{
+					Tip('contains 0 node(s)', PADDING, 10);
+				}
+			
 			//	var str=nd.data().value;
 			//	str+= " " + nd.data().label;
 			//	Tip(str, PADDING, 10);
 				//Tip(nd.data('value'), PADDING, 10);
-				
-					//var collapseNodeCount=getConnectedNodes(nd).length;
+				//var collapseNodeCount=getConnectedNodes(nd).length;
 					//console.log(getConnectedNodes(nd).length);
-				Tip('contains ' + collapseNodeCount + ' node(s)', PADDING, 10);
+				
 				
 				
 				
