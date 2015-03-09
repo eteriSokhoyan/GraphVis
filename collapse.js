@@ -104,9 +104,9 @@ function addCollapsedEdges(selectedNode,collapseOrder){
 	var newTargetNodes = newTargetEdges.targets();
 	var newSourceNodes = newSourceEdges.sources();	
 	
-	newTargetNodes.each(function(i,ele){
+/*	newTargetNodes.each(function(i,ele){
 	
-//	console.log("new target Nodes = " + ele.data('id'));
+	console.log("new target Nodes = " + ele.data('id'));
 	
 	});	
 	
@@ -114,7 +114,7 @@ function addCollapsedEdges(selectedNode,collapseOrder){
 	
 //	console.log("new source Nodes = " + ele.data('id'));
 	
-	});	
+	}); */	
 		
 	newTargetNodes.each(function(i, ele){
 	

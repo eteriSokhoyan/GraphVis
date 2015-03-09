@@ -14,7 +14,8 @@ var demoEdges = [];
         'url': 'graphData.json',
         'dataType': "json",
         'success': function (data) {
-           createGraph(data);
+		 parseJson(data);
+         //  createGraph(data);
         }
  });
  
@@ -37,7 +38,9 @@ var demoEdges = [];
         'dataType': "json",
         'success': function (data) {
 		 //  console.log("no error");
-           createGraph(data);
+         // createGraph(data);
+		 parseJson(data); // *
+		 
         },
 		'error' :  function (data) {
 			//console.log("error");           
@@ -134,6 +137,34 @@ var demoEdges = [];
             edges: demoEdges };
 	createGraph(data);
  }
+ 
+ 
+ 
+ function parseJson(dataToParse){
+ 
+	
+			//	var obj = JSON.parse(data);
+				var nodes = dataToParse['nodes'];
+				//var node = nodes[0];
+				var edges = dataToParse.edges;
+				
+	
+	for(var i = 0; i<nodes.length; i++){
+		
+		dataToParse.nodes[i].data = nodes[i];
+		//console.log(obj.nodes[i].data.id);
+	}
+	for(var i = 0; i<edges.length; i++){
+		
+		dataToParse.edges[i].data = edges[i];
+		//console.log(obj.nodes[i].data.id);
+	}
+	createGraph(dataToParse);
+	
+
+	
+ }
+ 
 
 }); // END on dom ready
 
