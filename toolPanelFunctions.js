@@ -291,6 +291,38 @@ function restorGraphStructure(){
 	  .run() ;
 			
 }
+
+
+///// node info
+
+function showNodeInfo(){
+	
+	var nodeId = document.getElementById('nodeInfo').value;
+	//console.log(cy.nodes().data('id'));
+	nodeId = '"' + nodeId + '"';
+	var info;
+	var nodes = cy.nodes();
+	nodes.forEach(function(ele){
+	
+		if(ele.data('id') == nodeId){
+		
+			console.log("yaaaay");
+			//info = ele.data('name')+ '<br>' + ele.data('charts');
+			//window.open().document.write(ele.data);
+			window.open(ele.data('charts'),"MsgWindow", "width=300, height=300");//.document.write(info);
+		}
+		//else{
+			//console.log("fuck");
+		//}
+	
+	
+	});
+	
+	
+	
+	//window.open().document.write(info);
+}
+
 //////////////////////////
 /*
 (function (){ 

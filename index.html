@@ -15,10 +15,6 @@
 <script type="text/javascript" src="toggleMenu.js" ></script-->
 <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/70964f0306e770837dbe2b81197c12fdc7804e38/cytoscape-qtip.js"></script>
 
-
-
-
-
 <script>
 
 (function(d){
@@ -138,7 +134,11 @@ Select the format of the input file <br-->
 <input type="checkbox" class = "squaredOne" name="showOutgoing" id="showOutNode" >highlight outgoing nodes<br>		
 <input type="checkbox" class = "squaredOne" name="showInComing" id="showInNode" >highlight incoming nodes<br>		
 <input type="checkbox" class = "squaredOne" id="collapseNode" >collapse nodes<br>	
-<input type="checkbox" class = "squaredOne" name="showNodeInfo" id="nodeInfo">show the number of collapsed nodes<br> <br>
+<input type="checkbox" class = "squaredOne" name="showCollapsedNodeNum" id="collapseCount">show the number of collapsed nodes<br> <br>
+
+<input type="button" id="nodeInfoCheck"  value="Show Info For Node" onclick="showNodeInfo()">
+<input type="text" name="nodeInfo" value="" id= "nodeInfo" size="2">
+<br> <br>
 
 <input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br> <br>
 

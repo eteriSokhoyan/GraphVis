@@ -220,7 +220,7 @@ function resetCollapse(){
 }
 
 
-$('#nodeInfo').change(function() {
+$('#collapseCount').change(function() {
         if($(this).is(":checked")) {
 			
 			cy.nodes().on("mouseover", function(event){
