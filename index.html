@@ -17,6 +17,8 @@
 
 
 
+
+
 <script>
 
 (function(d){
@@ -119,8 +121,9 @@
   <option value="graph">Graph</option>
 </select>
 Select the format of the input file <br-->
+<br>
 <input type="file" id="openFile"> <br>
-
+<br>
 <select name="select" id="selectShape"> 
   <option value="random">random</option> 
   <option value="circle" >circle</option>
@@ -130,16 +133,16 @@ Select the format of the input file <br-->
 </select>The shape of the graph
 <br>
 
-<input type="checkbox" name="nlabelSelection" id="nodeLabelCheck" checked >show node label<br>	
-<input type="checkbox" name="elabelSelection" id="linkLabelCheck"  checked>show edge label<br>		
-<input type="checkbox" name="showOutgoing" id="showOutNode">highlight outgoing nodes<br>		
-<input type="checkbox" name="showInComing" id="showInNode">highlight incoming nodes<br>		
-<input type="checkbox" " id="collapseNode" >collapse nodes<br>	
-<input type="checkbox" name="showNodeInfo" id="nodeInfo">show the number of collapsed nodes<br>
+<input type="checkbox" class = "squaredOne" name="nlabelSelection" id="nodeLabelCheck" >show node label<br>	
+<input type="checkbox" class = "squaredOne" name="elabelSelection" id="linkLabelCheck"  >show edge label<br>		
+<input type="checkbox" class = "squaredOne" name="showOutgoing" id="showOutNode" >highlight outgoing nodes<br>		
+<input type="checkbox" class = "squaredOne" name="showInComing" id="showInNode" >highlight incoming nodes<br>		
+<input type="checkbox" class = "squaredOne" id="collapseNode" >collapse nodes<br>	
+<input type="checkbox" class = "squaredOne" name="showNodeInfo" id="nodeInfo">show the number of collapsed nodes<br> <br>
 
-<input type = "button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br>
+<input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br> <br>
 
-<input type = "button" name="export" id="export" value="Export PNG" onclick="exportFunction()"> 
+<input type = "button" class="button" name="export" id="export" value="Export PNG" onclick="exportFunction()"> 
 <br>
 
 
