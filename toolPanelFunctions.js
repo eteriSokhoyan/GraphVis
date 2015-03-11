@@ -42,7 +42,6 @@ $('#selectShape').change(function() {
 
 //////// checkBox for highlighting outgoing nodes
 
-
 	$('#showOutNode').change(function() {
 		
         if($(this).is(":checked")) {

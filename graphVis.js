@@ -81,6 +81,8 @@ var demoEdges = [];
 
 ///////// create graph
  function createGraph(data) {
+ 
+ 
 	var cy = cytoscape({		
 
 		container: document.getElementById('cy'), 
@@ -127,9 +129,11 @@ var demoEdges = [];
 							'source-arrow-color': '#FE2E64',
 							'opacity': 1
 						})
+				
   });
-	// END create graph
-}			
+ 
+  
+}		// END create graph	
 
  function parseAndCreate(demoNodes,demoEdges){
 	var data = {
@@ -141,61 +145,58 @@ var demoEdges = [];
  
  
  function parseJson(dataToParse){
+	
+	if(dataToParse.links == null){
+		//console.log("no links");
+		var links = dataToParse.edges;
+	}
+	else{
+		var links = dataToParse.links;
+		dataToParse.edges = links;
+	}
  
+	var nodes = dataToParse.nodes;
 	
-			//	var obj = JSON.parse(data);
-				var nodes = dataToParse['nodes'];
-				//var node = nodes[0];
-				var edges = dataToParse.edges;
-				
-	
+			
 	for(var i = 0; i<nodes.length; i++){
-		
+	
 		dataToParse.nodes[i].data = nodes[i];
-		//console.log(obj.nodes[i].data.id);
+		dataToParse.nodes[i].data.id = '"' +  nodes[i].id + '"';
 	}
-	for(var i = 0; i<edges.length; i++){
+	
+	//console.log(dataToParse.edges)
+	for(var i = 0; i<links.length; i++){
 		
-		dataToParse.edges[i].data = edges[i];
-		//console.log(obj.nodes[i].data.id);
+		dataToParse.edges[i].data = links[i];
+		dataToParse.edges[i].data.source = '"' +  links[i].source + '"';
+		dataToParse.edges[i].data.target = '"' +  links[i].target + '"';
 	}
+	
 	createGraph(dataToParse);
-	
-
-	
- }
+}
  
 
+	
 }); // END on dom ready
 
 
 var showNodeLabel;
 var showEdgeLabel;
-var showOut=false; 
-var showIn=false; 
+var showOut; 
+var showIn; 
 
-
+/*
 if( document.getElementById("nodeLabelCheck").checked){
 	 showNodeLabel = "data(id)";
-	 showEdgeLabel = "data(id)";
 }
 else{
 	 showNodeLabel = "";
+}
+
+if( document.getElementById("linkLabelCheck").checked){
+	 showEdgeLabel = "data(id)";
+}
+else{
 	 showEdgeLabel = "";
 }
-/*
-if( document.getElementById("showOutNode").checked){
-	 showOut=true;
-}
-else{
-	 showOut=false;
-}
-
-if( document.getElementById("showInNode").checked){
-	 showIn=true;
-}
-else{
-	 showIn=false;
-}
-
 */

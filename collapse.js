@@ -1,4 +1,3 @@
-
 var collapse=false;
 $('#collapseNode').change(function() {
         if($(this).is(":checked")) {
@@ -18,7 +17,6 @@ var collapseNodeCount=0;
 var num=0;
 
 function colNode(){
-	
 	var selectedNode = this;
 	var connectedEdges = selectedNode.connectedEdges(function(){
 										return !this.target().anySame( selectedNode );
@@ -41,7 +39,6 @@ function colNode(){
 				
 				connectedNodes.removeClass('collapsedNode'+ i);					
 				connectedEdges.removeClass('collapsedNode' + i);		
-				console.log("class remove = " + 'collapsedNode' + i + connectedNodes.hasClass('collapsedNode' + i));
 				removeCollapsedEdges(selectedNode, i);
 			
 				cy.style()
@@ -60,8 +57,6 @@ function colNode(){
 		connectedNodes.addClass('collapsedNode' + collapseOrder);					
 		connectedEdges.addClass('collapsedNode' + collapseOrder);		
 		selectedNode.addClass('superNode');
-		
-		console.log("class = " + 'collapsedNode' + collapseOrder + connectedNodes.hasClass('collapsedNode' + collapseOrder));
 		
 		addCollapsedEdges(selectedNode, collapseOrder);	
 			
@@ -259,4 +254,5 @@ $('#nodeInfo').change(function() {
 		
 		
 });
+
 
