@@ -14,7 +14,6 @@
 <!--script type="text/javascript" src="slideMenu.js" ></script>
 <script type="text/javascript" src="toggleMenu.js" ></script-->
 <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/70964f0306e770837dbe2b81197c12fdc7804e38/cytoscape-qtip.js"></script>
-
 <script>
 
 (function(d){
@@ -51,7 +50,23 @@
 
 </script>
 
+<!--script language="javascript" type="text/javascript">
 
+document.oncontextmenu=RightMouseDown;
+document.onmousedown = mouseDown; 
+
+
+
+function mouseDown(e) {
+    if (e.which==3) {//righClick
+        alert("Right-click menu goes here");
+    }
+}
+
+
+function RightMouseDown() { return false; }
+
+</script-->
 
 <!--script>
 
@@ -81,8 +96,6 @@
 <!--div id="cy"></div>
 <div id="toolPanel"> <img src="tool.png" alt="tool" style=" width:35px; height:35px"> </div><br>
 <div id="toolPanelHeader"  style="float:left; width:20%; height:100%; background-color:#D8D8D8;"--> 
-
-
 
 <div id="cy" ></div>
 <div id="toolPanel"  style="float:left; width:20%; height:100%; background-color:#D8D8D8;"> 
@@ -136,8 +149,8 @@ Select the format of the input file <br-->
 <input type="checkbox" class = "squaredOne" id="collapseNode" >collapse nodes<br>	
 <input type="checkbox" class = "squaredOne" name="showCollapsedNodeNum" id="collapseCount">show the number of collapsed nodes<br> <br>
 
-<input type="button" id="nodeInfoCheck"  value="Show Info For Node" onclick="showNodeInfo()">
-<input type="text" name="nodeInfo" value="" id= "nodeInfo" size="2">
+<input type="checkbox" id="nodeInfoCheck" >Cklick on node to see the info
+<!--input type="text" name="nodeInfo" value="" id= "nodeInfo" size="2"-->
 <br> <br>
 
 <input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br> <br>

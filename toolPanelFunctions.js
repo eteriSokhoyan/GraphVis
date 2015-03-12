@@ -293,35 +293,50 @@ function restorGraphStructure(){
 }
 
 
+
+
 ///// node info
+
+
+$('#nodeInfoCheck').change(function() {
+		
+        if($(this).is(":checked")) {
+			//showIn = true;
+			cy.nodes().on("click", showNodeInfo);
+        }
+		else{ 
+			//showIn = false;
+			cy.nodes().off("click", showNodeInfo);
+		}
+    });  
 
 function showNodeInfo(){
 	
-	var nodeId = document.getElementById('nodeInfo').value;
-	//console.log(cy.nodes().data('id'));
-	nodeId = '"' + nodeId + '"';
-	var info;
-	var nodes = cy.nodes();
-	nodes.forEach(function(ele){
+	var selectedNode = this;	
 	
-		if(ele.data('id') == nodeId){
-		
-			console.log("yaaaay");
 			//info = ele.data('name')+ '<br>' + ele.data('charts');
 			//window.open().document.write(ele.data);
-			window.open(ele.data('charts'),"MsgWindow", "width=300, height=300");//.document.write(info);
-		}
-		//else{
-			//console.log("fuck");
-		//}
-	
-	
-	});
-	
+	window.open(selectedNode.data('charts'),"MsgWindow", "width=300, height=300");//.document.write(info);
 	
 	
 	//window.open().document.write(info);
 }
+
+/*
+document.oncontextmenu=RightMouseDown;
+document.onmousedown = mouseDown; 
+
+function mouseDown(e) {
+    if (e.which==3) {//righClick
+       // console.log("mouseDown");
+	   showInfo();
+    }
+}
+function RightMouseDown() { return false; }
+
+function showInfo(){
+}
+*/
 
 //////////////////////////
 /*
