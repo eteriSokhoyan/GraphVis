@@ -301,15 +301,17 @@ function restorGraphStructure(){
 $('#nodeInfoCheck').change(function() {
 		
         if($(this).is(":checked")) {
-			//showIn = true;
+		
+			showIn = true;
 			cy.nodes().on("click", showNodeInfo);
+			
         }
 		else{ 
-			//showIn = false;
+			showIn = false;
 			cy.nodes().off("click", showNodeInfo);
 		}
     });  
-
+/*
 function showNodeInfo(){
 	
 	var selectedNode = this;	
@@ -318,9 +320,24 @@ function showNodeInfo(){
 			//window.open().document.write(ele.data);
 	window.open(selectedNode.data('charts'),"MsgWindow", "width=300, height=300");//.document.write(info);
 	
-	
 	//window.open().document.write(info);
 }
+*/
+function showNodeInfo(){
+
+	var node = this;
+	
+	popupWin = window.open('popUp.html',"MsgWindow", "width=300, height=300");
+	popupWin.document.writeln('<html><head><title>test</title></head><body><form >node id :  <input style="border:none" type="text" id="popupTextBox" /></form></body></html>');
+	popupWin.document.close();
+	popupText = popupWin.document.getElementById("popupTextBox");
+	parentText = node.data('id');
+	popupText.value = parentText;
+}
+
+
+
+
 
 /*
 document.oncontextmenu=RightMouseDown;
