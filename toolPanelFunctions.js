@@ -327,12 +327,35 @@ function showNodeInfo(){
 
 	var node = this;
 	
+	var childEdges = node.connectedEdges(function(){
+										return !this.target().anySame( node );
+									});
+    
+	var childNodes = childEdges.targets();
+	var childNum = childNodes.length;
+	
+	var parentEdges = node.connectedEdges(function(){
+										return !this.source().anySame( node );
+									});
+    
+	var parentNodes = parentEdges.sources();
+	var parentNum = parentNodes.length;
+	
 	popupWin = window.open('popUp.html',"MsgWindow", "width=300, height=300");
-	popupWin.document.writeln('<html><head><title>test</title></head><body><form >node id :  <input style="border:none" type="text" id="popupTextBox" /></form></body></html>');
+	popupWin.document.writeln('<html><head><title>Node Details</title></head><body><form> <textarea id="popupTextBox" style =" border : none" rows="100%" cols="100%"></textarea></form></body></html>');
 	popupWin.document.close();
-	popupText = popupWin.document.getElementById("popupTextBox");
-	parentText = node.data('id');
+	popupText = popupWin.document.getElementById('popupTextBox');
+			
+	parentText = "id : "  + node.data('id') ;
+	parentText +="\nname : " + node.data('name');
+	parentText +="\nscore : " + node.data('score');
+	parentText +="\ndegree : " + node.degree();
+	parentText +="\nnumer of child nodes : " + childNum;
+	parentText +="\nnumer of parent nodes : " + parentNum;
+	
+	
 	popupText.value = parentText;
+	
 }
 
 
