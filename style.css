@@ -1,8 +1,95 @@
-body { 
-  font: 14px helvetica neue, helvetica, arial, sans-serif;
-  
+article
+{
+    position: fixed;
+    width: 70%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 30px 15%;
+    background-color: #fff;
+    overflow: auto;
+    z-index: 0;
+    -webkit-transform-origin: 0 50%;
+    -moz-transform-origin: 0 50%;
+    -ms-transform-origin: 0 50%;
+    -o-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+}
+article:after
+{
+    position: absolute;
+    content: ' ';
+    left: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: -webkit-linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+    background-image: -moz-linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+    background-image: -ms-linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+    background-image: -o-linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+    background-image: linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+    pointer-events: none;
 }
 
+nav
+{
+    position: fixed;
+    left: -16em;
+    top: 0;
+    bottom: 0;
+    background-color: #E6E6E6;
+    border-right: 20px solid #765;
+    box-shadow: 4px 0 5px rgba(0,0,0,0.2);
+    z-index: 1;
+    cursor: pointer;
+	
+}
+ 
+nav:after
+{
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    right: -70px;
+    top: 50%;
+    border-width: 20px 22px;
+    border-style: solid;
+    border-color: transparent transparent transparent #765;
+}
+article, article:after, nav, nav *
+{
+    -webkit-transition: all 600ms ease;
+    -moz-transition: all 600ms ease;
+    -ms-transition: all 600ms ease;
+    -o-transition: all 600ms ease;
+    transition: all 600ms ease;
+}
+nav:hover
+{
+    left: 0;
+}
+nav ul
+{
+    width: 15em;
+    list-style-type: none;
+    margin: 0;
+    padding: 0.5em;
+	
+}
+nav:hover ~ article
+{
+    -webkit-transform: translateX(16em) perspective(600px) rotateY(10deg);
+    -moz-transform: translateX(16em) perspective(600px) rotateY(10deg);
+    -ms-transform: translateX(16em) perspective(600px) rotateY(10deg);
+    -o-transform: translateX(16em) perspective(600px) rotateY(10deg);
+    transform: translateX(16em) perspective(600px) rotateY(10deg);
+}
+nav:hover ~ article:after
+{
+    left: 60%;
+}
 #cy {
   height: 100%;
   width: 80%;
@@ -13,86 +100,3 @@ body {
 
   
 }
-
-#toolPanel {
-  height: 10%;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  float:top; 
-  background-color: #F5A9F2;
-  border-style: groove;
-  
-  
-   
-}
-
-#toolPanelHeader {
-  height: 0%;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  float: top;
-  font-weight: bold;
- 
- } 
- 
-/*
-.button {
-    background-color:#bdc3c7;
-    font-size:13px;
-    text-decoration:none;
-    color:#333;
-    position:relative;
-    
-    padding:10px 20px;
-    border-left:solid 1px #d3d8db;
-    border-radius: 5px;
-    box-shadow: inset 0px 1px 0px #dcdfe1, 0px 5px 0px 0px #7f8c8d, 0px 10px 5px rgba(39, 39, 39, 0.8);
-}
-
-.button:hover {
-    top:7px;
-    color: #95a5a6;
-    background-image: linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
-    box-shadow: inset 0px 1px 0px #ecf0f1, 0px 1px 0px 0px #7f8c8d, 0px 2px 5px rgba(39, 39, 39, 0.8);
-    text-shadow: 0px 1px 1px rgba(255,255,255,0.3);
-}
-
-
-.squaredOne {
-  width: 15px;
-  height: 15px;
-  position: relative;
-  margin: 5px auto;
-  background: #fcfff4;
-  background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-  label {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    cursor: pointer;
-    background: linear-gradient(top, #222 0%, #45484d 100%);
-    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-    &:after {
-      content: '';
-      width: 16px;
-      height: 16px;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      background: $activeColor;
-      background: linear-gradient(top, $activeColor 0%, $darkenColor 100%);
-      box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-      opacity: 0;
-    }
-    &:hover::after {
-      opacity: 0.3;
-    }
- }
- */
