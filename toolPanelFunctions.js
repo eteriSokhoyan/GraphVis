@@ -353,7 +353,7 @@ function showNodeInfo(){
 								+'</style>'
 								+'</head>'
 								+'<body>'
-									+'<textarea id="popupTextBox"></textarea>'
+									+'<textarea id="popupTextBox" readonly></textarea>'
 								+'</body>'
 								+'</html>');
 	popupWin.document.close();
@@ -402,34 +402,4 @@ function restoreHiddenNodes(){
 	//edgesToRemove.restore();
 	//nodesToRemove.restore();
 }
-
-/*
-document.oncontextmenu=RightMouseDown;
-document.onmousedown = mouseDown; 
-
-function mouseDown(e) {
-    if (e.which==3) {//righClick
-       // console.log("mouseDown");
-	   showInfo();
-    }
-}
-function RightMouseDown() { return false; }
-
-function showInfo(){
-}
-*/
-
-//////////////////////////
-/*
-(function (){ 
-    var e = document.createElement('script'); 
-    if (window.location.protocol === 'https:') { 
-        e.setAttribute('src', 'https://rawgit.com/NYTimes/svg-crowbar/gh-pages/svg-crowbar.js'); 
-    } else { 
-        e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); 
-    } 
-    e.setAttribute('class', 'svg-crowbar'); 
-    document.body.appendChild(e); 
-})();
-*/
 
