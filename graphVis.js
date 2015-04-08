@@ -11,7 +11,7 @@ var demoEdges = [];
   $.ajax({
         'async': false,
         'global': false,
-        'url': 'nodelinkjson_output.json',
+        'url': 'networkxdata.json',//'nodelinkjson_output.json',
         'dataType': "json",
         'success': function (data) {
 		 parseJson(data);

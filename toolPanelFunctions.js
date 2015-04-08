@@ -371,9 +371,36 @@ function showNodeInfo(){
 	
 }
 
+var nodesToRemove;
+var edgesToRemove;
+function deleteSelectedNodes(){
 
+	nodesToRemove =	cy.$(':selected').addClass('toRemove');
+	
+	cy.style()
+			  .selector('.toRemove')
+		      .css({
+				'visibility': 'hidden'
+				})
+			  .update() ;
+	//edgesToRemove = cy.edges(':selected').remove();
+	//cy.remove(nodesToRemove);
+	
+}
+function restoreRemovedNodes(){
 
-
+	nodesToRemove.removeClass('toRemove');
+	cy.style().update() ;
+	/*var elements = cy.elements();
+	//console.log(elements);
+	elements.each(function(i,ele){
+		
+		console.log(ele.removed());
+	
+	});*/
+	//edgesToRemove.restore();
+	//nodesToRemove.restore();
+}
 
 /*
 document.oncontextmenu=RightMouseDown;
