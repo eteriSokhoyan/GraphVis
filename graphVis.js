@@ -129,10 +129,8 @@ var demoEdges = [];
 							'source-arrow-color': '#FE2E64',
 							'opacity': 1
 						})
-				
   });
- 
-  
+  cy.boxSelectionEnabled(true);
 }		// END create graph	
 
  function parseAndCreate(demoNodes,demoEdges){
