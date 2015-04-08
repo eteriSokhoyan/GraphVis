@@ -373,7 +373,8 @@ function showNodeInfo(){
 
 var nodesToRemove;
 var edgesToRemove;
-function deleteSelectedNodes(){
+
+function hideSelectedNodes(){
 
 	nodesToRemove =	cy.$(':selected').addClass('toRemove');
 	
@@ -387,7 +388,7 @@ function deleteSelectedNodes(){
 	//cy.remove(nodesToRemove);
 	
 }
-function restoreRemovedNodes(){
+function restoreHiddenNodes(){
 
 	nodesToRemove.removeClass('toRemove');
 	cy.style().update() ;

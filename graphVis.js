@@ -1,17 +1,19 @@
  $.ajaxSetup({async: false});
 
- $(function(){ // on dom ready
-
+var showNodeLabel;
+var showEdgeLabel;
+var showOut; 
+var showIn; 
 var demoNodes = [];
 var demoEdges = [];
-
-
- //var url = 'graphData.json';
+var myLayout;
  
+ $(function(){ // on dom ready
+  
   $.ajax({
         'async': false,
         'global': false,
-        'url': 'networkxdata.json',//'nodelinkjson_output.json',
+        'url': 'nodelinkjson_output.json',
         'dataType': "json",
         'success': function (data) {
 		 parseJson(data);
@@ -82,7 +84,9 @@ var demoEdges = [];
 ///////// create graph
  function createGraph(data) {
  
- 
+ $( "select option:selected" ).each(function() {
+		myLayout = $( this ).text();
+    });
 	var cy = cytoscape({		
 
 		container: document.getElementById('cy'), 
@@ -90,7 +94,7 @@ var demoEdges = [];
 		elements : data,	
 		layout: {
 			// name: 'random',
-			name: 'breadthfirst'
+			name: myLayout
 			//avoidOverlap: true,
 			//padding: 10
 		},
@@ -131,6 +135,21 @@ var demoEdges = [];
 						})
   });
   cy.boxSelectionEnabled(true);
+  if($('#showInNode').is(":checked")){
+		showIn = true;
+		cy.nodes().on("click", highlightIn);
+	}
+	else {
+		showIn = false;
+	}
+	if($('#showOutNode').is(":checked")){
+		showOut = true;
+		cy.nodes().on("click", highlightOut);
+	}
+	else {
+		showOut = false;
+	}
+  
 }		// END create graph	
 
  function parseAndCreate(demoNodes,demoEdges){
@@ -172,29 +191,5 @@ var demoEdges = [];
 	
 	createGraph(dataToParse);
 }
- 
-
-	
+ 	
 }); // END on dom ready
-
-
-var showNodeLabel;
-var showEdgeLabel;
-var showOut; 
-var showIn; 
-
-/*
-if( document.getElementById("nodeLabelCheck").checked){
-	 showNodeLabel = "data(id)";
-}
-else{
-	 showNodeLabel = "";
-}
-
-if( document.getElementById("linkLabelCheck").checked){
-	 showEdgeLabel = "data(id)";
-}
-else{
-	 showEdgeLabel = "";
-}
-*/
