@@ -62,10 +62,10 @@
 
 <nav>
 
-<ul>
+<br>
 
-<li><input type="file" id="openFile"> </li>
-<li>
+<input type="file" id="openFile"> <br><br>
+
 <select name="select" id="selectShape"> 
   <option value="random">random</option> 
   <option value="circle" >circle</option>
@@ -73,26 +73,26 @@
   <option value="concentric">concentric</option> 
   <option value="breadthfirst" selected>breadthfirst</option>
 </select>The shape of the graph
-</li>
-<li> <input type="checkbox" class = "squaredOne" name="nlabelSelection" id="nodeLabelCheck" >show node label</li>	
-<li><input type="checkbox" class = "squaredOne" name="elabelSelection" id="linkLabelCheck"  >show edge label</li>			
-<li><input type="checkbox" class = "squaredOne" name="showOutgoing" id="showOutNode" >highlight outgoing nodes</li>			
-<li><input type="checkbox" class = "squaredOne" name="showInComing" id="showInNode" >highlight incoming nodes</li>		
-<li><input type="checkbox" class = "squaredOne" id="collapseNode" >collapse nodes</li>	
-<li><input type="checkbox" class = "squaredOne" name="showCollapsedNodeNum" id="collapseCount">show the number of collapsed nodes</li>
+<br><br>
+ <input type="checkbox" class = "squaredOne" name="nlabelSelection" id="nodeLabelCheck" >show node label<br><br>
+<input type="checkbox" class = "squaredOne" name="elabelSelection" id="linkLabelCheck"  >show edge label<br><br>
+<input type="checkbox" class = "squaredOne" name="showOutgoing" id="showOutNode" >highlight outgoing nodes<br><br>
+<input type="checkbox" class = "squaredOne" name="showInComing" id="showInNode" >highlight incoming nodes<br><br>
+<input type="checkbox" class = "squaredOne" id="collapseNode" >collapse nodes<br><br>
+<input type="checkbox" class = "squaredOne" name="showCollapsedNodeNum" id="collapseCount">show the number of collapsed nodes<br><br>
 
-<li><input type="checkbox" id="nodeInfoCheck" >Cklick on node to see the info</li>
+<input type="checkbox" id="nodeInfoCheck" >Cklick on node to see the info<br><br>
 
-<li><input type = "button" class="button" name="deleteNodes" id="deleteNodes" value="Hide Selected Nodes" onclick="hideSelectedNodes()"> </li>
+<input type = "button" class="button" name="deleteNodes" id="deleteNodes" value="Hide Selected Nodes" onclick="hideSelectedNodes()"> <br><br>
 
-<li><input type = "button" class="button" name="restoreNodes" id="restoreNodes" value="Restore Hidden Nodes" onclick="restoreHiddenNodes()"> </li>
-<li><input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> </li>
-<li><input type = "button" class="button" name="export" id="export" value="Export PNG" onclick="exportFunction()"> </li>
+<input type = "button" class="button" name="restoreNodes" id="restoreNodes" value="Restore Hidden Nodes" onclick="restoreHiddenNodes()"> <br><br>
+<input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br><br>
+<input type = "button" class="button" name="export" id="export" value="Export PNG" onclick="exportFunction()"> <br><br>
 
-</ul>
+
 </nav>
-<article >
+
 <div id="cy" ></div>
-</article>
+
 </body>
 </html>
