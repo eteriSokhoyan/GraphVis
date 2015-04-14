@@ -135,6 +135,7 @@ var myLayout;
 						})
   });
   cy.boxSelectionEnabled(true);
+  
   if($('#showInNode').is(":checked")){
 		showIn = true;
 		cy.nodes().on("click", highlightIn);

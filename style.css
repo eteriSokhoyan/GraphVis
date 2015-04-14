@@ -2,29 +2,14 @@
 #cy {
   height: 100%;
   width: 100%;
-  position: absolute;
-  
+  position: absolute; 
   top: 0;
   float:middle;
 
   
 }
 
-/*#cy
-{
-    position: fixed;
-    width: 70%;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    padding: 30px 15%;
-    background-color: #fff;
-    overflow: auto;
-    z-index: 0;
-   
-}
-*/
+
 nav
 {	
     position: fixed;
@@ -63,6 +48,7 @@ nav:hover
 {
     left: 0;
 }
+
 /*
 nav ul
 {

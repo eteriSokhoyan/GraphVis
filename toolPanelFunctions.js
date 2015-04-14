@@ -376,30 +376,15 @@ var edgesToRemove;
 
 function hideSelectedNodes(){
 
-	nodesToRemove =	cy.$(':selected').addClass('toRemove');
+	nodesToRemove =	cy.nodes(':selected');
+	edgesToRemove = nodesToRemove.connectedEdges();
 	
-	cy.style()
-			  .selector('.toRemove')
-		      .css({
-				'visibility': 'hidden'
-				})
-			  .update() ;
-	//edgesToRemove = cy.edges(':selected').remove();
-	//cy.remove(nodesToRemove);
+	cy.remove(nodesToRemove);
+	cy.remove(edgesToRemove);
 	
 }
 function restoreHiddenNodes(){
-
-	nodesToRemove.removeClass('toRemove');
-	cy.style().update() ;
-	/*var elements = cy.elements();
-	//console.log(elements);
-	elements.each(function(i,ele){
-		
-		console.log(ele.removed());
-	
-	});*/
-	//edgesToRemove.restore();
-	//nodesToRemove.restore();
+	nodesToRemove.restore();
+	edgesToRemove.restore();
 }
 
