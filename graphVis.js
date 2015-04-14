@@ -150,6 +150,7 @@ var myLayout;
 	else {
 		showOut = false;
 	}
+	
   
 }		// END create graph	
 

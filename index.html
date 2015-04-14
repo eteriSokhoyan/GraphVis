@@ -57,6 +57,8 @@
 <body>
 <script type="text/javascript" src="lib/wz_tooltip.js"></script>
 
+<div id="cy" ></div>
+
 <div class="panel">
 
 <br>
@@ -80,7 +82,7 @@
 
 <input type="checkbox" id="nodeInfoCheck" >Cklick on node to see the info<br><br>
 
-<input type = "button" class="button" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes" onclick="hideSelectedNodes()"> <br><br>
+<input type = "button" class="button" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes" onclick="deleteSelectedNodes()"> <br><br>
 
 <input type = "button" class="button" name="restoreNodes" id="restoreNodes" value="Restore Deleted Nodes" onclick="restoreHiddenNodes()"> <br><br>
 <input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br><br>
@@ -88,7 +90,7 @@
 
  </div>
  
-<div id="cy" ></div>
+
 
 <a href="javascript:void(0);" class="slider-arrow show">&raquo;</a>
 

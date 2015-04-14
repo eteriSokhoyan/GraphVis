@@ -374,7 +374,7 @@ function showNodeInfo(){
 var nodesToRemove;
 var edgesToRemove;
 
-function hideSelectedNodes(){
+function deleteSelectedNodes(){
 
 	nodesToRemove =	cy.nodes(':selected');
 	edgesToRemove = nodesToRemove.connectedEdges();
@@ -389,18 +389,28 @@ function restoreHiddenNodes(){
 }
 $(document).on('click','.slider-arrow.show',function(){
 	    $( ".slider-arrow, .panel" ).animate({
-          left: "+=300"
+          left: "+=243"
 		  }, 700, function() {
             // Animation complete.
           });
 		  $(this).html('&laquo;').removeClass('show').addClass('hide');
+		
+		document.getElementById('cy').style.left="243px";
+		//document.getElementById('cy').style.width="80%";
+		  
+		cy.resize();
+		  
+		  
     });
 	
 	$(document).on('click','.slider-arrow.hide',function(){
 	    $( ".slider-arrow, .panel" ).animate({
-          left: "-=300"
+          left: "-=243"
 		  }, 700, function() {
             // Animation complete.
           });
 		  $(this).html('&raquo;').removeClass('hide').addClass('show');
+		  document.getElementById('cy').style.left="0px";
+		 // document.getElementById('cy').style.width="100%";
+		   cy.resize();
     });

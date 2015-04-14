@@ -1,43 +1,32 @@
-
 #cy {
   height: 100%;
-  width: 90%;
+  width: 100%;
   position: absolute; 
   top: 0;
-  float:middle;
-  left: 10%;
-
+  
   
 }
+
 .panel {
-	width:300px;
+
+	width:250px;
 	float:left;
-	height:550px;
+	height: 650px;
 	background:#d9dada;
 	position:relative;
-	left:-300px;
+	left:-250px;
+	top: -10px;
 	
-
 }
 .slider-arrow {
+	top: -10px;
 	padding:5px;
 	width:10px;
 	float:left;
 	background:#d9dada;
-	font:400 12px Arial, Helvetica, sans-serif;
+	font:400 14px Arial, Helvetica, sans-serif;
 	color:#000;
 	text-decoration:none;
 	position:relative;
-	left:-300px;
+	left:-250px;
 }
-
-/*
-nav ul
-{
-    width: 15em;
-    list-style-type: none;
-    margin: 0;
-    padding: 0.5em;
-	
-}
-*/
