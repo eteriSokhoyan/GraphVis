@@ -387,4 +387,20 @@ function restoreHiddenNodes(){
 	nodesToRemove.restore();
 	edgesToRemove.restore();
 }
-
+$(document).on('click','.slider-arrow.show',function(){
+	    $( ".slider-arrow, .panel" ).animate({
+          left: "+=300"
+		  }, 700, function() {
+            // Animation complete.
+          });
+		  $(this).html('&laquo;').removeClass('show').addClass('hide');
+    });
+	
+	$(document).on('click','.slider-arrow.hide',function(){
+	    $( ".slider-arrow, .panel" ).animate({
+          left: "-=300"
+		  }, 700, function() {
+            // Animation complete.
+          });
+		  $(this).html('&raquo;').removeClass('hide').addClass('show');
+    });

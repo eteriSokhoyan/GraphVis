@@ -4,9 +4,7 @@
 <link href="style.css" rel="stylesheet" />
 <meta charset=utf-8 />
 <title>index</title>
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
@@ -16,6 +14,8 @@
 <!--script type="text/javascript" src="slideMenu.js" ></script>
 <script type="text/javascript" src="toggleMenu.js" ></script-->
 <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/70964f0306e770837dbe2b81197c12fdc7804e38/cytoscape-qtip.js"></script>
+
+
 <script>
 
 (function(d){
@@ -50,17 +50,14 @@
     s.parentNode.insertBefore(f,s);	
 })(document)
 
-</script>
+</script>         
+
 
 </head>
 <body>
 <script type="text/javascript" src="lib/wz_tooltip.js"></script>
 
-
-
-
-
-<nav id='nid'>
+<div class="panel">
 
 <br>
 
@@ -89,10 +86,11 @@
 <input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br><br>
 <input type = "button" class="button" name="export" id="export" value="Export PNG" onclick="exportFunction()"> <br><br>
 
-
-</nav>
-
+ </div>
+ 
 <div id="cy" ></div>
+
+<a href="javascript:void(0);" class="slider-arrow show">&raquo;</a>
 
 </body>
 </html>
