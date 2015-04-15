@@ -51,7 +51,11 @@ var myLayout;
         },
 		'error' :  function (data) {
 			//console.log("error");   
-		
+		if(fileExt == "json" ){
+			
+			 parseJson(data);
+		}
+		else {
 		
 			reader.onload = function(){
 				var lines = this.result.split('\n');
@@ -81,7 +85,7 @@ var myLayout;
 				parseAndCreate(demoNodes,demoEdges);
 			};
 			 reader.readAsText(file);
-			 
+		}	 
         }
     });
   
