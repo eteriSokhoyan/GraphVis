@@ -27,7 +27,12 @@ var myLayout;
  document.getElementById('openFile').onchange = function(){
 
     var file = this.files[0];
-	 url = file.name;
+	var fname = file.name;
+	 url = URL.createObjectURL(event.target.files[0]);
+	 
+	 var fileExt= fname.substr((~-fname.lastIndexOf(".") >>> 0) + 2);
+	
+	 
 	var reader = new FileReader();
 	//alert(url);
  
@@ -45,7 +50,9 @@ var myLayout;
 		 
         },
 		'error' :  function (data) {
-			//console.log("error");           
+			//console.log("error");   
+		
+		
 			reader.onload = function(){
 				var lines = this.result.split('\n');
 				var chars;
@@ -74,6 +81,7 @@ var myLayout;
 				parseAndCreate(demoNodes,demoEdges);
 			};
 			 reader.readAsText(file);
+			 
         }
     });
   
@@ -164,7 +172,8 @@ var myLayout;
  
  
  function parseJson(dataToParse){
-	
+ 
+	//console.log(dataToParse);
 	if(dataToParse.links == null){
 		//console.log("no links");
 		var links = dataToParse.edges;
@@ -172,9 +181,12 @@ var myLayout;
 	else{
 		var links = dataToParse.links;
 		dataToParse.edges = links;
+		
 	}
  
 	var nodes = dataToParse.nodes;
+	//var nodes = dataToParse;
+	
 	
 			
 	for(var i = 0; i<nodes.length; i++){
@@ -183,7 +195,7 @@ var myLayout;
 		dataToParse.nodes[i].data.id = '"' +  nodes[i].id + '"';
 	}
 	
-	//console.log(dataToParse.edges)
+	
 	for(var i = 0; i<links.length; i++){
 		
 		dataToParse.edges[i].data = links[i];
