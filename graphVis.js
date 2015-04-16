@@ -34,28 +34,19 @@ var myLayout;
 	
 	 
 	var reader = new FileReader();
-	//alert(url);
- 
-  
-    //var json = null;
+	
     $.ajax({
         'async': false,
         'global': false,
         'url': url,
         'dataType': "json",
         'success': function (data) {
-		 //  console.log("no error");
-         // createGraph(data);
+		
 		 parseJson(data); // *
 		 
         },
 		'error' :  function (data) {
 			//console.log("error");   
-		if(fileExt == "json" ){
-			
-			 parseJson(data);
-		}
-		else {
 		
 			reader.onload = function(){
 				var lines = this.result.split('\n');
@@ -85,7 +76,7 @@ var myLayout;
 				parseAndCreate(demoNodes,demoEdges);
 			};
 			 reader.readAsText(file);
-		}	 
+		
         }
     });
   
@@ -177,9 +168,8 @@ var myLayout;
  
  function parseJson(dataToParse){
  
-	//console.log(dataToParse);
 	if(dataToParse.links == null){
-		//console.log("no links");
+
 		var links = dataToParse.edges;
 	}
 	else{
@@ -189,9 +179,6 @@ var myLayout;
 	}
  
 	var nodes = dataToParse.nodes;
-	//var nodes = dataToParse;
-	
-	
 			
 	for(var i = 0; i<nodes.length; i++){
 	
