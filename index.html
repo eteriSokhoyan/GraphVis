@@ -10,10 +10,12 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
 <script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css" media="all" />
 <!--script type="text/javascript" src="slideMenu.js" ></script>
 <script type="text/javascript" src="toggleMenu.js" ></script-->
 <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/70964f0306e770837dbe2b81197c12fdc7804e38/cytoscape-qtip.js"></script>
+
+
 <script>
 
 (function(d){
@@ -48,88 +50,21 @@
     s.parentNode.insertBefore(f,s);	
 })(document)
 
-</script>
+</script>         
 
-<!--script language="javascript" type="text/javascript">
-
-document.oncontextmenu=RightMouseDown;
-document.onmousedown = mouseDown; 
-
-
-
-function mouseDown(e) {
-    if (e.which==3) {//righClick
-        alert("Right-click menu goes here");
-    }
-}
-
-
-function RightMouseDown() { return false; }
-
-</script-->
-
-<!--script>
-
-(function(d){
-    var s=d.getElementsByTagName('script')[0],f=d.createElement('script');
-    f.type='text/javascript';
-    f.async=true;
-    f.src='graphVis.js';
-    s.parentNode.insertBefore(f,s);
-    f=d.createElement('script');
-    f.type='text/javascript';
-    f.async=true;
-    f.src='toggleMenu.js';
-    s.parentNode.insertBefore(f,s);	
-})(document)
-
-</script-->
 
 </head>
 <body>
 <script type="text/javascript" src="lib/wz_tooltip.js"></script>
 
-
-<!--div id="cy"></div>
-<div id="toolPanel"> <img src="tool.png" alt="tool" style=" width:35px; height:35px"> </div><br>
-<div id="toolPanelHeader"  style="float:left; width:20%; height:100%; background-color:#D8D8D8;"--> 
-
 <div id="cy" ></div>
-<div id="toolPanel"  style="float:left; width:20%; height:100%; background-color:#D8D8D8;"> 
+
+<div class="panel">
+
 <br>
-<div id="toolPanelHeader">ToolPanel</div>
 
+<input type="file" id="openFile"> <br><br>
 
-
-
-<!--a href="#" onclick="toggle_visibility('toolPanel');"></a>
-
-
-
-
-<script type="text/javascript">
-
-    function toggle_visibility(id) {
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    }
-
-</script-->
-
-
-
-
-<!--select> 
-  <option value="matrix">Matrix</option>
-  <option value="graph">Graph</option>
-</select>
-Select the format of the input file <br-->
-<br>
-<input type="file" id="openFile"> <br>
-<br>
 <select name="select" id="selectShape"> 
   <option value="random">random</option> 
   <option value="circle" >circle</option>
@@ -137,28 +72,27 @@ Select the format of the input file <br-->
   <option value="concentric">concentric</option> 
   <option value="breadthfirst" selected>breadthfirst</option>
 </select>The shape of the graph
-<br>
+<br><br>
+ <input type="checkbox" class = "squaredOne" name="nlabelSelection" id="nodeLabelCheck" >show node label<br><br>
+<input type="checkbox" class = "squaredOne" name="elabelSelection" id="linkLabelCheck"  >show edge label<br><br>
+<input type="checkbox" class = "squaredOne" name="showOutgoing" id="showOutNode" >highlight outgoing nodes<br><br>
+<input type="checkbox" class = "squaredOne" name="showInComing" id="showInNode" >highlight incoming nodes<br><br>
+<input type="checkbox" class = "squaredOne" id="collapseNode" >collapse nodes<br><br>
+<input type="checkbox" class = "squaredOne" name="showCollapsedNodeNum" id="collapseCount">show the number of collapsed nodes<br><br>
 
-<input type="checkbox" class = "squaredOne" name="nlabelSelection" id="nodeLabelCheck" >show node label<br>	
-<input type="checkbox" class = "squaredOne" name="elabelSelection" id="linkLabelCheck"  >show edge label<br>		
-<input type="checkbox" class = "squaredOne" name="showOutgoing" id="showOutNode" >highlight outgoing nodes<br>		
-<input type="checkbox" class = "squaredOne" name="showInComing" id="showInNode" >highlight incoming nodes<br>		
-<input type="checkbox" class = "squaredOne" id="collapseNode" >collapse nodes<br>	
-<input type="checkbox" class = "squaredOne" name="showCollapsedNodeNum" id="collapseCount">show the number of collapsed nodes<br> <br>
+<input type="checkbox" id="nodeInfoCheck" >Cklick on node to see the info<br><br>
 
-<input type="checkbox" id="nodeInfoCheck" >Cklick on node to see the info
-<!--input type="text" name="nodeInfo" value="" id= "nodeInfo" size="2"-->
-<br> <br>
+<input type = "button" class="button" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes" onclick="deleteSelectedNodes()"> <br><br>
+
+<input type = "button" class="button" name="restoreNodes" id="restoreNodes" value="Restore Deleted Nodes" onclick="restoreHiddenNodes()"> <br><br>
+<input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br><br>
+<input type = "button" class="button" name="export" id="export" value="Export PNG" onclick="exportFunction()"> <br><br>
+
+ </div>
+ 
 
 
-
-<input type = "button" class="button" name="deleteNodes" id="deleteNodes" value="Hide Selected Nodes" onclick="hideSelectedNodes()"> <br> <br>
-
-<input type = "button" class="button" name="restoreNodes" id="restoreNodes" value="Restore Hidden Nodes" onclick="restoreHiddenNodes()"> <br> <br>
-<input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br> <br>
-<input type = "button" class="button" name="export" id="export" value="Export PNG" onclick="exportFunction()"> 
-<br>
-</div>
+<a href="javascript:void(0);" class="slider-arrow show">&raquo;</a>
 
 </body>
 </html>

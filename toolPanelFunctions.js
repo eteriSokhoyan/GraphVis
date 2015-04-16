@@ -374,32 +374,43 @@ function showNodeInfo(){
 var nodesToRemove;
 var edgesToRemove;
 
-function hideSelectedNodes(){
+function deleteSelectedNodes(){
 
-	nodesToRemove =	cy.$(':selected').addClass('toRemove');
+	nodesToRemove =	cy.nodes(':selected');
+	edgesToRemove = nodesToRemove.connectedEdges();
 	
-	cy.style()
-			  .selector('.toRemove')
-		      .css({
-				'visibility': 'hidden'
-				})
-			  .update() ;
-	//edgesToRemove = cy.edges(':selected').remove();
-	//cy.remove(nodesToRemove);
+	cy.remove(nodesToRemove);
+	cy.remove(edgesToRemove);
 	
 }
 function restoreHiddenNodes(){
-
-	nodesToRemove.removeClass('toRemove');
-	cy.style().update() ;
-	/*var elements = cy.elements();
-	//console.log(elements);
-	elements.each(function(i,ele){
-		
-		console.log(ele.removed());
-	
-	});*/
-	//edgesToRemove.restore();
-	//nodesToRemove.restore();
+	nodesToRemove.restore();
+	edgesToRemove.restore();
 }
-
+$(document).on('click','.slider-arrow.show',function(){
+	    $( ".slider-arrow, .panel" ).animate({
+          left: "+=243"
+		  }, 700, function() {
+            // Animation complete.
+          });
+		  $(this).html('&laquo;').removeClass('show').addClass('hide');
+		
+		document.getElementById('cy').style.left="243px";
+		//document.getElementById('cy').style.width="80%";
+		  
+		cy.resize();
+		  
+		  
+    });
+	
+	$(document).on('click','.slider-arrow.hide',function(){
+	    $( ".slider-arrow, .panel" ).animate({
+          left: "-=243"
+		  }, 700, function() {
+            // Animation complete.
+          });
+		  $(this).html('&raquo;').removeClass('hide').addClass('show');
+		  document.getElementById('cy').style.left="0px";
+		 // document.getElementById('cy').style.width="100%";
+		   cy.resize();
+    });
