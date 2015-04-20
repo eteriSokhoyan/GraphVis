@@ -93,6 +93,76 @@ var myLayout;
 		myLayout = $( this ).text();
     });
 	
+	var allcy = cytoscape({
+		headless: true,
+	});
+	
+	var cy = cytoscape({		
+
+		container: document.getElementById('cy'),
+		layout: {
+			// name: 'random',
+			name: myLayout
+			//avoidOverlap: true,
+			//padding: 10
+		},
+		ready: function(){
+			//mychange();
+			window.cy = this;
+		},
+		style: cytoscape.stylesheet()
+						.selector('node')
+						.css({
+							'content': showNodeLabel,
+							'text-valign':'center',
+							'background-color': '#888888',
+							'opacity': 0.8
+						})
+						.selector('edge')
+						.css({
+							'target-arrow-shape': 'triangle',
+							'width': 4,
+							'line-color': '#ddd',
+							'target-arrow-color': '#ddd',
+							'content': showEdgeLabel
+						})
+						.selector(':selected')
+						.css({
+							'background-color': '#FE2E64',
+							'line-color': '#FE2E64',
+							'target-arrow-color': '#FE2E64',
+							'source-arrow-color': '#FE2E64',
+							'opacity': 1
+						})
+	});
+	allcy.load(data);
+	cy.add(allcy.nodes().roots().closedNeighborhood());
+	
+	cy.load( cy.elements('*').jsons());
+	cy.nodes().on("click", function(){
+	/*
+			var selectedNode = this;
+			var selectedNodeId = selectedNode.data('id');
+			console.log(selectedNodeId);
+			
+		var nodesToAdd = allcy.nodes('node#1');
+			console.log("node id from allcy = " + nodesToAdd.data('id'));
+	*/
+		cy.remove(cy.elements());
+cy.add(allcy.nodes().closedNeighborhood());
+
+cy.load( cy.elements('*').jsons() );
+	//allcy.$('#1').outgoers();
+			//console.log(cy.elements('#thisId').data('id'));
+			//cy.add(nodesToAdd.outgoers());
+			//cy.load( cy.elements('*').jsons());
+			
+	});
+	
+	
+	
+	
+	/*
 	var cy = cytoscape({		
 
 		container: document.getElementById('cy'), 
@@ -133,7 +203,7 @@ var myLayout;
 							'opacity': 1
 						})
   });
-  
+  */
   cy.boxSelectionEnabled(true);
   
   
