@@ -14,7 +14,7 @@
 <!--script type="text/javascript" src="slideMenu.js" ></script>
 <script type="text/javascript" src="toggleMenu.js" ></script-->
 <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/70964f0306e770837dbe2b81197c12fdc7804e38/cytoscape-qtip.js"></script>
-
+<script type="text/javascript" src="cytoscape-cxtmenu.js" ></script>
 
 <script>
 
@@ -84,7 +84,7 @@
 
 <input type = "button" class="button" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes" onclick="deleteSelectedNodes()"> <br><br>
 
-<input type = "button" class="button" name="restoreNodes" id="restoreNodes" value="Restore Deleted Nodes" onclick="restoreHiddenNodes()"> <br><br>
+<input type = "button" class="button" name="restoreNodes" id="restoreNodes" value="Restore Deleted Nodes" onclick="restoreDeletedNodes()"> <br><br>
 <input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br><br>
 <input type = "button" class="button" name="export" id="export" value="Export PNG" onclick="exportFunction()"> <br><br>
 

@@ -17,6 +17,7 @@ var collapseNodeCount=0;
 var num=0;
 
 function colNode(){
+	console.log("collapse");
 	var selectedNode = this;
 	var connectedEdges = selectedNode.connectedEdges(function(){
 										return !this.target().anySame( selectedNode );

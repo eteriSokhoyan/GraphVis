@@ -13,6 +13,7 @@
                 "id": "2",
                 "label": "2",
 				"name": "20"
+				
             
         },
         {
@@ -62,21 +63,21 @@
         {
             
                 "source": 3,
-                "target": 1,
+                "target": 6,
 				"label": "c"
             
         },
 		 {
             
                 "source": 3,
-                "target": 4,
+                "target": 5,
 				"label": "d"
             
         },
         {
             
                 "source": 4,
-                "target": 1,
+                "target": 2,
 				"label": "e"
             
         },
@@ -112,6 +113,13 @@
             
                 "source": 6,
                 "target": 6,
+				"label": "j"
+            
+        },
+		{
+            
+                "source": 2,
+                "target": 4,
 				"label": "j"
             
         }
