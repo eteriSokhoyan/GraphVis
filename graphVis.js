@@ -93,7 +93,7 @@ var myLayout;
 		myLayout = $( this ).text();
     });
 	
-	var allcy = cytoscape({
+	/*var allcy = cytoscape({
 		headless: true,
 	});
 	
@@ -147,7 +147,7 @@ var myLayout;
 			
 		var nodesToAdd = allcy.nodes('node#1');
 			console.log("node id from allcy = " + nodesToAdd.data('id'));
-	*/
+	
 		cy.remove(cy.elements());
 cy.add(allcy.nodes().closedNeighborhood());
 
@@ -160,9 +160,9 @@ cy.load( cy.elements('*').jsons() );
 	});
 	
 	
+	*/
 	
 	
-	/*
 	var cy = cytoscape({		
 
 		container: document.getElementById('cy'), 
@@ -174,6 +174,12 @@ cy.load( cy.elements('*').jsons() );
 			//avoidOverlap: true,
 			//padding: 10
 		},
+		  hideEdgesOnViewport: true,
+		  hideLabelsOnViewport : true,
+		  motionBlur : true,
+		  textureOnViewport : true,
+		 // pixelRatio: 0.666,
+
 		ready: function(){
 			//mychange();
 			window.cy = this;
@@ -185,14 +191,18 @@ cy.load( cy.elements('*').jsons() );
 							'text-valign':'center',
 							'background-color': '#888888',
 							'opacity': 0.8
+							
 						})
 						.selector('edge')
 						.css({
+							'curve-style' : 'unbundled-bezier',
 							'target-arrow-shape': 'triangle',
 							'width': 4,
 							'line-color': '#ddd',
 							'target-arrow-color': '#ddd',
 							'content': showEdgeLabel
+							
+							
 						})
 						.selector(':selected')
 						.css({
@@ -202,8 +212,14 @@ cy.load( cy.elements('*').jsons() );
 							'source-arrow-color': '#FE2E64',
 							'opacity': 1
 						})
+						.selector('core')
+						.css({
+							'outside-texture-bg-color' : 'white'
+							
+							//'active-bg-size' : 100
+						})
   });
-  */
+  
   cy.boxSelectionEnabled(true);
   
   
