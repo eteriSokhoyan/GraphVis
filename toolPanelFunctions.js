@@ -1,4 +1,4 @@
-///// checkBox  for Labels
+///// show/hide Labels
 
   $('#nodeLabelCheck').change(function() {
         if($(this).is(":checked")) {
@@ -29,7 +29,7 @@
     });
 
 
-//////// selectionBox for the shape
+//////// change the shape of the graph
 $('#selectShape').change(function() {
 	var shape="";
         $( "select option:selected" ).each(function() {
@@ -40,7 +40,7 @@ $('#selectShape').change(function() {
 			
 	});
 
-//////// checkBox for highlighting outgoing nodes
+////////  highlighting outgoing nodes
 
 	$('#showOutNode').change(function() {
 		
@@ -56,7 +56,7 @@ $('#selectShape').change(function() {
     });  
 
 
-//////// checkBox for highlighting incoming nodes
+////////  highlighting incoming nodes
 
 	$('#showInNode').change(function() {
 		
@@ -77,15 +77,13 @@ $('#selectShape').change(function() {
 	function highlightOut(){
 			
 			var selectedNode = this;
-			var connectedEdges = selectedNode.connectedEdges(function(){
-										return !this.target().anySame( selectedNode );
-									});
-    		var connectedNodes = connectedEdges.targets();
+					
+			var connectedNodes = selectedNode.outgoers();
 			
 			if(selectedNode.hasClass('selectedNodeOut')){
 			
 				connectedNodes.removeClass('connectedNodeOut');
-				connectedEdges.removeClass('connectedNodeOut');
+				//connectedEdges.removeClass('connectedNodeOut');
 				selectedNode.removeClass('selectedNodeOut');
 
 				cy.style()
@@ -105,7 +103,7 @@ $('#selectShape').change(function() {
 				cy.edges().not(this).removeClass('connectedNodeOut');
 			
 				connectedNodes.addClass('connectedNodeOut');
-				connectedEdges.addClass('connectedNodeOut');
+				//connectedEdges.addClass('connectedNodeOut');
 				selectedNode.addClass('selectedNodeOut');
 				cy.style()
 				  .selector('.connectedNodeOut')
@@ -132,7 +130,7 @@ $('#selectShape').change(function() {
 			}
 	}
 		
-		
+/////// reset highlighting of outgoing nodes 		
 	function resetHighlightOut(showIn,showOut){
 	
 			cy.style()
@@ -161,8 +159,60 @@ $('#selectShape').change(function() {
 				cy.nodes().removeClass('connectedNodeOut');
 				cy.edges().removeClass('connectedNodeOut');
 	}
-	
-	
+			
+//////////// find inComing nodes
+
+	function highlightIn (){
+			
+			var selectedNode = this;
+			var connectedNodes = selectedNode.incomers();
+		
+			if(selectedNode.hasClass('selectedNodeIn')){
+			
+				connectedNodes.removeClass('connectedNodeIn');
+				selectedNode.removeClass('selectedNodeIn');
+				cy.style()
+				  .selector('.connectedNodeIn')
+				  .css({
+					'opacity': 0.8
+					})
+				  .update() ;
+			}
+			else {
+			
+				cy.nodes().not(this).removeClass('connectedNodeIn');
+				cy.nodes().not(this).removeClass('selectedNodeIn');
+				cy.edges().not(this).removeClass('connectedNodeIn');
+				
+				connectedNodes.addClass('connectedNodeIn');
+				selectedNode.addClass('selectedNodeIn');
+				cy.style()
+				  .selector('.connectedNodeIn')
+				  .css({
+					'background-color': 'green',
+					'line-color': 'green',
+					'target-arrow-color': 'green',
+					'source-arrow-color': 'green',
+					'opacity': 0.8
+					})
+				  .update() ;
+				  				  
+				  cy.style()
+				  .selector('.selectedNodeIn')
+				  .css({
+					'background-color': 'green',
+					'line-color': 'green',
+					'target-arrow-color': 'green',
+					'source-arrow-color': 'green',
+					'opacity': 0.8,
+					'border-width': 4,
+					})
+				  .update() ;
+			}
+		}
+
+
+/////// reset highlighting of incoming nodes 		
 	function resetHighlightIn(showIn,showOut){
 	
 			cy.style()
@@ -191,68 +241,9 @@ $('#selectShape').change(function() {
 			cy.edges().removeClass('connectedNodeIn');
 		
 	}
-		
-		
-//////////// find inComing nodes
 
-	function highlightIn (){
-			
-			var selectedNode = this;
-			var connectedEdges = selectedNode.connectedEdges(function(){
-										return !this.source().anySame( selectedNode );
-									});
-    
-			var connectedNodes = connectedEdges.sources();
-			
 		
-			if(selectedNode.hasClass('selectedNodeIn')){
-			
-				connectedNodes.removeClass('connectedNodeIn');
-				connectedEdges.removeClass('connectedNodeIn');
-				selectedNode.removeClass('selectedNodeIn');
-				cy.style()
-				  .selector('.connectedNodeIn')
-				  .css({
-					'opacity': 0.8
-					})
-				  .update() ;
-			}
-			else {
-			
-			
-				cy.nodes().not(this).removeClass('connectedNodeIn');
-				cy.nodes().not(this).removeClass('selectedNodeIn');
-				cy.edges().not(this).removeClass('connectedNodeIn');
-				
-				connectedNodes.addClass('connectedNodeIn');
-				connectedEdges.addClass('connectedNodeIn');
-				selectedNode.addClass('selectedNodeIn');
-				cy.style()
-				  .selector('.connectedNodeIn')
-				  .css({
-					'background-color': 'green',
-					'line-color': 'green',
-					'target-arrow-color': 'green',
-					'source-arrow-color': 'green',
-					'opacity': 0.8
-					})
-				  .update() ;
-				  				  
-				  cy.style()
-				  .selector('.selectedNodeIn')
-				  .css({
-					'background-color': 'green',
-					'line-color': 'green',
-					'target-arrow-color': 'green',
-					'source-arrow-color': 'green',
-					'opacity': 0.8,
-					'border-width': 4,
-					})
-				  .update() ;
-			}
-		}
-		
-		
+////// export PNG 		
  function exportFunction(){
  
   var pngPic = cy.png();
@@ -281,6 +272,8 @@ function downloadURI(uri, name) {
   link.click();
 }
 
+
+///// restore Graph structure
 function restorGraphStructure(){
 
 	var shape="";
@@ -295,8 +288,7 @@ function restorGraphStructure(){
 
 
 
-///// node info
-
+///// show node info
 
 $('#nodeInfoCheck').change(function() {
 		
@@ -327,20 +319,12 @@ function showNodeInfo(){
 
 	var node = this;
 	
-	var childEdges = node.connectedEdges(function(){
-										return !this.target().anySame( node );
-									});
-    
-	var childNodes = childEdges.targets();
+	var childNodes = node.outgoers().nodes();
 	var childNum = childNodes.length;
 	
-	var parentEdges = node.connectedEdges(function(){
-										return !this.source().anySame( node );
-									});
-    
-	var parentNodes = parentEdges.sources();
+	var parentNodes = node.incomers().nodes();
 	var parentNum = parentNodes.length;
-	
+		
 	popupWin = window.open('popUp.html',"MsgWindow", "width=400, height=400");
 	popupWin.document.writeln('<html><head><title>Node Details</title>'
 								+'<style type="text/css">'
@@ -371,6 +355,8 @@ function showNodeInfo(){
 	
 }
 
+/////// delete selected nodes
+
 var nodesToRemove;
 var edgesToRemove;
 
@@ -383,10 +369,14 @@ function deleteSelectedNodes(){
 	cy.remove(edgesToRemove);
 	
 }
-function restoreHiddenNodes(){
+/////// restore Deleted Nodes 
+function restoreDeletedNodes(){
 	nodesToRemove.restore();
 	edgesToRemove.restore();
 }
+
+/////////////// tool Panel movement 
+
 $(document).on('click','.slider-arrow.show',function(){
 	    $( ".slider-arrow, .panel" ).animate({
           left: "+=243"

@@ -7,10 +7,10 @@ var showIn;
 var demoNodes = [];
 var demoEdges = [];
 var myLayout;
- 
- $(function(){ // on dom ready
   
-  $.ajax({
+ $(function(){ // on dom ready
+ 
+ $.ajax({
         'async': false,
         'global': false,
         'url': 'nodelinkjson_output.json',
@@ -18,9 +18,11 @@ var myLayout;
         'success': function (data) {
 		 parseJson(data);
          //  createGraph(data);
+		  
         }
- });
- 
+ }); 
+  
+
  
  ///////// get the json file
  
@@ -90,6 +92,7 @@ var myLayout;
  $( "select option:selected" ).each(function() {
 		myLayout = $( this ).text();
     });
+	
 	var cy = cytoscape({		
 
 		container: document.getElementById('cy'), 
@@ -112,13 +115,6 @@ var myLayout;
 							'text-valign':'center',
 							'background-color': '#888888',
 							'opacity': 0.8
-						/*	'pie-size': '100%',
-							'pie-1-background-color': '#E8747C',
-							'pie-1-background-size': '50%',
-							'pie-1-background-size': 'mapData(value, 0, 40, 0, 100)',
-							'pie-2-background-color': '#74E883',
-							'pie-2-background-size': '50%'
-						*/	
 						})
 						.selector('edge')
 						.css({
@@ -137,7 +133,52 @@ var myLayout;
 							'opacity': 1
 						})
   });
+  
   cy.boxSelectionEnabled(true);
+  
+  
+/*  
+  cy.cxtmenu({
+					selector: 'node',
+					menuRadius: 50, 
+					indicatorSize: 12,
+					commands: [
+						{
+							content: '<span class="fa fa-flash fa-2x">node info</span>',
+							select: function(){
+								console.log( this.data('name') );
+							
+							}
+						},
+						{
+							content: '<span class="fa fa-star fa-2x"></span>',
+							select: function(){
+								console.log( this.data('name') );
+							}
+						},
+						{
+							content: 'Text',
+							select: function(){
+								console.log( "on text" );
+							}
+						},
+						{
+							content: 'Text2',
+							select: function(){
+								console.log( "on text2" );
+							}
+						},
+						{
+							content: 'Text2',
+							select: function(){
+								console.log( "on text2" );
+							}
+						}
+					]
+				});
+				
+*/			
+  
   
   if($('#showInNode').is(":checked")){
 		showIn = true;
@@ -168,6 +209,8 @@ var myLayout;
  
  function parseJson(dataToParse){
  
+	
+ 
 	if(dataToParse.links == null){
 
 		var links = dataToParse.edges;
@@ -179,7 +222,9 @@ var myLayout;
 	}
  
 	var nodes = dataToParse.nodes;
-			
+	
+	
+	
 	for(var i = 0; i<nodes.length; i++){
 	
 		dataToParse.nodes[i].data = nodes[i];
@@ -196,5 +241,6 @@ var myLayout;
 	
 	createGraph(dataToParse);
 }
- 	
+ 		
+	
 }); // END on dom ready
