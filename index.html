@@ -16,6 +16,7 @@
 <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/70964f0306e770837dbe2b81197c12fdc7804e38/cytoscape-qtip.js"></script>
 <script type="text/javascript" src="cytoscape-cxtmenu.js" ></script>
 
+
 <script>
 
 (function(d){
@@ -57,13 +58,24 @@
 <body>
 <script type="text/javascript" src="lib/wz_tooltip.js"></script>
 
+
 <div id="cy" ></div>
 
 <div class="panel">
 
 <br>
 
-<input type="file" id="openFile"> <br><br>
+
+<div class="file-upload-override-button left">
+Choose File
+<input type="file" class="file-upload-button" id="openFile"/>  
+</div>
+<div class="file-upload-filename left" id="file-upload-filename">No file selected<br><br></div>
+
+
+
+<!--input type="file" id="openFile" class="custom-file-input"-->
+
 
 <select name="select" id="selectShape"> 
   <option value="random">random</option> 
@@ -73,20 +85,48 @@
   <option value="breadthfirst" selected>breadthfirst</option>
 </select>The shape of the graph
 <br><br>
- <input type="checkbox" class = "squaredOne" name="nlabelSelection" id="nodeLabelCheck" >show node label<br><br>
-<input type="checkbox" class = "squaredOne" name="elabelSelection" id="linkLabelCheck"  >show edge label<br><br>
-<input type="checkbox" class = "squaredOne" name="showOutgoing" id="showOutNode" >highlight outgoing nodes<br><br>
-<input type="checkbox" class = "squaredOne" name="showInComing" id="showInNode" >highlight incoming nodes<br><br>
-<input type="checkbox" class = "squaredOne" id="collapseNode" >collapse nodes<br><br>
-<input type="checkbox" class = "squaredOne" name="showCollapsedNodeNum" id="collapseCount">show the number of collapsed nodes<br><br>
 
-<input type="checkbox" id="nodeInfoCheck" >Cklick on node to see the info<br><br>
+<input type="checkbox" class="css-checkbox" name="nlabelSelection" id="nodeLabelCheck"/>
+ <label for="nodeLabelCheck" name="nodeLabelCheck" class="css-label"> 
+    show node label
+ </label> <br><br>
 
-<input type = "button" class="button" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes" onclick="deleteSelectedNodes()"> <br><br>
+<input type="checkbox" class="css-checkbox" name="elabelSelection" id="linkLabelCheck"/>
+ <label for="linkLabelCheck" name="nodeLabelCheck" class="css-label"> 
+    show edge label
+ </label> <br><br>
 
-<input type = "button" class="button" name="restoreNodes" id="restoreNodes" value="Restore Deleted Nodes" onclick="restoreDeletedNodes()"> <br><br>
-<input type = "button" class="button" name="restore" id="restore" value="Restore The Structure" onclick="restorGraphStructure()"> <br><br>
-<input type = "button" class="button" name="export" id="export" value="Export PNG" onclick="exportFunction()"> <br><br>
+<input type="checkbox" class="css-checkbox" name="showOutgoing" id="showOutNode" >
+<label for="showOutNode" name="nodeLabelCheck" class="css-label"> 
+    highlight outgoing nodes
+</label> <br><br>
+
+<input type="checkbox" class="css-checkbox" name="showInComing" id="showInNode" >
+<label for="showInNode" name="nodeLabelCheck" class="css-label"> 
+   highlight incoming nodes
+</label> <br><br>
+
+<input type="checkbox" class="css-checkbox" id="collapseNode" >
+<label for="collapseNode" name="nodeLabelCheck" class="css-label"> 
+  collapse nodes
+</label> <br><br>
+
+
+<input type="checkbox" class="css-checkbox" name="showCollapsedNodeNum" id="collapseCount">
+<label for="collapseCount" name="nodeLabelCheck" class="css-label"> 
+ show the number of collapsed nodes
+</label> <br><br>
+
+<input type="checkbox" class="css-checkbox" id="nodeInfoCheck" >
+<label for="nodeInfoCheck" name="nodeLabelCheck" class="css-label"> 
+cklick on node to see the info
+</label> <br><br>
+
+<input type = "button" class="btn" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes " onclick="deleteSelectedNodes()"> <br><br>
+
+<input type = "button" class="btn" name="restoreNodes" id="restoreNodes" value="Restore Deleted Nodes" onclick="restoreDeletedNodes()"> <br><br>
+<input type = "button" class="btn" name="restore" id="restore" value="Restore The Structure  " onclick="restorGraphStructure()"> <br><br>
+<input type = "button" class="btn" name="export" id="export" value="Export PNG" onclick="exportFunction()"> <br><br>
 
  </div>
  

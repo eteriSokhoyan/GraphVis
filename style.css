@@ -1,21 +1,24 @@
+
+
+
 #cy {
   height: 100%;
   width: 100%;
   position: absolute; 
   top: 0;
-  
-  
 }
 
 .panel {
 
-	width:250px;
+	width:245px;
 	float:left;
 	height: 650px;
 	background:#d9dada;
 	position:relative;
 	left:-250px;
 	top: -10px;
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	padding-left:5px;
 	
 }
 .slider-arrow {
@@ -24,12 +27,152 @@
 	width:10px;
 	float:left;
 	background:#d9dada;
-	font:400 14px Arial, Helvetica, sans-serif;
-	color:#000;
+	font:700 16px  Arial, "Helvetica Neue", Helvetica, sans-serif;
+	color:#3498db;
 	text-decoration:none;
 	position:relative;
 	left:-250px;
+	
 }
+
+
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 6px;
+  font-family:  Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 8px 15px 8px 15px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+input[type=checkbox].css-checkbox {
+    display:none;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+    padding-left:20px;
+    height:15px;
+    display:inline-block;
+    line-height:15px;
+    background-repeat:no-repeat;
+    background-position:0 0;
+    font-size:15px;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+    background-position:0 -15px;
+}
+
+.css-label {
+    background-image:url(http://html-generator.weebly.com/files/theme/checkboxd1.png);
+}
+  
+
+.left {
+float: left;
+}
+
+.file-upload-override-button {
+
+overflow: hidden;
+cursor: pointer;
+background-color:#3498db;
+padding: 8px 15px 8px 15px;
+font-size: 14px;
+-webkit-border-radius: 28;
+-moz-border-radius: 28;
+border-radius: 6px;
+
+}
+.file-upload-override-button:hover {
+background-color:#3cb0fd;
+background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+text-decoration: none;
+}
+.file-upload-override-button:active {
+ top:1px;
+}
+.file-upload-button {
+position: absolute;
+height: 50px;
+top: -10px;
+left: -10px;
+cursor: pointer;
+opacity: 0;
+filter:alpha(opacity=0);
+}
+.file-upload-filename {
+margin-left: 10px;
+height: auto;
+padding: 8px;
+}
+
+
+
+  
+/*  
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+   width: 0;
+   
+}
+.custom-file-input::before {
+  content: 'Choose File';
+  display: inline-block;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  visibility: visible;
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 6px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 8px 15px 8px 15px;
+  outline: none;
+  
+  
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}  
+  
+  
+  */
+  
 /* 
 .fa {
   display: inline-block;
