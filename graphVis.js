@@ -93,7 +93,7 @@ var myLayout;
 		myLayout = $( this ).text();
     });
 	
-	/*var allcy = cytoscape({
+	var allcy = cytoscape({
 		headless: true,
 	});
 	
@@ -139,30 +139,47 @@ var myLayout;
 	cy.add(allcy.nodes().roots().closedNeighborhood());
 	
 	cy.load( cy.elements('*').jsons());
-	cy.nodes().on("click", function(){
+	//cy.load( data);
+	
+	var nodesToAdd;
+	var eles = allcy.nodes();
+	$('#expandGraph').change(function() {
+        if($(this).is(":checked")) {
+			
+			cy.nodes().one("click", function(){
+	
+				var selectedNode = this;
+				var selectedNodeId = selectedNode.id();
+				selectedNodeId=selectedNodeId.replace(/[^0-9\.]+/g, "");
+				console.log(selectedNodeId);
+			
+				
+			
+				// nodesToAdd = eles[selectedNodeId].outgoers();
+					console.log("working");
+					
+					cy.add(eles[selectedNodeId].outgoers());
+					//cy.load( cy.elements('*').jsons());
+					//cy.load(eles[selectedNodeId].outgoers());
+					cy.layout({ name: myLayout });
+					
+			});
+			
+        }
+        else{
+			
+		}
+		
+		
+    });
+	
+	
+	
+	
+	
+	
+	
 	/*
-			var selectedNode = this;
-			var selectedNodeId = selectedNode.data('id');
-			console.log(selectedNodeId);
-			
-		var nodesToAdd = allcy.nodes('node#1');
-			console.log("node id from allcy = " + nodesToAdd.data('id'));
-	
-		cy.remove(cy.elements());
-cy.add(allcy.nodes().closedNeighborhood());
-
-cy.load( cy.elements('*').jsons() );
-	//allcy.$('#1').outgoers();
-			//console.log(cy.elements('#thisId').data('id'));
-			//cy.add(nodesToAdd.outgoers());
-			//cy.load( cy.elements('*').jsons());
-			
-	});
-	
-	
-	*/
-	
-	
 	var cy = cytoscape({		
 
 		container: document.getElementById('cy'), 
@@ -219,7 +236,7 @@ cy.load( cy.elements('*').jsons() );
 							//'active-bg-size' : 100
 						})
   });
-  
+  */
   cy.boxSelectionEnabled(true);
   
   
