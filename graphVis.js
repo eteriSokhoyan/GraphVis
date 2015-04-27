@@ -136,46 +136,26 @@ var myLayout;
 						})
 	});
 	allcy.load(data);
-	cy.add(allcy.nodes().roots().closedNeighborhood());
+	var toAdd = allcy.nodes().roots().closedNeighborhood();
+	allcy.nodes().roots().addClass("roots");
+	//cy.add(toAdd);
 	
+	showNodesToExpand(toAdd);
+	cy.add(toAdd);
 	cy.load( cy.elements('*').jsons());
-	//cy.load( data);
 	
-	var nodesToAdd;
-	var eles = allcy.nodes();
-	$('#expandGraph').change(function() {
-        if($(this).is(":checked")) {
-			
-			cy.nodes().one("click", function(){
-	
-				var selectedNode = this;
-				var selectedNodeId = selectedNode.id();
-				selectedNodeId=selectedNodeId.replace(/[^0-9\.]+/g, "");
-				console.log(selectedNodeId);
-			
+	cy.style()
+			  .selector('.toBeExpaned')
+			  .css({
 				
-			
-				// nodesToAdd = eles[selectedNodeId].outgoers();
-					console.log("working");
-					
-					cy.add(eles[selectedNodeId].outgoers());
-					//cy.load( cy.elements('*').jsons());
-					//cy.load(eles[selectedNodeId].outgoers());
-					cy.layout({ name: myLayout });
-					
-			});
-			
-        }
-        else{
-			
-		}
+				'width': 50,
+				'height': 50
+				})
+			  .update() ;
 		
-		
-    });
 	
-	
-	
-	
+	//var nodesToAdd;
+	//var eles = allcy.nodes();
 	
 	
 	
@@ -280,9 +260,73 @@ var myLayout;
 					]
 				});
 				
-*/			
+*/		
+
+
+
+$('#expandGraph').change(function() {
+        if($(this).is(":checked")) {
+			
+			cy.nodes().on("click", expandNodes);
+			
+        }
+        else{
+			cy.nodes().off("click", expandNodes);
+		}
+		
+		
+	});
+	
+function expandNodes(){
+
+	var selectedNode = this;
+	var selectedNodeId = selectedNode.id();
+	selectedNodeId=selectedNodeId.replace(/[^0-9\.]+/g, "");
+	console.log(selectedNodeId);
+	
+	var eles = allcy.nodes();
+	
+	//var cyNodes = cy.nodes();
+	//console.log(cyNodes.anySame(eles.incomers()));
+	
+	nodesToAdd = eles[selectedNodeId].outgoers();
+	
+	showNodesToExpand(nodesToAdd);
+	cy.add(eles[selectedNodeId].outgoers());
+	
+	
+	selectedNode.removeClass('toBeExpaned');
+	cy.style()
+		.update() 
+	//cy.load( cy.elements('*').jsons());
+	//cy.load(eles[selectedNodeId].outgoers());
+	cy.layout({ name: myLayout });
+	
+
+
+}	
   
-  
+function showNodesToExpand(toAdd){
+
+	
+
+toAdd.nodes().forEach(function( ele ){
+		
+			
+			if(ele.outdegree() > 0 && !ele.hasClass('roots')){
+				console.log("node " + ele.id() + "has outgoers");
+				ele.addClass('toBeExpaned');	
+			}
+			else{
+				console.log("node " + ele.id() + "has NOT outgoers");
+			}
+		
+	});
+
+} 
+
+
+ 
   if($('#showInNode').is(":checked")){
 		showIn = true;
 		cy.nodes().on("click", highlightIn);
