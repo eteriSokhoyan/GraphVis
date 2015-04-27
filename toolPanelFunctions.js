@@ -1,5 +1,14 @@
 ///// show/hide Labels
 
+
+$("#openFile").change(function () {
+var fileName = $(this).val().replace('C:\\fakepath\\', '');
+$("#file-upload-filename").html(fileName);
+});
+
+
+
+
   $('#nodeLabelCheck').change(function() {
         if($(this).is(":checked")) {
 			showNodeLabel = "data(id)";			
