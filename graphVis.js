@@ -235,13 +235,13 @@ var myLayout;
 						},
 						
 						{
-							content: 'Text2',
+							content: 'function 2',
 							select: function(){
 								console.log( "on text2" );
 							}
 						},
 						{
-							content: 'Text2',
+							content: 'function 3',
 							select: function(){
 								console.log( "on text2" );
 							}
