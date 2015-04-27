@@ -220,31 +220,20 @@ var myLayout;
   cy.boxSelectionEnabled(true);
   
   
-/*  
+
   cy.cxtmenu({
 					selector: 'node',
 					menuRadius: 50, 
 					indicatorSize: 12,
 					commands: [
 						{
-							content: '<span class="fa fa-flash fa-2x">node info</span>',
+							content: '<span class="fa fa-flash fa-2x">expand</span>',
 							select: function(){
-								console.log( this.data('name') );
+								expandNodes(this);
 							
 							}
 						},
-						{
-							content: '<span class="fa fa-star fa-2x"></span>',
-							select: function(){
-								console.log( this.data('name') );
-							}
-						},
-						{
-							content: 'Text',
-							select: function(){
-								console.log( "on text" );
-							}
-						},
+						
 						{
 							content: 'Text2',
 							select: function(){
@@ -260,34 +249,16 @@ var myLayout;
 					]
 				});
 				
-*/		
-
-
-
-$('#expandGraph').change(function() {
-        if($(this).is(":checked")) {
-			
-			cy.nodes().on("click", expandNodes);
-			
-        }
-        else{
-			cy.nodes().off("click", expandNodes);
-		}
 		
-		
-	});
-	
-function expandNodes(){
+function expandNodes(selectedNode){
 
-	var selectedNode = this;
+	//var selectedNode = this;
 	var selectedNodeId = selectedNode.id();
 	selectedNodeId=selectedNodeId.replace(/[^0-9\.]+/g, "");
 	console.log(selectedNodeId);
 	
 	var eles = allcy.nodes();
 	
-	//var cyNodes = cy.nodes();
-	//console.log(cyNodes.anySame(eles.incomers()));
 	
 	nodesToAdd = eles[selectedNodeId].outgoers();
 	
@@ -298,8 +269,7 @@ function expandNodes(){
 	selectedNode.removeClass('toBeExpaned');
 	cy.style()
 		.update() 
-	//cy.load( cy.elements('*').jsons());
-	//cy.load(eles[selectedNodeId].outgoers());
+	
 	cy.layout({ name: myLayout });
 	
 
@@ -308,25 +278,21 @@ function expandNodes(){
   
 function showNodesToExpand(toAdd){
 
-	
-
-toAdd.nodes().forEach(function( ele ){
+	toAdd.nodes().forEach(function( ele ){
 		
 			
 			if(ele.outdegree() > 0 && !ele.hasClass('roots')){
-				console.log("node " + ele.id() + "has outgoers");
+				
 				ele.addClass('toBeExpaned');	
 			}
 			else{
-				console.log("node " + ele.id() + "has NOT outgoers");
+				
 			}
 		
 	});
 
 } 
 
-
- 
   if($('#showInNode').is(":checked")){
 		showIn = true;
 		cy.nodes().on("click", highlightIn);
