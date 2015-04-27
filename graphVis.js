@@ -93,11 +93,13 @@ var myLayout;
 		myLayout = $( this ).text();
     });
 	
+	var allcy = cytoscape({
+		headless: true,
+	});
+	
 	var cy = cytoscape({		
 
-		container: document.getElementById('cy'), 
-	
-		elements : data,	
+		container: document.getElementById('cy'),
 		layout: {
 			// name: 'random',
 			name: myLayout
@@ -107,7 +109,7 @@ var myLayout;
 		ready: function(){
 			//mychange();
 			window.cy = this;
-		},	
+		},
 		style: cytoscape.stylesheet()
 						.selector('node')
 						.css({
@@ -132,36 +134,106 @@ var myLayout;
 							'source-arrow-color': '#FE2E64',
 							'opacity': 1
 						})
+	});
+	allcy.load(data);
+	var toAdd = allcy.nodes().roots().closedNeighborhood();
+	allcy.nodes().roots().addClass("roots");
+	//cy.add(toAdd);
+	
+	showNodesToExpand(toAdd);
+	cy.add(toAdd);
+	cy.load( cy.elements('*').jsons());
+	
+	cy.style()
+			  .selector('.toBeExpaned')
+			  .css({
+				
+				'width': 50,
+				'height': 50
+				})
+			  .update() ;
+		
+	
+	//var nodesToAdd;
+	//var eles = allcy.nodes();
+	
+	
+	
+	/*
+	var cy = cytoscape({		
+
+		container: document.getElementById('cy'), 
+	
+		elements : data,	
+		layout: {
+			// name: 'random',
+			name: myLayout
+			//avoidOverlap: true,
+			//padding: 10
+		},
+		  hideEdgesOnViewport: true,
+		  hideLabelsOnViewport : true,
+		  motionBlur : true,
+		  textureOnViewport : true,
+		 // pixelRatio: 0.666,
+
+		ready: function(){
+			//mychange();
+			window.cy = this;
+		},	
+		style: cytoscape.stylesheet()
+						.selector('node')
+						.css({
+							'content': showNodeLabel,
+							'text-valign':'center',
+							'background-color': '#888888',
+							'opacity': 0.8
+							
+						})
+						.selector('edge')
+						.css({
+							'curve-style' : 'unbundled-bezier',
+							'target-arrow-shape': 'triangle',
+							'width': 4,
+							'line-color': '#ddd',
+							'target-arrow-color': '#ddd',
+							'content': showEdgeLabel
+							
+							
+						})
+						.selector(':selected')
+						.css({
+							'background-color': '#FE2E64',
+							'line-color': '#FE2E64',
+							'target-arrow-color': '#FE2E64',
+							'source-arrow-color': '#FE2E64',
+							'opacity': 1
+						})
+						.selector('core')
+						.css({
+							'outside-texture-bg-color' : 'white'
+							
+							//'active-bg-size' : 100
+						})
   });
-  
+  */
   cy.boxSelectionEnabled(true);
   
   
-/*  
+
   cy.cxtmenu({
 					selector: 'node',
 					menuRadius: 50, 
 					indicatorSize: 12,
 					commands: [
 						{
-							content: '<span class="fa fa-flash fa-2x">node info</span>',
+							content: '<span class="fa fa-flash fa-2x">expand</span>',
 							select: function(){
-								console.log( this.data('name') );
+								expandNodes(this);
 							
 							}
 						},
-						{
-							content: '<span class="fa fa-star fa-2x"></span>',
-							select: function(){
-								console.log( this.data('name') );
-							}
-						},
-						{
-							content: 'Text',
-							select: function(){
-								console.log( "on text" );
-							}
-						},
+						
 						{
 							content: 'Text2',
 							select: function(){
@@ -177,9 +249,50 @@ var myLayout;
 					]
 				});
 				
-*/			
+		
+function expandNodes(selectedNode){
+
+	//var selectedNode = this;
+	var selectedNodeId = selectedNode.id();
+	selectedNodeId=selectedNodeId.replace(/[^0-9\.]+/g, "");
+	console.log(selectedNodeId);
+	
+	var eles = allcy.nodes();
+	
+	
+	nodesToAdd = eles[selectedNodeId].outgoers();
+	
+	showNodesToExpand(nodesToAdd);
+	cy.add(eles[selectedNodeId].outgoers());
+	
+	
+	selectedNode.removeClass('toBeExpaned');
+	cy.style()
+		.update() 
+	
+	cy.layout({ name: myLayout });
+	
+
+
+}	
   
-  
+function showNodesToExpand(toAdd){
+
+	toAdd.nodes().forEach(function( ele ){
+		
+			
+			if(ele.outdegree() > 0 && !ele.hasClass('roots')){
+				
+				ele.addClass('toBeExpaned');	
+			}
+			else{
+				
+			}
+		
+	});
+
+} 
+
   if($('#showInNode').is(":checked")){
 		showIn = true;
 		cy.nodes().on("click", highlightIn);
