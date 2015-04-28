@@ -164,17 +164,19 @@ font-size: 14px;
    *width: 150px;
    *background: #3498db;
    -webkit-appearance: none;
+   padding: 5px 5px 5px 5px;
 }
 
 #mainselection {
    overflow:hidden;
-   width:150px;
+   width:160px;
    -moz-border-radius: 28px;
    -webkit-border-radius: 28px;
    border-radius: 9px 9px 9px 9px;
    box-shadow: 1px 1px 1px #330033;
    background: #3498db url("http://i62.tinypic.com/15xvbd5.png") no-repeat 
-   scroll 119px center;
+   scroll 135px center;
+   
 }
 
   

@@ -90,7 +90,14 @@ var myLayout;
  function createGraph(data) {
  
  $( "select option:selected" ).each(function() {
-		myLayout = $( this ).text();
+		shape = $( this ).text();
+		console.log(shape);
+		if( shape == "Choose the shape"){
+			myLayout = "breadthfirst";
+		}
+		else {
+			myLayout = shape;
+		}
     });
 	
 	var allcy = cytoscape({
@@ -136,15 +143,18 @@ var myLayout;
 						})
 	});
 	allcy.load(data);
-	var toAdd = allcy.nodes().roots().closedNeighborhood();
-	allcy.nodes().roots().addClass("roots");
-	//cy.add(toAdd);
+//	console.log("lenght = " + allcy.nodes().length);
+	if(allcy.nodes().length >50){
+		
+		var toAdd = allcy.nodes().roots().closedNeighborhood();
+		allcy.nodes().roots().addClass("roots");
+		//cy.add(toAdd);
 	
-	showNodesToExpand(toAdd);
-	cy.add(toAdd);
-	cy.load( cy.elements('*').jsons());
+		showNodesToExpand(toAdd);
+		cy.add(toAdd);
+		cy.load( cy.elements('*').jsons());
 	
-	cy.style()
+		cy.style()
 			  .selector('.toBeExpaned')
 			  .css({
 				
@@ -153,16 +163,13 @@ var myLayout;
 				})
 			  .update() ;
 		
+	}
 	
-	//var nodesToAdd;
-	//var eles = allcy.nodes();
+	else{
 	
-	
-	
-	/*
-	var cy = cytoscape({		
+		 cy = cytoscape({		
 
-		container: document.getElementById('cy'), 
+			container: document.getElementById('cy'), 
 	
 		elements : data,	
 		layout: {
@@ -215,8 +222,8 @@ var myLayout;
 							
 							//'active-bg-size' : 100
 						})
-  });
-  */
+	});
+  }
   cy.boxSelectionEnabled(true);
   
   
@@ -248,6 +255,9 @@ var myLayout;
 						}
 					]
 				});
+				
+				
+	
 				
 		
 function expandNodes(selectedNode){
