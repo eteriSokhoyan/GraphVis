@@ -1,3 +1,4 @@
+/*
 var collapse=false;
 $('#collapseNode').change(function() {
         if($(this).is(":checked")) {
@@ -11,14 +12,17 @@ $('#collapseNode').change(function() {
 		}
 		
 });
-
+*/
 var collapseOrder = 0;	
 var collapseNodeCount=0;
 var num=0;
 
 function colNode(){
 	//console.log("collapse");
-	var selectedNode = this;
+	var selectedNode = cy.nodes(':selected');
+	
+	
+	
 	var connectedEdges = selectedNode.connectedEdges(function(){
 										return !this.target().anySame( selectedNode );
 									});
@@ -87,7 +91,7 @@ function colNode(){
 		collapseOrder = collapseOrder + 1;		
 		
 	}
-		
+	$('.btn.colNode').prop('disabled', true);	
 }
 
 function addCollapsedEdges(selectedNode,collapseOrder){
@@ -209,6 +213,16 @@ $('#collapseCount').change(function() {
 				var nd = event.cyTarget;
 				if(nd.hasClass('superNode')){
 					Tip('contains ' + nd.data().colNum + ' node(s)', PADDING, 10);
+				}
+				else if(nd.hasClass('toBeExpaned')){
+					
+					var eles = allcy.nodes();
+					var selectedNodeId = nd.id();
+					selectedNodeId = selectedNodeId.replace(/[^0-9\.]+/g, "");
+					
+					var nodeCount =  eles[selectedNodeId].outdegree();	
+					Tip('contains ' + nodeCount + ' node(s)', PADDING, 10);
+						
 				}
 				else{
 					Tip('contains 0 node(s)', PADDING, 10);

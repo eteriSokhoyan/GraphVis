@@ -2,6 +2,8 @@
 <html>
 <head>
 <link href="style.css" rel="stylesheet" />
+
+
 <meta charset=utf-8 />
 <title>index</title>
 
@@ -14,8 +16,10 @@
 <!--script type="text/javascript" src="slideMenu.js" ></script>
 <script type="text/javascript" src="toggleMenu.js" ></script-->
 <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/70964f0306e770837dbe2b81197c12fdc7804e38/cytoscape-qtip.js"></script>
-<script type="text/javascript" src="cytoscape-cxtmenu.js" ></script>
 
+
+<script src="cytoscape-cxtmenu.js"></script> 
+	 
 
 <script>
 
@@ -59,7 +63,7 @@
 <script type="text/javascript" src="lib/wz_tooltip.js"></script>
 
 
-<div id="cy" ></div>
+<div id="cy"  ></div>
 
 <div class="panel">
 
@@ -106,10 +110,10 @@ Choose File
    highlight incoming nodes
 </label> <br><br>
 
-<input type="checkbox" class="css-checkbox" id="collapseNode" >
+<!--input type="checkbox" class="css-checkbox" id="collapseNode" >
 <label for="collapseNode" name="nodeLabelCheck" class="css-label"> 
   collapse nodes
-</label> <br><br>
+</label> <br><br-->
 
 
 <input type="checkbox" class="css-checkbox" name="showCollapsedNodeNum" id="collapseCount">
@@ -123,16 +127,22 @@ cklick on node to see the info
 </label> <br><br>
 
 
+<input type = "button"  class ="btn colNode" name="collapseNode" id="collapseNode" value="Collapse Selected Node " onclick="colNode()" disabled="disabled"> <br><br>
 
-<input type = "button" class="btn" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes " onclick="deleteSelectedNodes()"> <br><br>
+<input type = "button" class="btn expNode" name="expandNode" id="expandNode" value="Expand Selected Node " disabled="disabled"> <br><br>
+
+
+<input type = "button" class="btn delNode" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes " onclick="deleteSelectedNodes()" disabled="disabled"> <br><br>
 
 
 <input type = "button" class="btn" name="restoreNodes" id="restoreNodes" value="Restore Deleted Nodes" onclick="restoreDeletedNodes()"> <br><br>
 <input type = "button" class="btn" name="restore" id="restore" value="Restore The Structure  " onclick="restorGraphStructure()"> <br><br>
 <input type = "button" class="btn" name="export" id="export" value="Export PNG" onclick="exportFunction()"> <br><br>
 
+
+
  </div>
- 
+
 
 
 <a href="javascript:void(0);" class="slider-arrow show">&raquo;</a>

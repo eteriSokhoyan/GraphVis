@@ -252,7 +252,12 @@ $('#selectShape').change(function() {
 	}
 
 		
-////// export PNG 		
+
+
+
+
+
+////// export PNG 	
  function exportFunction(){
  
   var pngPic = cy.png();
@@ -324,7 +329,7 @@ function showNodeInfo(){
 	//window.open().document.write(info);
 }
 */
-function showNodeInfo(){
+function showNodeInfo(node){
 
 	var node = this;
 	
@@ -402,7 +407,7 @@ $(document).on('click','.slider-arrow.show',function(){
 		  
     });
 	
-	$(document).on('click','.slider-arrow.hide',function(){
+$(document).on('click','.slider-arrow.hide',function(){
 	    $( ".slider-arrow, .panel" ).animate({
           left: "-=243"
 		  }, 700, function() {
@@ -413,3 +418,47 @@ $(document).on('click','.slider-arrow.show',function(){
 		 // document.getElementById('cy').style.width="100%";
 		   cy.resize();
     });
+
+$(document).on('click', function(){
+ 
+ var selectedNode = cy.nodes(':selected');
+
+if(selectedNode.outgoers().length == 0){
+	
+	$('.btn.colNode').prop('disabled', true);
+
+	
+}
+else if(selectedNode.hasClass('superNode')){
+
+	$('.btn.colNode').prop('disabled', true);
+
+}
+else {
+
+	$('.btn.colNode').prop('disabled', false);
+
+}
+
+if(selectedNode.hasClass('toBeExpaned') || selectedNode.hasClass('superNode') ){
+
+	$('.btn.expNode').prop('disabled', false);
+
+}
+else{
+	
+	$('.btn.expNode').prop('disabled', true);
+
+}
+
+if(cy.nodes(":selected").length > 0){
+
+	$('.btn.delNode').prop('disabled', false);
+}
+else{
+
+	$('.btn.delNode').prop('disabled', true);
+}
+
+
+});
