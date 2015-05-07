@@ -90,10 +90,7 @@
          } //// end document.getElementById
 
 
-     //shape = $("#mainselection").val()
 
-
-     //console.log(shape);	
 
      $("select option:selected").each(function() {
          shape = $(this).val();
@@ -369,5 +366,36 @@
      });
 
 
+	$( document ).keypress(function(e) {
+  
+  var selectedNode = cy.nodes(':selected');
+  
+  
+  if(e.which == 101 && selectedNode.size() != 0){   // 101 for 'e' = expand
+  
+	if(selectedNode.hasClass('toBeExpaned') ) {
+		
+		expandNodes(selectedNode);
+		
+	}
+	else if(selectedNode.hasClass('superNode')){
+	
+		colNode();
+	}
+	
+		
+  }
+   if ( e.which == 99 && selectedNode.size() != 0 && !selectedNode.hasClass('superNode') && selectedNode.outgoers().length != 0) { // 99 for 'c' = collapse
+	colNode();
+  }
+  
+  if ( e.which == 100 && selectedNode.size() != 0) { // 100 for 'd' = delete
+	deleteSelectedNodes();
+  }
+  
+  
+}); 
+	 
+	 
 
  }); // END on dom ready
