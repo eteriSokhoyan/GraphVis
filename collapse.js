@@ -13,233 +13,226 @@ $('#collapseNode').change(function() {
 		
 });
 */
-var collapseOrder = 0;	
-var collapseNodeCount=0;
-var num=0;
+var collapseOrder = 0;
+var collapseNodeCount = 0;
+var num = 0;
 
-function colNode(){
-	//console.log("collapse");
-	var selectedNode = cy.nodes(':selected');
-	
-	
-	
-	var connectedEdges = selectedNode.connectedEdges(function(){
-										return !this.target().anySame( selectedNode );
-									});
-	var connectedNodes = connectedEdges.targets();
-	 
-	//console.log("collapseNodeCount = " + collapseNodeCount);
-	
-		// expand node if it was collapsed before
-	if(selectedNode.hasClass('superNode')){
-		
-		cy.style()		
-		  .selector('.superNode')
-		  .update() ;
-		
-		selectedNode.removeClass('superNode');
-		
-		for(var i=collapseOrder; i>= 0; i--){
-			
-			if(connectedNodes.hasClass('collapsedNode'+ i) || connectedEdges.hasClass('collapsedNode'+ i)){
-				
-				connectedNodes.removeClass('collapsedNode'+ i);					
-				connectedEdges.removeClass('collapsedNode' + i);		
-				removeCollapsedEdges(selectedNode, i);
-			
-				cy.style()
-				  .update() ;// remove invisibility
-				cy.fit();	
-			}
-			//collapseNodeCount = connectedNodes.length -collapseNodeCount ;
-		}
-		
-		collapseOrder --;	
-		
-	}
-			//// collapse node if it was not collaped before
-	else {
-		
-		collapseNodeCount = connectedNodes.length;  // working wrong on expanding nodes..
-		num = selectedNode.data('colNum',collapseNodeCount );
-	//	console.log("this node contains " + num.data().colNum + " nodes" );
-		connectedNodes.addClass('collapsedNode' + collapseOrder);					
-		connectedEdges.addClass('collapsedNode' + collapseOrder);		
-		selectedNode.addClass('superNode');
-		
-		addCollapsedEdges(selectedNode, collapseOrder);	
-			
-			cy.style()
-			  .selector('.collapsedNode' + collapseOrder)
-		      .css({
-				'visibility': 'hidden'
-				})
-			  .update() ;
-			
-			cy.style()
-			  .selector('.superNode')
-			  .css({
-				'opacity': 0.8,
-				'width': 50,
-				'height': 50
-				})
-			  .update() ;
-			  
-			  cy.fit();
-			  
+function colNode() {
+    //console.log("collapse");
+    var selectedNode = cy.nodes(':selected');
 
-		collapseOrder = collapseOrder + 1;		
-		
-	}
-	$('.btn.colNode').prop('disabled', true);	
+
+
+    var connectedEdges = selectedNode.connectedEdges(function() {
+        return !this.target().anySame(selectedNode);
+    });
+    var connectedNodes = connectedEdges.targets();
+
+    //console.log("collapseNodeCount = " + collapseNodeCount);
+
+    // expand node if it was collapsed before
+    if (selectedNode.hasClass('superNode')) {
+
+        cy.style()
+            .selector('.superNode')
+            .update();
+
+        selectedNode.removeClass('superNode');
+
+        for (var i = collapseOrder; i >= 0; i--) {
+
+            if (connectedNodes.hasClass('collapsedNode' + i) || connectedEdges.hasClass('collapsedNode' + i)) {
+
+                connectedNodes.removeClass('collapsedNode' + i);
+                connectedEdges.removeClass('collapsedNode' + i);
+                removeCollapsedEdges(selectedNode, i);
+
+                cy.style()
+                    .update(); // remove invisibility
+                cy.fit();
+            }
+            //collapseNodeCount = connectedNodes.length -collapseNodeCount ;
+        }
+
+        collapseOrder--;
+
+    }
+    //// collapse node if it was not collaped before
+    else {
+
+        collapseNodeCount = connectedNodes.length; // working wrong on expanding nodes..
+        num = selectedNode.data('colNum', collapseNodeCount);
+        //	console.log("this node contains " + num.data().colNum + " nodes" );
+        connectedNodes.addClass('collapsedNode' + collapseOrder);
+        connectedEdges.addClass('collapsedNode' + collapseOrder);
+        selectedNode.addClass('superNode');
+
+        addCollapsedEdges(selectedNode, collapseOrder);
+
+        cy.style()
+            .selector('.collapsedNode' + collapseOrder)
+            .css({
+                'visibility': 'hidden'
+            })
+            .update();
+
+        cy.style()
+            .selector('.superNode')
+            .css({
+                'opacity': 0.8,
+                'width': 50,
+                'height': 50
+            })
+            .update();
+
+        cy.fit();
+
+
+        collapseOrder = collapseOrder + 1;
+
+    }
+    $('.btn.colNode').prop('disabled', true);
 }
 
-function addCollapsedEdges(selectedNode,collapseOrder){
-			
-	var connectedEdges = selectedNode.connectedEdges(function(){
-										return !this.target().anySame( selectedNode );
-									});					
-									
-	var connectedNodes = connectedEdges.targets();
-	//console.log("connectedNodes = " + connectedEdges.data('id'));
+function addCollapsedEdges(selectedNode, collapseOrder) {
 
-	var newTargetEdges = connectedNodes.connectedEdges(function(){
-										return !this.target().anySame( connectedNodes );
-									});
-	var newSourceEdges = connectedNodes.connectedEdges(function(){
-										return !this.source().anySame( connectedNodes );
-									});
-	
-	var newTargetNodes = newTargetEdges.targets();
-	var newSourceNodes = newSourceEdges.sources();	
-	
-		
-	newTargetNodes.each(function(i, ele){
-			
-		if(ele.edgesTo(selectedNode).sources().data('id') == selectedNode.data('id') || ele.data('id') == selectedNode.data('id') ){  // preventing duplicate edges 
-		
-			ele=ele+1;			
-		}
-		else {		
-		
-			//console.log("second ele = " + ele.data('id'));
-				cy.add({
-				group: "edges", 
-				data: {
-					source: selectedNode.data('id'), 
-					target: ele.data('id')
-					} 
-				})
-				.addClass('virtualEdges' + collapseOrder)
-		}
-	});
-		
-		
-	
-	
-	newSourceNodes.each(function(i, ele){
-	
-		if(ele.edgesTo(selectedNode).targets().data('id') == selectedNode.data('id') || ele.data('id') == selectedNode.data('id')){   
-		
-			ele=ele+1;			
-		}
-		else {		
-		
-			cy.add({
-			group: "edges", 
-			data: { 
-				source: ele.data('id'),
-				target: selectedNode.data('id')
-				} 
-		})	
-		.addClass('virtualEdges' + collapseOrder)
-		}
-		});
-	
-}
+    var connectedEdges = selectedNode.connectedEdges(function() {
+        return !this.target().anySame(selectedNode);
+    });
+
+    var connectedNodes = connectedEdges.targets();
+    //console.log("connectedNodes = " + connectedEdges.data('id'));
+
+    var newTargetEdges = connectedNodes.connectedEdges(function() {
+        return !this.target().anySame(connectedNodes);
+    });
+    var newSourceEdges = connectedNodes.connectedEdges(function() {
+        return !this.source().anySame(connectedNodes);
+    });
+
+    var newTargetNodes = newTargetEdges.targets();
+    var newSourceNodes = newSourceEdges.sources();
 
 
-function removeCollapsedEdges(selectedNode, collapseOrder){
+    newTargetNodes.each(function(i, ele) {
 
-	selectedNode.connectedEdges().each(function(i, ele){
-	//	console.log("edges to be removed =  " + ele.data('id'));
-		if(ele.hasClass('virtualEdges'+collapseOrder)){
-			
-			cy.remove(ele);
-		}			
-	});
-	//collapseOrder --;
+        if (ele.edgesTo(selectedNode).sources().data('id') == selectedNode.data('id') || ele.data('id') == selectedNode.data('id')) { // preventing duplicate edges 
+
+            ele = ele + 1;
+        } else {
+
+            //console.log("second ele = " + ele.data('id'));
+            cy.add({
+                    group: "edges",
+                    data: {
+                        source: selectedNode.data('id'),
+                        target: ele.data('id')
+                    }
+                })
+                .addClass('virtualEdges' + collapseOrder)
+        }
+    });
+
+
+
+
+    newSourceNodes.each(function(i, ele) {
+
+        if (ele.edgesTo(selectedNode).targets().data('id') == selectedNode.data('id') || ele.data('id') == selectedNode.data('id')) {
+
+            ele = ele + 1;
+        } else {
+
+            cy.add({
+                    group: "edges",
+                    data: {
+                        source: ele.data('id'),
+                        target: selectedNode.data('id')
+                    }
+                })
+                .addClass('virtualEdges' + collapseOrder)
+        }
+    });
+
 }
 
 
-function resetCollapse(){
-	
-	for(var i = collapseOrder; i>= 0; i--){
-	
-	cy.style()
-	  .selector('.collapsedNode'+i)
-	  .css({
-			'opacity': 0.8,
-			'background-color': '#888888',
-			'line-color': '#ddd',
-			'target-arrow-color': '#ddd'
-		})
-	  .update() ;
-				  
-		cy.style()		
-		  .selector('.superNode')
-		  .css({
-				'opacity': 0.8,
-				'background-color': '#888888', //
-				'border-width': 0
-			})	
-		 .update() ;
-		 
-		cy.remove('.virtualEdges'+i);
-		
-		cy.nodes().removeClass('superNode');
-		cy.nodes().removeClass('collapsedNode'+i);
-		cy.edges().removeClass('collapsedNode'+i);
-		cy.edges().removeClass('virtualEdges'+i);
-	console.log("collapseOrder = " + collapseOrder);
-	}
+function removeCollapsedEdges(selectedNode, collapseOrder) {
+
+    selectedNode.connectedEdges().each(function(i, ele) {
+        //	console.log("edges to be removed =  " + ele.data('id'));
+        if (ele.hasClass('virtualEdges' + collapseOrder)) {
+
+            cy.remove(ele);
+        }
+    });
+    //collapseOrder --;
+}
+
+
+function resetCollapse() {
+
+    for (var i = collapseOrder; i >= 0; i--) {
+
+        cy.style()
+            .selector('.collapsedNode' + i)
+            .css({
+                'opacity': 0.8,
+                'background-color': '#888888',
+                'line-color': '#ddd',
+                'target-arrow-color': '#ddd'
+            })
+            .update();
+
+        cy.style()
+            .selector('.superNode')
+            .css({
+                'opacity': 0.8,
+                'background-color': '#888888', //
+                'border-width': 0
+            })
+            .update();
+
+        cy.remove('.virtualEdges' + i);
+
+        cy.nodes().removeClass('superNode');
+        cy.nodes().removeClass('collapsedNode' + i);
+        cy.edges().removeClass('collapsedNode' + i);
+        cy.edges().removeClass('virtualEdges' + i);
+        console.log("collapseOrder = " + collapseOrder);
+    }
 }
 
 
 $('#collapseCount').change(function() {
-        if($(this).is(":checked")) {
-			
-			cy.nodes().on("mouseover", function(event){
-				var nd = event.cyTarget;
-				if(nd.hasClass('superNode')){
-					Tip('contains ' + nd.data().colNum + ' node(s)', PADDING, 10);
-				}
-				else if(nd.hasClass('toBeExpaned')){
-					
-					var eles = allcy.nodes();
-					var selectedNodeId = nd.id();
-					selectedNodeId = selectedNodeId.replace(/[^0-9\.]+/g, "");
-					
-					var nodeCount =  eles[selectedNodeId].outdegree();	
-					Tip('contains ' + nodeCount + ' node(s)', PADDING, 10);
-						
-				}
-				else{
-					Tip('contains 0 node(s)', PADDING, 10);
-				}
-				
-			});
-			
-			cy.nodes().on("mouseout", function(event){
-				var nd = event.cyTarget;
-				UnTip();
-			});
-        }
-        else{
-			cy.nodes().off("mouseover");
-		}
-		
-		
+    if ($(this).is(":checked")) {
+
+        cy.nodes().on("mouseover", function(event) {
+            var nd = event.cyTarget;
+            if (nd.hasClass('superNode')) {
+                Tip('contains ' + nd.data().colNum + ' node(s)', PADDING, 10);
+            } else if (nd.hasClass('toBeExpaned')) {
+
+                var eles = allcy.nodes();
+                var selectedNodeId = nd.id();
+                selectedNodeId = selectedNodeId.replace(/[^0-9\.]+/g, "");
+
+                var nodeCount = eles[selectedNodeId].outdegree();
+                Tip('contains ' + nodeCount + ' node(s)', PADDING, 10);
+
+            } else {
+                Tip('contains 0 node(s)', PADDING, 10);
+            }
+
+        });
+
+        cy.nodes().on("mouseout", function(event) {
+            var nd = event.cyTarget;
+            UnTip();
+        });
+    } else {
+        cy.nodes().off("mouseover");
+    }
+
+
 });
-
-

@@ -1,151 +1,184 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<link href="style.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
 
 
-<meta charset=utf-8 />
-<title>index</title>
+    <meta charset=utf-8 />
+    <title>index</title>
 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
-<script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
-<link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css" media="all" />
-<!--script type="text/javascript" src="slideMenu.js" ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
+    <script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+    <link href="style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--script type="text/javascript" src="slideMenu.js" ></script>
 <script type="text/javascript" src="toggleMenu.js" ></script-->
-<script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/70964f0306e770837dbe2b81197c12fdc7804e38/cytoscape-qtip.js"></script>
+    <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/70964f0306e770837dbe2b81197c12fdc7804e38/cytoscape-qtip.js"></script>
 
 
-<script src="cytoscape-cxtmenu.js"></script> 
-	 
+    <script src="cytoscape-cxtmenu.js"></script>
 
-<script>
+	<link rel="stylesheet" href="messi.css" />
+<script src="messi.js"></script>
+	
 
-(function(d){
-    var s=d.getElementsByTagName('script')[0],f=d.createElement('script');
-    f.type='text/javascript';
-    f.async=true;
-    f.src='graphVis.js';
-    s.parentNode.insertBefore(f,s);
-    f=d.createElement('script');
-    f.type='text/javascript';
-    f.async=true;
-    f.src='toolPanelFunctions.js';
-    s.parentNode.insertBefore(f,s);
-})(document)
+    <script>
+        (function(d) {
+            var s = d.getElementsByTagName('script')[0],
+                f = d.createElement('script');
+            f.type = 'text/javascript';
+            f.async = true;
+            f.src = 'graphVis.js';
+            s.parentNode.insertBefore(f, s);
+            f = d.createElement('script');
+            f.type = 'text/javascript';
+            f.async = true;
+            f.src = 'toolPanelFunctions.js';
+            s.parentNode.insertBefore(f, s);
+        })(document)
+    </script>
 
-</script>
 
 
-
-<script>
-
-(function(d){
-    var s=d.getElementsByTagName('script')[0],f=d.createElement('script');
-    f.type='text/javascript';
-    f.async=true;
-    f.src='graphVis.js';
-    s.parentNode.insertBefore(f,s);
-    f=d.createElement('script');
-    f.type='text/javascript';
-    f.async=true;
-    f.src='collapse.js';
-    s.parentNode.insertBefore(f,s);	
-})(document)
-
-</script>         
+    <script>
+        (function(d) {
+            var s = d.getElementsByTagName('script')[0],
+                f = d.createElement('script');
+            f.type = 'text/javascript';
+            f.async = true;
+            f.src = 'graphVis.js';
+            s.parentNode.insertBefore(f, s);
+            f = d.createElement('script');
+            f.type = 'text/javascript';
+            f.async = true;
+            f.src = 'collapse.js';
+            s.parentNode.insertBefore(f, s);
+        })(document)
+    </script>
 
 
 </head>
+
 <body>
-<script type="text/javascript" src="lib/wz_tooltip.js"></script>
+    <script type="text/javascript" src="lib/wz_tooltip.js"></script>
 
 
-<div id="cy"  ></div>
+    <div id="cy"></div>
 
-<div class="panel">
+    <div class="panel">
 
-<br>
-
-
-<div class="file-upload-override-button left">
-Choose File
-<input type="file" class="file-upload-button" id="openFile"/>  
-</div>
-<div class="file-upload-filename left" id="file-upload-filename">No file selected<br><br></div><br><br>
+        <br>
 
 
+        <div class="file-upload-override-button left">
+            Choose File
+            <input type="file" class="file-upload-button" id="openFile" />
+        </div>
+        <div class="file-upload-filename left" id="file-upload-filename">No file selected
+            <br>
+            <br>
+        </div>
+        <br>
+        <br>
 
-<div id="mainselection">
-<select name="select" id="selectShape"> 
-  <option value="" selected>Choose the shape</option> 
-  <option value="random">random</option> 
-  <option value="circle" >circle</option>
-  <option value="grid">grid</option>
-  <option value="concentric">concentric</option> 
-  <option value="breadthfirst">breadthfirst</option>
-</select>
-</div>
-<br>
 
-<input type="checkbox" class="css-checkbox" name="nlabelSelection" id="nodeLabelCheck"/>
- <label for="nodeLabelCheck" name="nodeLabelCheck" class="css-label"> 
-    show node label
- </label> <br><br>
 
-<input type="checkbox" class="css-checkbox" name="elabelSelection" id="linkLabelCheck"/>
- <label for="linkLabelCheck" name="nodeLabelCheck" class="css-label"> 
-    show edge label
- </label> <br><br>
+        <div id="mainselection">
+            <select name="select" id="selectShape">
+                <option value="random" selected>Choose the shape</option>
+                <option value="random">random</option>
+                <option value="circle">circle</option>
+                <option value="grid">grid</option>
+                <option value="concentric">concentric</option>
+                <option value="breadthfirst">breadthfirst</option>
+            </select>
+        </div>
+        <br>
 
-<input type="checkbox" class="css-checkbox" name="showOutgoing" id="showOutNode" >
-<label for="showOutNode" name="nodeLabelCheck" class="css-label"> 
-    highlight outgoing nodes
-</label> <br><br>
+        <input type="checkbox" class="css-checkbox" name="nlabelSelection" id="nodeLabelCheck" />
+        <label for="nodeLabelCheck" name="nodeLabelCheck" class="css-label">
+            show node label
+        </label>
+        <br>
+        <br>
 
-<input type="checkbox" class="css-checkbox" name="showInComing" id="showInNode" >
-<label for="showInNode" name="nodeLabelCheck" class="css-label"> 
-   highlight incoming nodes
-</label> <br><br>
+        <input type="checkbox" class="css-checkbox" name="elabelSelection" id="linkLabelCheck" />
+        <label for="linkLabelCheck" name="nodeLabelCheck" class="css-label">
+            show edge label
+        </label>
+        <br>
+        <br>
 
-<!--input type="checkbox" class="css-checkbox" id="collapseNode" >
+        <input type="checkbox" class="css-checkbox" name="showOutgoing" id="showOutNode">
+        <label for="showOutNode" name="nodeLabelCheck" class="css-label">
+            highlight outgoing nodes
+        </label>
+        <br>
+        <br>
+
+        <input type="checkbox" class="css-checkbox" name="showInComing" id="showInNode">
+        <label for="showInNode" name="nodeLabelCheck" class="css-label">
+            highlight incoming nodes
+        </label>
+        <br>
+        <br>
+
+        <!--input type="checkbox" class="css-checkbox" id="collapseNode" >
 <label for="collapseNode" name="nodeLabelCheck" class="css-label"> 
   collapse nodes
 </label> <br><br-->
 
 
-<input type="checkbox" class="css-checkbox" name="showCollapsedNodeNum" id="collapseCount">
-<label for="collapseCount" name="nodeLabelCheck" class="css-label"> 
- show the number of collapsed nodes
-</label> <br><br>
+        <input type="checkbox" class="css-checkbox" name="showCollapsedNodeNum" id="collapseCount">
+        <label for="collapseCount" name="nodeLabelCheck" class="css-label">
+            show the number of collapsed nodes
+        </label>
+        <br>
+        <br>
 
-<input type="checkbox" class="css-checkbox" id="nodeInfoCheck" >
-<label for="nodeInfoCheck" name="nodeLabelCheck" class="css-label"> 
-cklick on node to see the info
-</label> <br><br>
-
-
-<input type = "button"  class ="btn colNode" name="collapseNode" id="collapseNode" value="Collapse Selected Node " onclick="colNode()" disabled="disabled"> <br><br>
-
-<input type = "button" class="btn expNode" name="expandNode" id="expandNode" value="Expand Selected Node " disabled="disabled"> <br><br>
-
-
-<input type = "button" class="btn delNode" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes " onclick="deleteSelectedNodes()" disabled="disabled"> <br><br>
+        <input type="checkbox" class="css-checkbox" id="nodeInfoCheck">
+        <label for="nodeInfoCheck" name="nodeLabelCheck" class="css-label">
+            cklick on node to see the info
+        </label>
+        <br>
+        <br>
 
 
-<input type = "button" class="btn" name="restoreNodes" id="restoreNodes" value="Restore Deleted Nodes" onclick="restoreDeletedNodes()"> <br><br>
-<input type = "button" class="btn" name="restore" id="restore" value="Restore The Structure  " onclick="restorGraphStructure()"> <br><br>
-<input type = "button" class="btn" name="export" id="export" value="Export PNG" onclick="exportFunction()"> <br><br>
+        <input type="button" class="btn colNode" name="collapseNode" id="collapseNode" value="Collapse Selected Node " onclick="colNode()" disabled="disabled">
+        <br>
+        <br>
+
+        <input type="button" class="btn expNode" name="expandNode" id="expandNode" value="Expand Selected Node " disabled="disabled">
+        <br>
+        <br>
+
+
+        <input type="button" class="btn delNode" name="deleteNodes" id="deleteNodes" value="Delete Selected Nodes " onclick="deleteSelectedNodes()" disabled="disabled">
+        <br>
+        <br>
+
+
+        <input type="button" class="btn" name="restoreNodes" id="restoreNodes" value="Restore Deleted Nodes" onclick="restoreDeletedNodes()">
+        <br>
+        <br>
+        <input type="button" class="btn" name="restore" id="restore" value="Restore The Structure  " onclick="restorGraphStructure()">
+        <br>
+        <br>
+        <input type="button" class="btn" name="export" id="export" value="Export PNG" onclick="exportFunction()">
+        <br>
+        <br>
 
 
 
- </div>
+    </div>
 
 
 
-<a href="javascript:void(0);" class="slider-arrow show">&raquo;</a>
+    <a href="javascript:void(0);" class="slider-arrow show">&raquo;</a>
 
 </body>
+
 </html>
