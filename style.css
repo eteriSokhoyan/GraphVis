@@ -92,7 +92,7 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 }
 
 .css-label {
-    background-image: url(lite-blue-check.png);
+    background-image: url(images/lite-blue-check.png);
 }
   
 
