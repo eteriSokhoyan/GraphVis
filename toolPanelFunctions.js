@@ -1,15 +1,13 @@
-///// show/hide Labels
+//// get file
 $("#openFile").change(function() {
     var fileName = $(this).val().replace('C:\\fakepath\\', '');
     $("#file-upload-filename").html(fileName + "<br><br>");
 });
 
-
-
-
+///// show/hide Labels
 $('#nodeLabelCheck').change(function() {
     if ($(this).is(":checked")) {
-        showNodeLabel = "data(id)";
+        showNodeLabel = "data(id)";  // change to label or name if needed
     } else {
         showNodeLabel = "";
     }
@@ -24,7 +22,7 @@ $('#nodeLabelCheck').change(function() {
 
 $('#linkLabelCheck').change(function() {
     if ($(this).is(":checked")) {
-        showEdgeLabel = "data(id)"; ////// change back to label!!!!
+        showEdgeLabel = "data(id)"; // change to label or name if needed
     } else {
         showEdgeLabel = "";
     }
@@ -54,31 +52,14 @@ $('#selectShape').change(function() {
 ////////  highlighting outgoing nodes
 
 $('#showOutNode').change(function() {
-
-    if ($(this).is(":checked")) {
-        showOut = true;
-        cy.nodes().on("click", highlightOut);
-    } else {
-        showOut = false;
-        cy.nodes().off("click", highlightOut);
-        resetHighlightOut(showIn, showOut);
-    }
+	checkBoxes();
 });
 
 
 ////////  highlighting incoming nodes
 
 $('#showInNode').change(function() {
-
-    if ($(this).is(":checked")) {
-        showIn = true;
-        cy.nodes().on("click", highlightIn);
-    } else {
-        showIn = false;
-        cy.nodes().off("click", highlightIn);
-        resetHighlightIn(showIn, showOut);
-        cy.nodes().removeClass('connectedNodeIn');
-    }
+	checkBoxes();
 });
 
 
@@ -115,25 +96,15 @@ function highlightOut() {
         cy.style()
             .selector('.connectedNodeOut')
             .css({
-                'background-color': 'green',
-                'line-color': 'green',
-                'target-arrow-color': 'green',
-                'source-arrow-color': 'green',
+                'background-color': '#FE2E64',
+                'line-color': '#FE2E64',
+                'target-arrow-color': '#FE2E64',
+                'source-arrow-color': '#FE2E64',
                 'opacity': 0.8
             })
             .update();
 
-        cy.style()
-            .selector('.selectedNodeOut')
-            .css({
-                'background-color': 'green',
-                'line-color': 'green',
-                'target-arrow-color': 'green',
-                'source-arrow-color': 'green',
-                'opacity': 0.8,
-                'border-width': 4,
-            })
-            .update();
+			cy.nodes().removeClass('selectedNodeOut');
     }
 }
 
@@ -171,11 +142,15 @@ function resetHighlightOut(showIn, showOut) {
 
 function highlightIn() {
 
-    var selectedNode = this;
+
+	//var selectedNode = cy.nodes(':selected');
+	var selectedNode = this;
+	console.log("selected node = " + selectedNode.data('id'));
     var connectedNodes = selectedNode.incomers();
 
     if (selectedNode.hasClass('selectedNodeIn')) {
-
+	
+		console.log("in if");
         connectedNodes.removeClass('connectedNodeIn');
         selectedNode.removeClass('selectedNodeIn');
         cy.style()
@@ -186,6 +161,8 @@ function highlightIn() {
             .update();
     } else {
 
+		console.log("in else");
+		
         cy.nodes().not(this).removeClass('connectedNodeIn');
         cy.nodes().not(this).removeClass('selectedNodeIn');
         cy.edges().not(this).removeClass('connectedNodeIn');
@@ -195,26 +172,18 @@ function highlightIn() {
         cy.style()
             .selector('.connectedNodeIn')
             .css({
-                'background-color': 'green',
-                'line-color': 'green',
-                'target-arrow-color': 'green',
-                'source-arrow-color': 'green',
+                'background-color': '#FE2E64',
+                'line-color': '#FE2E64',
+                'target-arrow-color': '#FE2E64',
+                'source-arrow-color': '#FE2E64',
                 'opacity': 0.8
             })
             .update();
 
-        cy.style()
-            .selector('.selectedNodeIn')
-            .css({
-                'background-color': 'green',
-                'line-color': 'green',
-                'target-arrow-color': 'green',
-                'source-arrow-color': 'green',
-                'opacity': 0.8,
-                'border-width': 4,
-            })
-            .update();
+        
+			cy.nodes().removeClass('selectedNodeIn');  //// es avelacrel em vor en apush checke ashxati
     }
+	  
 }
 
 
@@ -258,20 +227,6 @@ function exportFunction() {
     downloadURI(pngPic, "graph");
     console.log(pngPic);
 
-
-    /*
-  var e = document.createElement('script'); 
-    if (window.location.protocol === 'https:') { 
-        e.setAttribute('src', 'https://rawgit.com/NYTimes/svg-crowbar/gh-pages/svg-crowbar.js'); 
-    } else { 
-        e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); 
-    } 
-    e.setAttribute('class', 'svg-crowbar'); 
-    document.body.appendChild(e); 
-
-		
-*/
-    //downloadURI(pngPic, "graph");
 }
 
 function downloadURI(uri, name) {
@@ -300,27 +255,22 @@ function restorGraphStructure() {
 
 
 
-
-///// show node info
-
-$('#nodeInfoCheck').change(function() {
-
-    if ($(this).is(":checked")) {
-
-        showIn = true;
-        cy.nodes().on("click", showNodeInfo);
-
-    } else {
-        showIn = false;
-        cy.nodes().off("click", showNodeInfo);
-    }
+//// show number of contained nodes for a collapsed node
+$('#collapseCount').change(function() {
+	checkBoxes();
 });
 
-//// show node information
 
-function showNodeInfo(node) {
 
-    var node = this;
+///// show node info
+$('#nodeInfoCheck').change(function() {
+	checkBoxes();
+});
+
+function showNodeInfo() {
+
+	var node = cy.nodes(':selected');
+   // var node = this;
     var str = "";
     var nodeContent = node.data();
 
@@ -328,8 +278,13 @@ function showNodeInfo(node) {
     var i = 0;
     var values = [];
     var j = 0;
-	
+
     for (var key in nodeContent) {
+        console.log(key);
+        if (key == 'group' || key == 'data') {
+            continue;
+        }
+
         fieldName[i] = key;
         i++;
         values[j] = nodeContent[key];
@@ -337,7 +292,7 @@ function showNodeInfo(node) {
         //str += key + odeContent[key] +"\n" ;
 
     }
-	
+
     console.log("keys = " + fieldName);
     console.log("value = " + values);
 
@@ -347,59 +302,52 @@ function showNodeInfo(node) {
 
     var parentNodes = node.incomers().nodes();
     var parentNum = parentNodes.length;
-	var degree = node.degree();
+    var degree = node.degree();
 
-	//var popupWin = new Array();
+    //var popupWin = new Array();
     var popupWin = window.open('popUp.html', "MsgWindow", "width=400, height=560");
-	
-	
-	popupWin.document.writeln('<html><head> <link href="popStyle.css" rel="stylesheet" /><title>Node Details</title>'
-								+'</head>'
-								+'<body>'
-									+'<div id="popupDiv"></div>'
-									+ '<div id="linkDiv"></div>'
-								+'</body>'
-								+'</html>');
-	
-	popupWin.document.close();
-	
-	var table = createTable(fieldName, values, degree, parentNum,childNum);
-	
-	
-	
-   // popupWin.onload = function() {
- 
-        var parentText = "";
 
-        for (var i = 0; i < fieldName.length; i++) {
 
-            //parentText += key + " = " + node.data(key)+ "\n";
+    popupWin.document.writeln('<html><head> <link href="popStyle.css" rel="stylesheet" /><title>Node Details</title>' + '</head>' + '<body>' + '<div id="popupDiv"></div>' + '<div id="linkDiv"></div>' + '</body>' + '</html>');
 
-            if (isValidUrl(values[i])) {
+    popupWin.document.close();
 
-                var url = values[i];
-                console.log("value " + i + "is url");
-                popupWin.document.getElementById("linkDiv").innerHTML += "<br>" + fieldName[i] + "<br>";
-                $('<iframe id="iframeId" width="380"/>').appendTo(popupWin.document.getElementById("linkDiv")).prop('src', url);
-                i++;
-            }
+    var table = createTable(fieldName, values, degree, parentNum, childNum);
 
-           
 
+
+    // popupWin.onload = function() {
+
+    var parentText = "";
+
+    for (var i = 0; i < fieldName.length; i++) {
+
+        //parentText += key + " = " + node.data(key)+ "\n";
+
+        if (isValidUrl(values[i])) {
+
+            var url = values[i];
+            console.log("value " + i + "is url");
+            popupWin.document.getElementById("linkDiv").innerHTML += "<br>" + fieldName[i] + "<br>";
+            $('<iframe id="iframeId" width="380"/>').appendTo(popupWin.document.getElementById("linkDiv")).prop('src', url);
+            i++;
         }
-/*
-        parentText += "degree = " + node.degree() + "<br>";
-        parentText += "number of child nodes = " + childNum + "<br>";
-        parentText += "number of parent nodes = " + parentNum + "<br>";
 
-        popupWin.document.getElementById("popupDiv").innerHTML += parentText;
-		
-		*/
-		 popupWin.document.getElementById("popupDiv").innerHTML += table;
-   // };
-	
+
+
+    }
+    /*
+            parentText += "degree = " + node.degree() + "<br>";
+            parentText += "number of child nodes = " + childNum + "<br>";
+            parentText += "number of parent nodes = " + parentNum + "<br>";
+
+            popupWin.document.getElementById("popupDiv").innerHTML += parentText;
+    		
+    		*/
+    popupWin.document.getElementById("popupDiv").innerHTML += table;
+    // };
+
 }
-
 
 function isValidUrl(str) {
     var pattern = new RegExp(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/); // fragment locater
@@ -411,28 +359,30 @@ function isValidUrl(str) {
     }
 }
 
-function createTable(fieldName, values, degree, parentNum,childNum){
+function createTable(fieldName, values, degree, parentNum, childNum) {
 
-var table = "<table class='CSSTableGenerator'>";
-	
-	for(var i = 0; i<fieldName.length; i++){
-	
-		if (isValidUrl(values[i])) {
+    var table = "<table class='CSSTableGenerator'>";
 
-               
-                i++;
-            }
-		
-		table += "<tr>" + "<td>" + fieldName[i] + "</td>" + "<td>" + values[i] + "</td>" + "</tr>";
-	
-	}
-		table += "<tr>" + "<td>" + "degree" + "</td>" + "<td>" + degree + "</td>" + "</tr>";
-		table += "<tr>" + "<td>" + "number of child nodes" + "</td>" + "<td>" + childNum + "</td>" + "</tr>";
-		table += "<tr>" + "<td>" + "number of parent nodes" + "</td>" + "<td>" + parentNum + "</td>" + "</tr>";
-	
-	
-	table += "</table>";
-return table;
+    for (var i = 0; i < fieldName.length; i++) {
+
+
+        if (isValidUrl(values[i])) {
+
+
+            i++;
+        }
+
+
+        table += "<tr>" + "<td>" + fieldName[i] + "</td>" + "<td>" + values[i] + "</td>" + "</tr>";
+
+    }
+    table += "<tr>" + "<td>" + "degree" + "</td>" + "<td>" + degree + "</td>" + "</tr>";
+    table += "<tr>" + "<td>" + "number of child nodes" + "</td>" + "<td>" + childNum + "</td>" + "</tr>";
+    table += "<tr>" + "<td>" + "number of parent nodes" + "</td>" + "<td>" + parentNum + "</td>" + "</tr>";
+
+
+    table += "</table>";
+    return table;
 
 }
 
@@ -460,39 +410,142 @@ function restoreDeletedNodes() {
     edgesToRemove.restore();
 }
 
-/////////////// tool Panel movement 
+////expand(Load) nodes
+$('#expandNode').click(function() {
+         var selectedNode = cy.nodes(':selected');
 
-$(document).on('click', '.slider-arrow.show', function() {
-    $(".slider-arrow, .panel").animate({
-        left: "+=243"
-    }, 700, function() {
-        // Animation complete.
-    });
-    $(this).html('&laquo;').removeClass('show').addClass('hide');
+		// console.log(selectedNode.data());
+		 
+         if (selectedNode.hasClass('superNode')) {
 
-    document.getElementById('cy').style.left = "243px";
-    //document.getElementById('cy').style.width="80%";
+             colNode();
 
-    cy.resize();
+         } else {
+
+             expandNodes(selectedNode);
+             //selectedNode.unselect();
+             $('.btn.expNode').prop('disabled', true);
+         }
+
+     });
 
 
-});
+ function expandNodes(selectedNode) {
 
-$(document).on('click', '.slider-arrow.hide', function() {
-    $(".slider-arrow, .panel").animate({
-        left: "-=243"
-    }, 700, function() {
-        // Animation complete.
-    });
-    $(this).html('&raquo;').removeClass('hide').addClass('show');
-    document.getElementById('cy').style.left = "0px";
-    // document.getElementById('cy').style.width="100%";
-    cy.resize();
-});
+         //var selectedNode = cy.nodes(':selected');
+         //var selectedNode = this;
+         var selectedNodeId = selectedNode.id();
+         selectedNodeId = selectedNodeId.replace(/[^0-9\.]+/g, "");
+        // console.log(selectedNodeId);
 
+         var eles = allcy.nodes();
+
+
+         nodesToAdd = eles[selectedNodeId].outgoers();
+
+         showNodesToExpand(nodesToAdd);
+         cy.add(eles[selectedNodeId].outgoers());
+
+
+
+         selectedNode.removeClass('toBeExpaned');
+         //selectedNode.removeClass('superNode');
+         //cy.style()
+         //.update() 
+
+         $("select option:selected").each(function() {
+             shape = $(this).val();
+             console.log(shape);
+
+         });
+
+         cy.layout({
+             name: shape
+         });
+		  
+		
+
+			checkBoxes();
+
+			// Use anything defined in the loaded script...
+		
+     }
+ 
+ function showNodesToExpand(toAdd) {
+
+         toAdd.nodes().forEach(function(ele) {
+
+
+             if (ele.outdegree() > 0 && !ele.hasClass('roots')) {
+
+                 ele.addClass('toBeExpaned');
+             } else {
+
+             }
+
+         });
+
+     }
+
+
+// checkBox options
+
+function checkBoxes(){
+
+
+             if ($('#showInNode').is(":checked")) {
+                 showIn = true;
+                 cy.nodes().on("click", highlightIn);
+             } else {
+                showIn = false;
+				cy.nodes().off("click", highlightIn);
+				resetHighlightIn(showIn, showOut);
+				cy.nodes().removeClass('connectedNodeIn');
+             }
+             if ($('#showOutNode').is(":checked")) {
+                 showOut = true;
+                 cy.nodes().on("click", highlightOut);
+             } else {
+                 showOut = false;
+				cy.nodes().off("click", highlightOut);
+				resetHighlightOut(showIn, showOut);
+             }
+
+			 if ($('#collapseCount').is(":checked")) {
+		
+         cy.nodes().on("mouseover", function(event) {
+				var nd = event.cyTarget;
+				countCollapse(nd);
+		
+		});
+           
+        cy.nodes().on("mouseout", function(event) {
+            var nd = event.cyTarget;
+            UnTip();
+        });
+    }
+	else {
+		cy.nodes().off("mouseover");
+	}	
+	
+	
+	if ($('#nodeInfoCheck').is(":checked")) {
+       
+	   
+		cy.nodes().on("click", showNodeInfo);	   
+       
+    } 
+	else{
+	
+		cy.nodes().off("click", showNodeInfo);	   
+	}
+	
+
+}
 
 //// disable/unable buttons 
 $(document).on('click', function() {
+
 
     var selectedNode = cy.nodes(':selected');
 
@@ -530,4 +583,71 @@ $(document).on('click', function() {
     }
 
 
+});
+
+
+///// keyboard commands
+
+$( document ).keypress(function(e) {
+  
+  var selectedNode = cy.nodes(':selected');
+  
+  
+  if(e.which == 101 && selectedNode.size() != 0){   // 101 for 'e' = expand
+  
+	if(selectedNode.hasClass('toBeExpaned') ) {
+		
+		expandNodes(selectedNode);
+		console.log("expandi expand");
+		
+	}
+	else if(selectedNode.hasClass('superNode')){
+		console.log("expandi collapse");
+		colNode();
+	}
+	
+		
+  }
+   if ( e.which == 99 && selectedNode.size() != 0 && !selectedNode.hasClass('superNode') && selectedNode.outgoers().length != 0) { // 99 for 'c' = collapse
+	colNode();
+	console.log("colapsi collapse");
+  }
+  
+  if ( e.which == 100 && selectedNode.size() != 0) { // 100 for 'd' = delete
+	deleteSelectedNodes();
+  }
+  
+  
+});
+
+
+
+/////////////// tool Panel movement 
+
+$(document).on('click', '.slider-arrow.show', function() {
+    $(".slider-arrow, .panel").animate({
+        left: "+=243"
+    }, 700, function() {
+        // Animation complete.
+    });
+    $(this).html('&laquo;').removeClass('show').addClass('hide');
+
+    document.getElementById('cy').style.left = "243px";
+    //document.getElementById('cy').style.width="80%";
+
+    cy.resize();
+
+
+});
+
+$(document).on('click', '.slider-arrow.hide', function() {
+    $(".slider-arrow, .panel").animate({
+        left: "-=243"
+    }, 700, function() {
+        // Animation complete.
+    });
+    $(this).html('&raquo;').removeClass('hide').addClass('show');
+    document.getElementById('cy').style.left = "0px";
+    // document.getElementById('cy').style.width="100%";
+    cy.resize();
 });

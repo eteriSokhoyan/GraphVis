@@ -1,12 +1,11 @@
-
-
-
 #cy {
   height: 100%;
   width: 100%;
   position: absolute; 
   top: 0;
 }
+
+
 
 .panel {
 
@@ -183,70 +182,3 @@ font-size: 14px;
    scroll 175px center;
    
 }
-
-  
-/*  
-.custom-file-input::-webkit-file-upload-button {
-  visibility: hidden;
-   width: 0;
-   
-}
-.custom-file-input::before {
-  content: 'Choose File';
-  display: inline-block;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  visibility: visible;
-  background: #3498db;
-  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-  background-image: -o-linear-gradient(top, #3498db, #2980b9);
-  background-image: linear-gradient(to bottom, #3498db, #2980b9);
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 6px;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 14px;
-  padding: 8px 15px 8px 15px;
-  outline: none;
-  
-  
-}
-.custom-file-input:hover::before {
-  border-color: black;
-}
-.custom-file-input:active::before {
-  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-}  
-  
-  
-  */
-  
-/* 
-.fa {
-  display: inline-block;
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.fa-flash:before,
-.fa-bolt:before {
-  content: "\f0e7";
-}
-
-.fa-2x {
-  font-size: 2em;
-}
-
-.fa-star:before {
-  content: "\f005";
-}
-.fa-star-o:before {
-  content: "\f006";
-} */

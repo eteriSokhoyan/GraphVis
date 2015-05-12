@@ -1,7 +1,7 @@
  $.ajaxSetup({
      async: false
  });
-
+ 
  var showNodeLabel;
  var showEdgeLabel;
  var showOut;
@@ -11,10 +11,14 @@
  var shape;
  var allcy;
  var cy;
+ 
+ 
+ 
+$.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunctions.js
 
  $(function() { // on dom ready
 
-     $.ajax({
+     $.ajax({   				// default graph
          'async': false,
          'global': false,
          'url': 'nodelinkjson_output.json',
@@ -48,11 +52,11 @@
                  'dataType': "json",
                  'success': function(data) {
 
-                     parseJson(data); // *
+                     parseJson(data); 
 
                  },
                  'error': function(data) {
-                     //console.log("error");   
+                     
 
                      reader.onload = function() {
                          var lines = this.result.split('\n');
@@ -94,13 +98,9 @@
 
      $("select option:selected").each(function() {
          shape = $(this).val();
-         console.log(shape);
-
      });
      ///////// create graph
      function createGraph(data) {
-
-
 
              allcy = cytoscape({
                  headless: true,
@@ -123,7 +123,7 @@
                  // pixelRatio: 0.666,
 
                  ready: function() {
-                     //mychange();
+                     
                      window.cy = this;
                  },
                  style: cytoscape.stylesheet()
@@ -162,12 +162,12 @@
                      })
              });
              allcy.load(data);
-             //	console.log("lenght = " + allcy.nodes().length);
+             
              if (allcy.nodes().length > 50) {
 
                  var toAdd = allcy.nodes().roots().closedNeighborhood();
                  allcy.nodes().roots().addClass("roots");
-                 //cy.add(toAdd);
+                 
 
                  showNodesToExpand(toAdd);
                  cy.add(toAdd);
@@ -190,52 +190,7 @@
              cy.boxSelectionEnabled(true);
 
 
-
-/*
-                  cy.cxtmenu({
-             					selector: 'node',
-             					menuRadius: 50, 
-             					indicatorSize: 12,
-             					fillColor: "#3498db",
-             					
-             					commands: [
-             						{
-             							content: '<span class="fa fa-flash fa-2x">expand</span>',
-             							select: function(){
-             								expandNodes(this);
-											
-											
-             							}
-             						},
-             						{
-             							content: 'Info',
-             							select: function(){
-             								showNodeInfo(this);
-             							}
-             						},
-             						{
-             							content: 'collapse',
-             							select: function(){
-             								colNode(this);
-             							}
-             						}
-             					]
-             				}); 
-*/
-
-
-             if ($('#showInNode').is(":checked")) {
-                 showIn = true;
-                 cy.nodes().on("click", highlightIn);
-             } else {
-                 showIn = false;
-             }
-             if ($('#showOutNode').is(":checked")) {
-                 showOut = true;
-                 cy.nodes().on("click", highlightOut);
-             } else {
-                 showOut = false;
-             }
+			checkBoxes();
 
 
 
@@ -243,63 +198,9 @@
          } // END create graph	
 
 
-     function expandNodes(selectedNode) {
+    
 
-         //var selectedNode = cy.nodes(':selected');
-         //var selectedNode = this;
-         var selectedNodeId = selectedNode.id();
-         selectedNodeId = selectedNodeId.replace(/[^0-9\.]+/g, "");
-        // console.log(selectedNodeId);
-
-         var eles = allcy.nodes();
-
-
-         nodesToAdd = eles[selectedNodeId].outgoers();
-
-         showNodesToExpand(nodesToAdd);
-         cy.add(eles[selectedNodeId].outgoers());
-
-
-
-         selectedNode.removeClass('toBeExpaned');
-         //selectedNode.removeClass('superNode');
-         //cy.style()
-         //.update() 
-
-         $("select option:selected").each(function() {
-             shape = $(this).val();
-             console.log(shape);
-
-         });
-
-         cy.layout({
-             name: shape
-         });
-		  
-
-     }
-
-
-
-
-     function showNodesToExpand(toAdd) {
-
-         toAdd.nodes().forEach(function(ele) {
-
-
-             if (ele.outdegree() > 0 && !ele.hasClass('roots')) {
-
-                 ele.addClass('toBeExpaned');
-             } else {
-
-             }
-
-         });
-
-     }
-
-
-
+//// parse function for matrix data
      function parseAndCreate(demoNodes, demoEdges) {
          var data = {
              nodes: demoNodes,
@@ -309,7 +210,7 @@
      }
 
 
-
+///// parsing function for json: for link/egde and "" issues
      function parseJson(dataToParse) {
 
 
@@ -346,56 +247,6 @@
 
 
 
-
-     $('#expandNode').click(function() {
-         var selectedNode = cy.nodes(':selected');
-
-		// console.log(selectedNode.data());
-		 
-         if (selectedNode.hasClass('superNode')) {
-
-             colNode();
-
-         } else {
-
-             expandNodes(selectedNode);
-             //selectedNode.unselect();
-             $('.btn.expNode').prop('disabled', true);
-         }
-
-     });
-
-
-	$( document ).keypress(function(e) {
-  
-  var selectedNode = cy.nodes(':selected');
-  
-  
-  if(e.which == 101 && selectedNode.size() != 0){   // 101 for 'e' = expand
-  
-	if(selectedNode.hasClass('toBeExpaned') ) {
-		
-		expandNodes(selectedNode);
-		
-	}
-	else if(selectedNode.hasClass('superNode')){
-	
-		colNode();
-	}
-	
-		
-  }
-   if ( e.which == 99 && selectedNode.size() != 0 && !selectedNode.hasClass('superNode') && selectedNode.outgoers().length != 0) { // 99 for 'c' = collapse
-	colNode();
-  }
-  
-  if ( e.which == 100 && selectedNode.size() != 0) { // 100 for 'd' = delete
-	deleteSelectedNodes();
-  }
-  
-  
-}); 
-	 
-	 
-
  }); // END on dom ready
+ 
+ });

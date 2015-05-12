@@ -1,34 +1,14 @@
-/*
-var collapse=false;
-$('#collapseNode').change(function() {
-        if($(this).is(":checked")) {
-			collapse = true;
-			cy.nodes().on("click", colNode);  //// "cxttap " sometimes not working ?!
-        }
-        else{
-			collapse = false;
-			cy.nodes().off("click ", colNode);	//// "cxttap " sometimes not working ?!
-			resetCollapse();
-		}
-		
-});
-*/
 var collapseOrder = 0;
 var collapseNodeCount = 0;
 var num = 0;
 
 function colNode() {
-    //console.log("collapse");
-    var selectedNode = cy.nodes(':selected');
-
-
-
+    
+	var selectedNode = cy.nodes(':selected');
     var connectedEdges = selectedNode.connectedEdges(function() {
         return !this.target().anySame(selectedNode);
     });
     var connectedNodes = connectedEdges.targets();
-
-    //console.log("collapseNodeCount = " + collapseNodeCount);
 
     // expand node if it was collapsed before
     if (selectedNode.hasClass('superNode')) {
@@ -51,18 +31,17 @@ function colNode() {
                     .update(); // remove invisibility
                 cy.fit();
             }
-            //collapseNodeCount = connectedNodes.length -collapseNodeCount ;
+            
         }
 
         collapseOrder--;
-
     }
-    //// collapse node if it was not collaped before
+    //// collapse node if it was not collapsed before
     else {
+	console.log("collapse elsi mej");
 
         collapseNodeCount = connectedNodes.length; // working wrong on expanding nodes..
         num = selectedNode.data('colNum', collapseNodeCount);
-        //	console.log("this node contains " + num.data().colNum + " nodes" );
         connectedNodes.addClass('collapsedNode' + collapseOrder);
         connectedEdges.addClass('collapsedNode' + collapseOrder);
         selectedNode.addClass('superNode');
@@ -89,9 +68,10 @@ function colNode() {
 
 
         collapseOrder = collapseOrder + 1;
-
+		
     }
     $('.btn.colNode').prop('disabled', true);
+	
 }
 
 function addCollapsedEdges(selectedNode, collapseOrder) {
@@ -101,8 +81,6 @@ function addCollapsedEdges(selectedNode, collapseOrder) {
     });
 
     var connectedNodes = connectedEdges.targets();
-    //console.log("connectedNodes = " + connectedEdges.data('id'));
-
     var newTargetEdges = connectedNodes.connectedEdges(function() {
         return !this.target().anySame(connectedNodes);
     });
@@ -121,7 +99,7 @@ function addCollapsedEdges(selectedNode, collapseOrder) {
             ele = ele + 1;
         } else {
 
-            //console.log("second ele = " + ele.data('id'));
+    
             cy.add({
                     group: "edges",
                     data: {
@@ -160,13 +138,13 @@ function addCollapsedEdges(selectedNode, collapseOrder) {
 function removeCollapsedEdges(selectedNode, collapseOrder) {
 
     selectedNode.connectedEdges().each(function(i, ele) {
-        //	console.log("edges to be removed =  " + ele.data('id'));
+       
         if (ele.hasClass('virtualEdges' + collapseOrder)) {
 
             cy.remove(ele);
         }
     });
-    //collapseOrder --;
+   
 }
 
 
@@ -204,11 +182,11 @@ function resetCollapse() {
 }
 
 
-$('#collapseCount').change(function() {
-    if ($(this).is(":checked")) {
 
-        cy.nodes().on("mouseover", function(event) {
-            var nd = event.cyTarget;
+
+function countCollapse(nd){
+
+ 
             if (nd.hasClass('superNode')) {
                 Tip('contains ' + nd.data().colNum + ' node(s)', PADDING, 10);
             } else if (nd.hasClass('toBeExpaned')) {
@@ -224,15 +202,6 @@ $('#collapseCount').change(function() {
                 Tip('contains 0 node(s)', PADDING, 10);
             }
 
-        });
+        
 
-        cy.nodes().on("mouseout", function(event) {
-            var nd = event.cyTarget;
-            UnTip();
-        });
-    } else {
-        cy.nodes().off("mouseover");
-    }
-
-
-});
+}
