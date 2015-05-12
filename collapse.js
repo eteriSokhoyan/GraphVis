@@ -38,7 +38,7 @@ function colNode() {
     }
     //// collapse node if it was not collapsed before
     else {
-	console.log("collapse elsi mej");
+	
 
         collapseNodeCount = connectedNodes.length; // working wrong on expanding nodes..
         num = selectedNode.data('colNum', collapseNodeCount);
@@ -177,7 +177,7 @@ function resetCollapse() {
         cy.nodes().removeClass('collapsedNode' + i);
         cy.edges().removeClass('collapsedNode' + i);
         cy.edges().removeClass('virtualEdges' + i);
-        console.log("collapseOrder = " + collapseOrder);
+       
     }
 }
 

@@ -280,7 +280,7 @@ function showNodeInfo() {
     var j = 0;
 
     for (var key in nodeContent) {
-        console.log(key);
+        
         if (key == 'group' || key == 'data') {
             continue;
         }
@@ -293,8 +293,8 @@ function showNodeInfo() {
 
     }
 
-    console.log("keys = " + fieldName);
-    console.log("value = " + values);
+  //  console.log("keys = " + fieldName);
+  //  console.log("value = " + values);
 
 
     var childNodes = node.outgoers().nodes();
@@ -327,7 +327,7 @@ function showNodeInfo() {
         if (isValidUrl(values[i])) {
 
             var url = values[i];
-            console.log("value " + i + "is url");
+            //console.log("value " + i + "is url");
             popupWin.document.getElementById("linkDiv").innerHTML += "<br>" + fieldName[i] + "<br>";
             $('<iframe id="iframeId" width="380"/>').appendTo(popupWin.document.getElementById("linkDiv")).prop('src', url);
             i++;
@@ -455,7 +455,7 @@ $('#expandNode').click(function() {
 
          $("select option:selected").each(function() {
              shape = $(this).val();
-             console.log(shape);
+            // console.log(shape);
 
          });
 
@@ -598,11 +598,10 @@ $( document ).keypress(function(e) {
 	if(selectedNode.hasClass('toBeExpaned') ) {
 		
 		expandNodes(selectedNode);
-		console.log("expandi expand");
 		
 	}
 	else if(selectedNode.hasClass('superNode')){
-		console.log("expandi collapse");
+		
 		colNode();
 	}
 	
@@ -610,7 +609,7 @@ $( document ).keypress(function(e) {
   }
    if ( e.which == 99 && selectedNode.size() != 0 && !selectedNode.hasClass('superNode') && selectedNode.outgoers().length != 0) { // 99 for 'c' = collapse
 	colNode();
-	console.log("colapsi collapse");
+	
   }
   
   if ( e.which == 100 && selectedNode.size() != 0) { // 100 for 'd' = delete
