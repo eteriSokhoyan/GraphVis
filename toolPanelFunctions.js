@@ -52,14 +52,14 @@ $('#selectShape').change(function() {
 ////////  highlighting outgoing nodes
 
 $('#showOutNode').change(function() {
-	checkBoxes();
+	//checkBoxes();
 });
 
 
 ////////  highlighting incoming nodes
 
 $('#showInNode').change(function() {
-	checkBoxes();
+	//checkBoxes();
 });
 
 
@@ -257,19 +257,19 @@ function restorGraphStructure() {
 
 //// show number of contained nodes for a collapsed node
 $('#collapseCount').change(function() {
-	checkBoxes();
+	//checkBoxes();
 });
 
 
 
 ///// show node info
 $('#nodeInfoCheck').change(function() {
-	checkBoxes();
+	//checkBoxes();
 });
 
-function showNodeInfo() {
+function showNodeInfo(node) {
 
-	var node = cy.nodes(':selected');
+	//var node = cy.nodes(':selected');
    // var node = this;
     var str = "";
     var nodeContent = node.data();
@@ -293,9 +293,6 @@ function showNodeInfo() {
 
     }
 
-  //  console.log("keys = " + fieldName);
-  //  console.log("value = " + values);
-
 
     var childNodes = node.outgoers().nodes();
     var childNum = childNodes.length;
@@ -305,21 +302,56 @@ function showNodeInfo() {
     var degree = node.degree();
 
     //var popupWin = new Array();
-    var popupWin = window.open('popUp.html', "MsgWindow", "width=400, height=560");
+    /*var popupWin = window.open('popUp.html', "MsgWindow", "width=400, height=560");
 
 
     popupWin.document.writeln('<html><head> <link href="popStyle.css" rel="stylesheet" /><title>Node Details</title>' + '</head>' + '<body>' + '<div id="popupDiv"></div>' + '<div id="linkDiv"></div>' + '</body>' + '</html>');
 
     popupWin.document.close();
-
+*/
     var table = createTable(fieldName, values, degree, parentNum, childNum);
 
 
+	
+	$('#nodeInfoDiv').html(table);
+	for (var i = 0; i < fieldName.length; i++) {
+
+        //parentText += key + " = " + node.data(key)+ "\n";
+		
+		
+
+        if (isValidUrl(values[i])) {
+
+				console.log("valid url");
+			
+			var e = document.createElement( "div" );
+			e.id = "linkDiv";
+			$('#nodeInfoDiv').append(e);    
+			//e.attr('id', 'linkDiv');
+			
+			
+			//$("#nodeInfoDiv").append('<div id="linkDiv" style="display:block; border:1px dashed #CCCCCC;"></div>');
+
+
+            var url = values[i];
+            //console.log("value " + i + "is url");
+            document.getElementById("linkDiv").innerHTML += "<br>" + fieldName[i] + "<br>";
+            $('<iframe id="iframeId" width="245"/>').appendTo(document.getElementById("linkDiv")).prop('src', url);
+			
+            i++;
+        }
+		
+
+
+    }
+	
+	
+	
 
     // popupWin.onload = function() {
 
-    var parentText = "";
-
+  //  var parentText = "";
+/*
     for (var i = 0; i < fieldName.length; i++) {
 
         //parentText += key + " = " + node.data(key)+ "\n";
@@ -335,7 +367,7 @@ function showNodeInfo() {
 
 
 
-    }
+    }*/
     /*
             parentText += "degree = " + node.degree() + "<br>";
             parentText += "number of child nodes = " + childNum + "<br>";
@@ -344,7 +376,11 @@ function showNodeInfo() {
             popupWin.document.getElementById("popupDiv").innerHTML += parentText;
     		
     		*/
-    popupWin.document.getElementById("popupDiv").innerHTML += table;
+    //popupWin.document.getElementById("popupDiv").innerHTML += table;
+	
+	//document.getElementById("nodeInfoDiv").innerHTML += table;
+	
+	
     // };
 
 }
@@ -465,7 +501,7 @@ $('#expandNode').click(function() {
 		  
 		
 
-			checkBoxes();
+			//checkBoxes();
 
 			// Use anything defined in the loaded script...
 		
@@ -528,7 +564,7 @@ function checkBoxes(){
 		cy.nodes().off("mouseover");
 	}	
 	
-	
+	/*
 	if ($('#nodeInfoCheck').is(":checked")) {
        
 	   
@@ -539,15 +575,17 @@ function checkBoxes(){
 	
 		cy.nodes().off("click", showNodeInfo);	   
 	}
-	
+	*/
 
 }
 
 //// disable/unable buttons 
 $(document).on('click', function() {
 
-
+checkBoxes();
     var selectedNode = cy.nodes(':selected');
+	
+	showNodeInfo(selectedNode);
 
     if (selectedNode.outgoers().length == 0) {
 
@@ -650,3 +688,35 @@ $(document).on('click', '.slider-arrow.hide', function() {
     // document.getElementById('cy').style.width="100%";
     cy.resize();
 });
+
+//////////////////panel for Node info
+
+$(document).on('click', '.slider-arrow-forNode.show', function() {
+    $(".slider-arrow-forNode, .nodePanel").animate({
+        right: "+=248"
+    }, 700, function() {
+        // Animation complete.
+    });
+    $(this).html('&laquo;').removeClass('show').addClass('hide');
+
+    document.getElementById('cy').style.right = "248px";
+    //document.getElementById('cy').style.width="80%";
+
+    cy.resize();
+
+
+});
+
+$(document).on('click', '.slider-arrow-forNode.hide', function() {
+    $(".slider-arrow-forNode, .nodePanel").animate({
+        right: "-=248"
+    }, 700, function() {
+        // Animation complete.
+    });
+    $(this).html('&raquo;').removeClass('hide').addClass('show');
+    document.getElementById('cy').style.right = "0px";
+    // document.getElementById('cy').style.width="100%";
+    cy.resize();
+});
+
+

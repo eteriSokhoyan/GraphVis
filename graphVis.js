@@ -12,6 +12,7 @@
  var allcy;
  var cy;
  
+ $("body").css("overflow-x","hidden");   //// remove horizontal scrollbar
  
  
 $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunctions.js
@@ -190,7 +191,7 @@ $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunct
              cy.boxSelectionEnabled(true);
 
 
-			checkBoxes();
+			//checkBoxes();
 
 
 
