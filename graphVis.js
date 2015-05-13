@@ -126,6 +126,11 @@ $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunct
                  ready: function() {
                      
                      window.cy = this;
+					 cy.nodes().on("click", function(e){
+
+						showNodeInfo(e.cyTarget);
+
+						});	   
                  },
                  style: cytoscape.stylesheet()
                      .selector('node')
