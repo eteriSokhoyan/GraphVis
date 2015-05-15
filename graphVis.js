@@ -31,20 +31,22 @@ $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunct
          }
      });
 
+	url =  getUrlParameter('file');
+	console.log("url = " + url);
 
 
      ///////// get the json file
 
-     document.getElementById('openFile').onchange = function() {
+    // document.getElementById('openFile').onchange = function() {
 
-             var file = this.files[0];
-             var fname = file.name;
-             url = URL.createObjectURL(event.target.files[0]);
+          //   var file = this.files[0];
+           //  var fname = file.name;
+           //  url = URL.createObjectURL(event.target.files[0]);
 
-             var fileExt = fname.substr((~-fname.lastIndexOf(".") >>> 0) + 2);
+          //   var fileExt = fname.substr((~-fname.lastIndexOf(".") >>> 0) + 2);
 
 
-             var reader = new FileReader();
+           //  var reader = new FileReader();
 
              $.ajax({
                  'async': false,
@@ -86,13 +88,13 @@ $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunct
 
                          parseAndCreate(demoNodes, demoEdges);
                      };
-                     reader.readAsText(file);
+                   //  reader.readAsText(file);
 
                  }
              });
 
 
-         } //// end document.getElementById
+      //   } //// end document.getElementById
 
 
 
@@ -252,6 +254,27 @@ $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunct
      }
 
 
+function getUrlParameter(sParam)
+{
+	
+    var sPageURL = window.location.search.substring(1);
+	
+    var sURLVariables = sPageURL.split('&');
+	
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+		
+        if (sParameterName[0] == sParam) 
+        {	
+			sParameterName[1] = sParameterName[1].replace('/','');
+            return sParameterName[1];
+			
+			
+        }
+    }
+}           	 
+	 
 
  }); // END on dom ready
  
