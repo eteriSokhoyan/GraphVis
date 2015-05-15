@@ -47,19 +47,20 @@ $('#selectShape').change(function() {
         })
         .run();
 
+		$('#selectShape').blur();
 });
 
 ////////  highlighting outgoing nodes
 
 $('#showOutNode').change(function() {
-	//checkBoxes();
+	checkBoxes();
 });
 
 
 ////////  highlighting incoming nodes
 
 $('#showInNode').change(function() {
-	//checkBoxes();
+	checkBoxes();
 });
 
 
@@ -257,16 +258,17 @@ function restorGraphStructure() {
 
 //// show number of contained nodes for a collapsed node
 $('#collapseCount').change(function() {
-	//checkBoxes();
+	checkBoxes();
 });
 
 
 
 ///// show node info
+/*
 $('#nodeInfoCheck').change(function() {
 	//checkBoxes();
 });
-
+*/
 function showNodeInfo(node) {
 
 	//var node = cy.nodes(':selected');
@@ -313,7 +315,7 @@ function showNodeInfo(node) {
 
 
 	
-	$('#nodeInfoDiv').html(table);
+	$('#nodeInfoDiv').html("<p><strong>Node Description </p>" +table);
 	for (var i = 0; i < fieldName.length; i++) {
 
         //parentText += key + " = " + node.data(key)+ "\n";
@@ -336,7 +338,7 @@ function showNodeInfo(node) {
             var url = values[i];
             //console.log("value " + i + "is url");
             document.getElementById("linkDiv").innerHTML += "<br>" + fieldName[i] + "<br>";
-            $('<iframe id="iframeId" width="245"/>').appendTo(document.getElementById("linkDiv")).prop('src', url);
+            $('<iframe id="iframeId" width = "240"/>').appendTo(document.getElementById("linkDiv")).prop('src', url);
 			
             i++;
         }
@@ -499,11 +501,14 @@ $('#expandNode').click(function() {
              name: shape
          });
 		  
-		
+			checkBoxes();
+			 cy.nodes().on("click", function(e){
 
-			//checkBoxes();
+						showNodeInfo(e.cyTarget);
 
-			// Use anything defined in the loaded script...
+						});	   
+
+			
 		
      }
  
@@ -587,7 +592,7 @@ function checkBoxes(){
 //// disable/unable buttons 
 $(document).on('click', function() {
 
-checkBoxes();
+//checkBoxes();
     var selectedNode = cy.nodes(':selected');
 	
 	//showNodeInfo(selectedNode);
@@ -632,6 +637,7 @@ checkBoxes();
 ///// keyboard commands
 
 $( document ).keypress(function(e) {
+
   
   var selectedNode = cy.nodes(':selected');
   

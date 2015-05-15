@@ -127,7 +127,7 @@ $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunct
                      
                      window.cy = this;
 					 cy.nodes().on("click", function(e){
-
+							
 						showNodeInfo(e.cyTarget);
 
 						});	   
@@ -196,7 +196,7 @@ $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunct
              cy.boxSelectionEnabled(true);
 
 
-			//checkBoxes();
+			checkBoxes();
 
 
 

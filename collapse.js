@@ -42,7 +42,7 @@ function colNode() {    //// collapse node
 		
     //}
     $('.btn.colNode').prop('disabled', true);
-	
+	console.log("shape = " + shape);
 	
 }
 
