@@ -18,14 +18,3 @@ For graph construction and visualization [Cytoscape.js](http://js.cytoscape.org/
 * Displaying child/parent dependencies
 * Show/hide node(edge) labels
 * Export the graph as .png picture
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
