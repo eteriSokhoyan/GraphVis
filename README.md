@@ -1,22 +1,23 @@
 # Galaxy Graph Visualization Framework #
 
 The framework tries to easily visualize and manipulate graphs in Galaxy platform. 
+For graph construction and visualization Cytoscape.js (http://js.cytoscape.org/) library is used.
+
+### Input formats ###
+
+* json file 
+* txt file with matrix notation
 
 
-### What is this repository for? ###
+### Features ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Lazy loading for big graphs (>50 nodes)
+* Deletion of nodes and edges
+* Collapsing nodes for compact view
+* Displaying node metadata 
+* Displaying child/parent dependencies
+* Show/hide node(edge) labels
+* Export the graph as .png picture
 
 ### Contribution guidelines ###
 
