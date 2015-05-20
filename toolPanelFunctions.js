@@ -1,8 +1,9 @@
-//// get file
+/*/// get file
 $("#openFile").change(function() {
     var fileName = $(this).val().replace('C:\\fakepath\\', '');
     $("#file-upload-filename").html(fileName + "<br><br>");
 });
+*/
 
 ///// show/hide Labels
 $('#nodeLabelCheck').change(function() {
@@ -104,8 +105,19 @@ function highlightOut() {
                 'opacity': 0.8
             })
             .update();
+			
+			cy.style()
+            .selector('.selectedNodeOut')
+            .css({
+                'background-color': '#FE2E64',
+                'line-color': '#FE2E64',
+                'target-arrow-color': '#FE2E64',
+                'source-arrow-color': '#FE2E64',
+                'opacity': 0.8
+            })
+            .update();
 
-			cy.nodes().removeClass('selectedNodeOut');
+			//cy.nodes().removeClass('selectedNodeOut');
     }
 }
 
@@ -146,23 +158,23 @@ function highlightIn() {
 
 	//var selectedNode = cy.nodes(':selected');
 	var selectedNode = this;
-	console.log("selected node = " + selectedNode.data('id'));
-    var connectedNodes = selectedNode.incomers();
-
-    if (selectedNode.hasClass('selectedNodeIn')) {
 	
-		console.log("in if");
-        connectedNodes.removeClass('connectedNodeIn');
-        selectedNode.removeClass('selectedNodeIn');
-        cy.style()
+    var connectedNodes = selectedNode.incomers();
+	
+    if (selectedNode.hasClass('selectedNodeIn') ) {
+	
+		cy.style()
             .selector('.connectedNodeIn')
             .css({
                 'opacity': 0.8
             })
             .update();
+        connectedNodes.removeClass('connectedNodeIn');
+        selectedNode.removeClass('selectedNodeIn');
+        
     } else {
 
-		console.log("in else");
+
 		
         cy.nodes().not(this).removeClass('connectedNodeIn');
         cy.nodes().not(this).removeClass('selectedNodeIn');
@@ -180,11 +192,21 @@ function highlightIn() {
                 'opacity': 0.8
             })
             .update();
+			cy.style()
+            .selector('.selectedNodeIn')
+            .css({
+                'background-color': '#FE2E64',
+                'line-color': '#FE2E64',
+                'target-arrow-color': '#FE2E64',
+                'source-arrow-color': '#FE2E64',
+                'opacity': 0.8
+            })
+            .update();
 
-        
-			cy.nodes().removeClass('selectedNodeIn');  //// es avelacrel em vor en apush checke ashxati
+       
+			
     }
-	  
+	
 }
 
 
@@ -226,7 +248,7 @@ function exportFunction() {
 
     var pngPic = cy.png();
     downloadURI(pngPic, "graph");
-    console.log(pngPic);
+   
 
 }
 
@@ -303,17 +325,7 @@ function showNodeInfo(node) {
     var parentNum = parentNodes.length;
     var degree = node.degree();
 
-    //var popupWin = new Array();
-    /*var popupWin = window.open('popUp.html', "MsgWindow", "width=400, height=560");
-
-
-    popupWin.document.writeln('<html><head> <link href="popStyle.css" rel="stylesheet" /><title>Node Details</title>' + '</head>' + '<body>' + '<div id="popupDiv"></div>' + '<div id="linkDiv"></div>' + '</body>' + '</html>');
-
-    popupWin.document.close();
-*/
     var table = createTable(fieldName, values, degree, parentNum, childNum);
-
-
 	
 	$('#nodeInfoDiv').html("<p><strong>Node Description </p>" +table);
 	for (var i = 0; i < fieldName.length; i++) {
@@ -324,7 +336,7 @@ function showNodeInfo(node) {
 
         if (isValidUrl(values[i])) {
 
-				console.log("valid url");
+				
 			
 			var e = document.createElement( "div" );
 			e.id = "linkDiv";
@@ -346,45 +358,6 @@ function showNodeInfo(node) {
 
 
     }
-	
-	
-	
-
-    // popupWin.onload = function() {
-
-  //  var parentText = "";
-/*
-    for (var i = 0; i < fieldName.length; i++) {
-
-        //parentText += key + " = " + node.data(key)+ "\n";
-
-        if (isValidUrl(values[i])) {
-
-            var url = values[i];
-            //console.log("value " + i + "is url");
-            popupWin.document.getElementById("linkDiv").innerHTML += "<br>" + fieldName[i] + "<br>";
-            $('<iframe id="iframeId" width="380"/>').appendTo(popupWin.document.getElementById("linkDiv")).prop('src', url);
-            i++;
-        }
-
-
-
-    }*/
-    /*
-            parentText += "degree = " + node.degree() + "<br>";
-            parentText += "number of child nodes = " + childNum + "<br>";
-            parentText += "number of parent nodes = " + parentNum + "<br>";
-
-            popupWin.document.getElementById("popupDiv").innerHTML += parentText;
-    		
-    		*/
-    //popupWin.document.getElementById("popupDiv").innerHTML += table;
-	
-	//document.getElementById("nodeInfoDiv").innerHTML += table;
-	
-	
-    // };
-
 }
 
 function isValidUrl(str) {
@@ -469,6 +442,8 @@ $('#expandNode').click(function() {
 
 
  function expandNodes(selectedNode) {
+ 
+	cy.nodes().unbind( "click" );
 
          //var selectedNode = cy.nodes(':selected');
          //var selectedNode = this;
@@ -504,7 +479,7 @@ $('#expandNode').click(function() {
 			checkBoxes();
 			 cy.nodes().on("click", function(e){
 
-						showNodeInfo(e.cyTarget);
+						//showNodeInfo(e.cyTarget);
 
 						});	   
 
@@ -534,9 +509,10 @@ $('#expandNode').click(function() {
 function checkBoxes(){
 
 
-             if ($('#showInNode').is(":checked")) {
+           if ($('#showInNode').is(":checked")) {
                  showIn = true;
                  cy.nodes().on("click", highlightIn);
+				 
              } else {
                 showIn = false;
 				cy.nodes().off("click", highlightIn);
