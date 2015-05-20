@@ -130,7 +130,7 @@ $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunct
                      window.cy = this;
 					 cy.nodes().on("click", function(e){
 							
-						//showNodeInfo(e.cyTarget);
+						showNodeInfo(e.cyTarget);
 
 						});	   
                  },

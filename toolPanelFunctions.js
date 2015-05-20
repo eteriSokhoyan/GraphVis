@@ -479,7 +479,7 @@ $('#expandNode').click(function() {
 			checkBoxes();
 			 cy.nodes().on("click", function(e){
 
-						//showNodeInfo(e.cyTarget);
+						showNodeInfo(e.cyTarget);
 
 						});	   
 
