@@ -68,6 +68,7 @@ $('#showInNode').change(function() {
 ///////// finding outgoing Nodes		
 function highlightOut() {
 
+	
     var selectedNode = this;
 
     var connectedNodes = selectedNode.outgoers();
