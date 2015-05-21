@@ -5,6 +5,9 @@ $("#openFile").change(function() {
 });
 */
 
+$(function() {
+
+
 ///// show/hide Labels
 $('#nodeLabelCheck').change(function() {
     if ($(this).is(":checked")) {
@@ -64,6 +67,189 @@ $('#showInNode').change(function() {
 	checkBoxes();
 });
 
+
+
+//// show number of contained nodes for a collapsed node
+$('#collapseCount').change(function() {
+	checkBoxes();
+});
+
+
+
+////expand(Load) nodes
+$('#expandNode').click(function() {
+         var selectedNode = cy.nodes(':selected');
+
+		// console.log(selectedNode.data());
+		 
+         if (selectedNode.hasClass('superNode')) {
+
+             unColNode();
+
+         } else {
+
+             expandNodes(selectedNode);
+             //selectedNode.unselect();
+             $('.btn.expNode').prop('disabled', true);
+         }
+
+     });
+
+
+	 
+	 
+
+//
+//// disable/unable buttons 
+$(document).on('click', function() {
+
+//checkBoxes();
+    var selectedNode = cy.nodes(':selected');
+	
+	//showNodeInfo(selectedNode);
+
+    if (selectedNode.outgoers().length == 0) {
+
+        $('.btn.colNode').prop('disabled', true);
+
+
+    } else if (selectedNode.hasClass('superNode')) {
+
+        $('.btn.colNode').prop('disabled', true);
+
+    } else {
+
+        $('.btn.colNode').prop('disabled', false);
+
+    }
+
+    if (selectedNode.hasClass('toBeExpaned') || selectedNode.hasClass('superNode')) {
+
+        $('.btn.expNode').prop('disabled', false);
+
+    } else {
+
+        $('.btn.expNode').prop('disabled', true);
+
+    }
+
+    if (cy.nodes(":selected").length > 0) {
+
+        $('.btn.delNode').prop('disabled', false);
+    } else {
+
+        $('.btn.delNode').prop('disabled', true);
+    }
+
+
+});
+
+
+///// keyboard commands
+
+$( document ).keypress(function(e) {
+
+  
+  var selectedNode = cy.nodes(':selected');
+  
+  
+  if(e.which == 101 && selectedNode.size() != 0){   // 101 for 'e' = expand
+  
+	if(selectedNode.hasClass('toBeExpaned') ) {
+		
+		expandNodes(selectedNode);
+		
+	}
+	else if(selectedNode.hasClass('superNode')){
+		
+		unColNode();
+	}
+	
+		
+  }
+   if ( e.which == 99 && selectedNode.size() != 0 && !selectedNode.hasClass('superNode') && selectedNode.outgoers().length != 0) { // 99 for 'c' = collapse
+	
+	colNode();
+		
+  }
+  
+  if ( e.which == 100 && selectedNode.size() != 0) { // 100 for 'd' = delete
+	deleteSelectedNodes();
+  }
+  
+  
+});
+
+
+
+/////////////// tool Panel movement 
+
+$(document).on('click', '.slider-arrow.show', function() {
+    $(".slider-arrow, .panel").animate({
+        left: "+=243"
+    }, 700, function() {
+        // Animation complete.
+    });
+    $(this).html('&laquo;').removeClass('show').addClass('hide');
+
+    document.getElementById('cy').style.left = "243px";
+    //document.getElementById('cy').style.width="80%";
+
+    cy.resize();
+
+
+});
+
+$(document).on('click', '.slider-arrow.hide', function() {
+    $(".slider-arrow, .panel").animate({
+        left: "-=243"
+    }, 700, function() {
+        // Animation complete.
+    });
+    $(this).html('&raquo;').removeClass('hide').addClass('show');
+    document.getElementById('cy').style.left = "0px";
+    // document.getElementById('cy').style.width="100%";
+    cy.resize();
+});
+
+//////////////////panel for Node info
+
+$(document).on('click', '.slider-arrow-forNode.show', function() {
+    $(".slider-arrow-forNode, .nodePanel").animate({
+        right: "+=248"
+    }, 700, function() {
+        // Animation complete.
+    });
+    $(this).html('&raquo;').removeClass('show').addClass('hide');
+
+    document.getElementById('cy').style.right = "248px";
+    //document.getElementById('cy').style.width="80%";
+
+    cy.resize();
+
+
+});
+
+$(document).on('click', '.slider-arrow-forNode.hide', function() {
+    $(".slider-arrow-forNode, .nodePanel").animate({
+        right: "-=248"
+    }, 700, function() {
+        // Animation complete.
+    });
+    $(this).html('&laquo;').removeClass('hide').addClass('show');
+    document.getElementById('cy').style.right = "0px";
+    // document.getElementById('cy').style.width="100%";
+    cy.resize();
+});
+
+
+	 
+	 
+	 
+	 
+
+
+}) // on dom ready END
 
 ///////// finding outgoing Nodes		
 function highlightOut() {
@@ -279,11 +465,6 @@ function restorGraphStructure() {
 
 
 
-//// show number of contained nodes for a collapsed node
-$('#collapseCount').change(function() {
-	checkBoxes();
-});
-
 
 
 ///// show node info
@@ -422,26 +603,6 @@ function restoreDeletedNodes() {
     edgesToRemove.restore();
 }
 
-////expand(Load) nodes
-$('#expandNode').click(function() {
-         var selectedNode = cy.nodes(':selected');
-
-		// console.log(selectedNode.data());
-		 
-         if (selectedNode.hasClass('superNode')) {
-
-             unColNode();
-
-         } else {
-
-             expandNodes(selectedNode);
-             //selectedNode.unselect();
-             $('.btn.expNode').prop('disabled', true);
-         }
-
-     });
-
-
  function expandNodes(selectedNode) {
  
 	cy.nodes().unbind( "click" );
@@ -562,150 +723,5 @@ function checkBoxes(){
 }
 
 
-
-
-
-//
-//// disable/unable buttons 
-$(document).on('click', function() {
-
-//checkBoxes();
-    var selectedNode = cy.nodes(':selected');
-	
-	//showNodeInfo(selectedNode);
-
-    if (selectedNode.outgoers().length == 0) {
-
-        $('.btn.colNode').prop('disabled', true);
-
-
-    } else if (selectedNode.hasClass('superNode')) {
-
-        $('.btn.colNode').prop('disabled', true);
-
-    } else {
-
-        $('.btn.colNode').prop('disabled', false);
-
-    }
-
-    if (selectedNode.hasClass('toBeExpaned') || selectedNode.hasClass('superNode')) {
-
-        $('.btn.expNode').prop('disabled', false);
-
-    } else {
-
-        $('.btn.expNode').prop('disabled', true);
-
-    }
-
-    if (cy.nodes(":selected").length > 0) {
-
-        $('.btn.delNode').prop('disabled', false);
-    } else {
-
-        $('.btn.delNode').prop('disabled', true);
-    }
-
-
-});
-
-
-///// keyboard commands
-
-$( document ).keypress(function(e) {
-
-  
-  var selectedNode = cy.nodes(':selected');
-  
-  
-  if(e.which == 101 && selectedNode.size() != 0){   // 101 for 'e' = expand
-  
-	if(selectedNode.hasClass('toBeExpaned') ) {
-		
-		expandNodes(selectedNode);
-		
-	}
-	else if(selectedNode.hasClass('superNode')){
-		
-		unColNode();
-	}
-	
-		
-  }
-   if ( e.which == 99 && selectedNode.size() != 0 && !selectedNode.hasClass('superNode') && selectedNode.outgoers().length != 0) { // 99 for 'c' = collapse
-	
-	colNode();
-		
-  }
-  
-  if ( e.which == 100 && selectedNode.size() != 0) { // 100 for 'd' = delete
-	deleteSelectedNodes();
-  }
-  
-  
-});
-
-
-
-/////////////// tool Panel movement 
-
-$(document).on('click', '.slider-arrow.show', function() {
-    $(".slider-arrow, .panel").animate({
-        left: "+=243"
-    }, 700, function() {
-        // Animation complete.
-    });
-    $(this).html('&laquo;').removeClass('show').addClass('hide');
-
-    document.getElementById('cy').style.left = "243px";
-    //document.getElementById('cy').style.width="80%";
-
-    cy.resize();
-
-
-});
-
-$(document).on('click', '.slider-arrow.hide', function() {
-    $(".slider-arrow, .panel").animate({
-        left: "-=243"
-    }, 700, function() {
-        // Animation complete.
-    });
-    $(this).html('&raquo;').removeClass('hide').addClass('show');
-    document.getElementById('cy').style.left = "0px";
-    // document.getElementById('cy').style.width="100%";
-    cy.resize();
-});
-
-//////////////////panel for Node info
-
-$(document).on('click', '.slider-arrow-forNode.show', function() {
-    $(".slider-arrow-forNode, .nodePanel").animate({
-        right: "+=248"
-    }, 700, function() {
-        // Animation complete.
-    });
-    $(this).html('&raquo;').removeClass('show').addClass('hide');
-
-    document.getElementById('cy').style.right = "248px";
-    //document.getElementById('cy').style.width="80%";
-
-    cy.resize();
-
-
-});
-
-$(document).on('click', '.slider-arrow-forNode.hide', function() {
-    $(".slider-arrow-forNode, .nodePanel").animate({
-        right: "-=248"
-    }, 700, function() {
-        // Animation complete.
-    });
-    $(this).html('&laquo;').removeClass('hide').addClass('show');
-    document.getElementById('cy').style.right = "0px";
-    // document.getElementById('cy').style.width="100%";
-    cy.resize();
-});
 
 

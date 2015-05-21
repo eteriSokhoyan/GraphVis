@@ -17,56 +17,46 @@
 	<script type="text/javascript" src="lib/jquery-1.11.3.min.js" ></script>
 	<script type="text/javascript" src="lib/jquery.qtip.js" ></script>
 	<script type="text/javascript" src="lib/cytoscape.min.js" ></script>
-	<!--script type="text/javascript" src="graphVis.js" ></script-->
+	<script type="text/javascript" src="graphVis.js" ></script>
+	<script type="text/javascript" src="toolPanelFunctions.js" ></script>
+	<script type="text/javascript" src="collapse.js" ></script>
+	
    
-
-    <script>
-	$.getScript( "graphVis.js");
-	//$.getScript( "toolPanelFunctions.js");
-	$.getScript( "collapse.js");
-	   </script>
-
-    <!--script>
-        (function(d) {
-            var s = d.getElementsByTagName('script')[0],
-                f = d.createElement('script');
-            f.type = 'text/javascript';
-            f.async = true;
-            f.src = 'graphVis.js';
-            s.parentNode.insertBefore(f, s);
-            f = d.createElement('script');
-            f.type = 'text/javascript';
-            f.async = true;
-            f.src = 'collapse.js';
-            s.parentNode.insertBefore(f, s);
-        })(document)
-    </script-->
-
+   
+ 
 </head>
 
 <body>
     <script type="text/javascript" src="lib/wz_tooltip.js"></script>
 
 
+	
+	<script>	
+	
+ $(function() { // on dom ready
+ 
+	$.ajax({   				// default graph
+         'async': true,
+         'global': false,
+         'url': 'nodelinkjson_output.json',
+         'dataType': "json",
+         'success': function(data) {
+             parseJson(data);
+             //  createGraph(data);
+
+         }
+     });
+
+	 });
+
+    </script>
+
+	
     <div id="cy"></div>
 
     <div class="panel">
 
         <br>
-
-
-        <!--div class="file-upload-override-button left">
-            Choose File
-            <input type="file" class="file-upload-button" id="openFile" />
-        </div>
-        <div class="file-upload-filename left" id="file-upload-filename">No file selected
-            <br>
-            <br>
-        </div>
-        <br>
-        <br-->
-
-
 
         <div id="mainselection">
             <select name="select" id="selectShape">

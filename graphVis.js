@@ -1,7 +1,3 @@
- $.ajaxSetup({
-     async: false
- });
- 
  var showNodeLabel;
  var showEdgeLabel;
  var showOut;
@@ -15,41 +11,18 @@
  $("body").css("overflow-x","hidden");   //// remove horizontal scrollbar
  
  
-$.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunctions.js
+
 
  $(function() { // on dom ready
 
-     $.ajax({   				// default graph
-         'async': false,
-         'global': false,
-         'url': 'nodelinkjson_output.json',
-         'dataType': "json",
-         'success': function(data) {
-             parseJson(data);
-             //  createGraph(data);
-
-         }
-     });
-
-	url =  getUrlParameter('file');
+ url =  getUrlParameter('file');
 	console.log("url = " + url);
 
 
-     ///////// get the json file
-
-    // document.getElementById('openFile').onchange = function() {
-
-          //   var file = this.files[0];
-           //  var fname = file.name;
-           //  url = URL.createObjectURL(event.target.files[0]);
-
-          //   var fileExt = fname.substr((~-fname.lastIndexOf(".") >>> 0) + 2);
-
-
-           //  var reader = new FileReader();
+             var reader = new FileReader();
 
              $.ajax({
-                 'async': false,
+                 'async': true,
                  'global': false,
                  'url': url,
                  'dataType': "json",
@@ -97,7 +70,7 @@ $.getScript("toolPanelFunctions.js", function(){    ///// include toolPanelFunct
       //   } //// end document.getElementById
 
 
-
+}); // END on dom ready
 
      $("select option:selected").each(function() {
          shape = $(this).val();
@@ -276,6 +249,6 @@ function getUrlParameter(sParam)
 }           	 
 	 
 
- }); // END on dom ready
+  
  
- });
+ //});
