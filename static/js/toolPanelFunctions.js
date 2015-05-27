@@ -50,14 +50,32 @@ $('#selectShape').change(function() {
 ////////  highlighting outgoing nodes
 
 $('#showOutNode').change(function() {
-	checkBoxes();
+	if ($('#showOutNode').is(":checked")) {
+                 showOut = true;
+                 cy.nodes().on("tap", highlightOut);
+             } else {
+               showOut = false;
+					cy.nodes().off("tap", highlightOut);
+					resetHighlightOut(showIn, showOut);
+             }
 });
 
 
 ////////  highlighting incoming nodes
 
 $('#showInNode').change(function() {
-	checkBoxes();
+	
+	if ($('#showInNode').is(":checked")) {
+                 showIn = true;
+                 cy.nodes().on("tap", highlightIn);
+				 
+   } else {
+               showIn = false;
+					cy.nodes().off("tap", highlightIn);
+					resetHighlightIn(showIn, showOut);
+					cy.nodes().removeClass('connectedNodeIn');
+	}
+
 });
 
 
@@ -250,6 +268,8 @@ function highlightOut() {
 	
     var selectedNode = this;
 
+	console.log("from Out = " + selectedNode.data('id'));
+
     var connectedNodes = selectedNode.outgoers();
 
     if (selectedNode.hasClass('selectedNodeOut')) {
@@ -339,6 +359,7 @@ function highlightIn() {
 	//var selectedNode = cy.nodes(':selected');
 	var selectedNode = this;
 	
+	console.log("from In = " + selectedNode.data('id'));
     var connectedNodes = selectedNode.incomers();
 	
     if (selectedNode.hasClass('selectedNodeIn') ) {
@@ -598,7 +619,7 @@ function restoreDeletedNodes() {
 
  function expandNodes(selectedNode) {
  
-	cy.nodes().unbind( "click" );
+	cy.nodes().unbind( "tap" );
 
          //var selectedNode = cy.nodes(':selected');
          //var selectedNode = this;
@@ -666,20 +687,20 @@ function checkBoxes(){
 
            if ($('#showInNode').is(":checked")) {
                  showIn = true;
-                 cy.nodes().on("click", highlightIn);
+                 cy.nodes().on("tap", highlightIn);
 				 
              } else {
                showIn = false;
-					cy.nodes().off("click", highlightIn);
+					cy.nodes().off("tap", highlightIn);
 					resetHighlightIn(showIn, showOut);
 					cy.nodes().removeClass('connectedNodeIn');
              }
              if ($('#showOutNode').is(":checked")) {
                  showOut = true;
-                 cy.nodes().on("click", highlightOut);
+                 cy.nodes().on("tap", highlightOut);
              } else {
                showOut = false;
-					cy.nodes().off("click", highlightOut);
+					cy.nodes().off("tap", highlightOut);
 					resetHighlightOut(showIn, showOut);
              }
 
