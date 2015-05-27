@@ -9,71 +9,13 @@
  var cy;
  
  
- 
- 
-
 
  $(function() { // on dom ready
  
 
  $("body").css("overflow-x","hidden");   //// remove horizontal scrollbar
  
- url =  getUrlParameter('file');
-	console.log("url = " + url);
-
-
-
-             var reader = new FileReader();
-
-             $.ajax({
-                 'async': true,
-                 'global': false,
-                 'url': url,
-                 'dataType': "json",
-                 'success': function(data) {
-
-                     parseJson(data); 
-
-                 },
-                 'error': function(data) {
-                     
-
-                     reader.onload = function() {
-                         var lines = this.result.split('\n');
-                         var chars;
-                         for (var line = 0; line < lines.length; line++) {
-                             chars = lines[line].split(/,?\s+/); // split by comma or space
-
-                             demoNodes.push({
-                                 data: {
-                                     id: chars[0],
-                                     label: chars[0]
-                                 }
-                             });
-
-                             for (var i = 1; i < chars.length; i++) {
-                                 demoEdges.push({
-                                     data: {
-                                         source: chars[0],
-                                         target: chars[i],
-                                         id: chars[0] + chars[i],
-
-                                     }
-                                 })
-                             }
-                         }
-
-                         parseAndCreate(demoNodes, demoEdges);
-                     };
-                   //  reader.readAsText(file);
-
-                 }
-             });
-
-
-      //   } //// end document.getElementById
-
-
+ 
 }); // END on dom ready
 
      $("select option:selected").each(function() {

@@ -49,10 +49,7 @@ $('#selectShape').change(function() {
 
 ////////  highlighting outgoing nodes
 
-
 $('#showOutNode').change(function() {
-	checkBoxes();
-	/*
 	if ($('#showOutNode').is(":checked")) {
                  showOut = true;
                  cy.nodes().on("tap", highlightOut);
@@ -61,14 +58,12 @@ $('#showOutNode').change(function() {
 					cy.nodes().off("tap", highlightOut);
 					resetHighlightOut(showIn, showOut);
              }
-             */
 });
 
 
 ////////  highlighting incoming nodes
 
 $('#showInNode').change(function() {
-checkBoxes();/*	
 	
 	if ($('#showInNode').is(":checked")) {
                  showIn = true;
@@ -80,7 +75,6 @@ checkBoxes();/*
 					resetHighlightIn(showIn, showOut);
 					cy.nodes().removeClass('connectedNodeIn');
 	}
-	*/
 
 });
 
@@ -365,7 +359,7 @@ function highlightIn() {
 	//var selectedNode = cy.nodes(':selected');
 	var selectedNode = this;
 	
-	console.log("from In = " + selectedNode.data('id'));
+	
     var connectedNodes = selectedNode.incomers();
 	
     if (selectedNode.hasClass('selectedNodeIn') ) {

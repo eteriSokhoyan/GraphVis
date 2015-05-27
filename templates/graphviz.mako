@@ -31,7 +31,7 @@
             hdaExt  = '${hda.ext}',
             dataUrl = "${h.url_for( controller='/datasets', action='index')}/" + hdaId + "/display?to_ext=" + hdaExt;
 
-			 var reader = new FileReader();
+			// var reader = new FileReader();
 			
              $.ajax({
                  'async': true,
@@ -43,10 +43,10 @@
                      //  createGraph(data);
                  },
                  'error': function(data) {
-                     
-
-                     reader.onload = function() {
-                         var lines = this.result.split('\n');
+                 
+							jQuery.get(dataUrl, function(data) {
+  		 				
+  							var lines = data.split('\n');
                          var chars;
                          for (var line = 0; line < lines.length; line++) {
                              chars = lines[line].split(/,?\s+/); // split by comma or space
@@ -69,11 +69,12 @@
                                  })
                              }
                          }
-
-                         parseAndCreate(demoNodes, demoEdges);
-                     };
-                   //  reader.readAsText(file);
-
+					  
+  								parseAndCreate(demoNodes, demoEdges);
+  
+							});                     
+                     
+                  
                  }
              });
 

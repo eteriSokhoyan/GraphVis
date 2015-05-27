@@ -268,7 +268,7 @@ function highlightOut() {
 	
     var selectedNode = this;
 
-	console.log("from Out = " + selectedNode.data('id'));
+	
 
     var connectedNodes = selectedNode.outgoers();
 
@@ -359,7 +359,7 @@ function highlightIn() {
 	//var selectedNode = cy.nodes(':selected');
 	var selectedNode = this;
 	
-	console.log("from In = " + selectedNode.data('id'));
+	
     var connectedNodes = selectedNode.incomers();
 	
     if (selectedNode.hasClass('selectedNodeIn') ) {
