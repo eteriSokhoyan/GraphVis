@@ -2,82 +2,82 @@ var collapseOrder = 0;
 var collapseNodeCount = 0;
 var num = 0;
 
-function colNode() {    //// collapse node
-    
-	
+function colNode() { //// collapse node
+
+
 	var selectedNode = cy.nodes(':selected');
-    var connectedEdges = selectedNode.connectedEdges(function() {
-        return !this.target().anySame(selectedNode);
-    });
-    var connectedNodes = connectedEdges.targets();
+	var connectedEdges = selectedNode.connectedEdges(function() {
+		return !this.target().anySame(selectedNode);
+	});
+	var connectedNodes = connectedEdges.targets();
 
-        collapseNodeCount = connectedNodes.length; 
-        num = selectedNode.data('colNum', collapseNodeCount);
-        connectedNodes.addClass('collapsedNode' + collapseOrder);
-        connectedEdges.addClass('collapsedNode' + collapseOrder);
-        selectedNode.addClass('superNode');
+	collapseNodeCount = connectedNodes.length;
+	num = selectedNode.data('colNum', collapseNodeCount);
+	connectedNodes.addClass('collapsedNode' + collapseOrder);
+	connectedEdges.addClass('collapsedNode' + collapseOrder);
+	selectedNode.addClass('superNode');
 
-        addCollapsedEdges(selectedNode, collapseOrder);
+	addCollapsedEdges(selectedNode, collapseOrder);
 
-        cy.style()
-            .selector('.collapsedNode' + collapseOrder)
-            .css({
-                'visibility': 'hidden'
-            })
-            .update();
+	cy.style()
+		.selector('.collapsedNode' + collapseOrder)
+		.css({
+		'visibility': 'hidden'
+	})
+		.update();
 
-        cy.style()
-            .selector('.superNode')
-            .css({
-                'opacity': 0.8,
-                'width': 50,
-                'height': 50
-            })
-            .update();
+	cy.style()
+		.selector('.superNode')
+		.css({
+		'opacity': 0.8,
+		'width': 50,
+		'height': 50
+	})
+		.update();
 
-        cy.fit();
+	cy.fit();
 
 
-        collapseOrder = collapseOrder + 1;
-		
-    //}
-    $('.btn.colNode').prop('disabled', true);
+	collapseOrder = collapseOrder + 1;
+
+	//}
+	$('.btn.colNode').prop('disabled', true);
 	console.log("shape = " + shape);
-	
+
 }
 
-function unColNode(){   //// uncollapse (expand) node
+function unColNode() { //// uncollapse (expand) node
 
-var selectedNode = cy.nodes(':selected');
-    var connectedEdges = selectedNode.connectedEdges(function() {
-        return !this.target().anySame(selectedNode);
-    });
-    var connectedNodes = connectedEdges.targets();
-        cy.style()
-            .selector('.superNode')
-            .update();
+	var selectedNode = cy.nodes(':selected');
+	var connectedEdges = selectedNode.connectedEdges(function() {
+		return !this.target().anySame(selectedNode);
+	});
+	var connectedNodes = connectedEdges.targets();
+	cy.style()
+		.selector('.superNode')
+		.update();
 
-        selectedNode.removeClass('superNode');
+	selectedNode.removeClass('superNode');
 
-        for (var i = collapseOrder; i >= 0; i--) {
+	for (var i = collapseOrder; i >= 0; i--) {
 
-            if (connectedNodes.hasClass('collapsedNode' + i) || connectedEdges.hasClass('collapsedNode' + i)) {
+		if (connectedNodes.hasClass('collapsedNode' + i) || connectedEdges.hasClass('collapsedNode' + i)) {
 
-                connectedNodes.removeClass('collapsedNode' + i);
-                connectedEdges.removeClass('collapsedNode' + i);
-                removeCollapsedEdges(selectedNode, i);
+			connectedNodes.removeClass('collapsedNode' + i);
+			connectedEdges.removeClass('collapsedNode' + i);
+			removeCollapsedEdges(selectedNode, i);
 
-                cy.style()
-                    .update(); // remove invisibility
-                cy.fit();
-            }
-            
-        }
+			cy.style()
+				.update(); // remove invisibility
+			cy.fit();
+		}
 
-        collapseOrder--;
-    //}
+	}
 
-$('.btn.colNode').prop('disabled', true);
+	collapseOrder--;
+	//}
+
+	$('.btn.colNode').prop('disabled', true);
 
 }
 
@@ -85,134 +85,134 @@ $('.btn.colNode').prop('disabled', true);
 
 function addCollapsedEdges(selectedNode, collapseOrder) {
 
-    var connectedEdges = selectedNode.connectedEdges(function() {
-        return !this.target().anySame(selectedNode);
-    });
+	var connectedEdges = selectedNode.connectedEdges(function() {
+		return !this.target().anySame(selectedNode);
+	});
 
-    var connectedNodes = connectedEdges.targets();
-    var newTargetEdges = connectedNodes.connectedEdges(function() {
-        return !this.target().anySame(connectedNodes);
-    });
-    var newSourceEdges = connectedNodes.connectedEdges(function() {
-        return !this.source().anySame(connectedNodes);
-    });
+	var connectedNodes = connectedEdges.targets();
+	var newTargetEdges = connectedNodes.connectedEdges(function() {
+		return !this.target().anySame(connectedNodes);
+	});
+	var newSourceEdges = connectedNodes.connectedEdges(function() {
+		return !this.source().anySame(connectedNodes);
+	});
 
-    var newTargetNodes = newTargetEdges.targets();
-    var newSourceNodes = newSourceEdges.sources();
-
-
-    newTargetNodes.each(function(i, ele) {
-
-        if (ele.edgesTo(selectedNode).sources().data('id') == selectedNode.data('id') || ele.data('id') == selectedNode.data('id')) { // preventing duplicate edges 
-
-            ele = ele + 1;
-        } else {
-
-    
-            cy.add({
-                    group: "edges",
-                    data: {
-                        source: selectedNode.data('id'),
-                        target: ele.data('id')
-                    }
-                })
-                .addClass('virtualEdges' + collapseOrder)
-        }
-    });
+	var newTargetNodes = newTargetEdges.targets();
+	var newSourceNodes = newSourceEdges.sources();
 
 
+	newTargetNodes.each(function(i, ele) {
+
+		if (ele.edgesTo(selectedNode).sources().data('id') == selectedNode.data('id') || ele.data('id') == selectedNode.data('id')) { // preventing duplicate edges 
+
+			ele = ele + 1;
+		} else {
 
 
-    newSourceNodes.each(function(i, ele) {
+			cy.add({
+				group: "edges",
+				data: {
+					source: selectedNode.data('id'),
+					target: ele.data('id')
+				}
+			})
+				.addClass('virtualEdges' + collapseOrder)
+		}
+	});
 
-        if (ele.edgesTo(selectedNode).targets().data('id') == selectedNode.data('id') || ele.data('id') == selectedNode.data('id')) {
 
-            ele = ele + 1;
-        } else {
 
-            cy.add({
-                    group: "edges",
-                    data: {
-                        source: ele.data('id'),
-                        target: selectedNode.data('id')
-                    }
-                })
-                .addClass('virtualEdges' + collapseOrder)
-        }
-    });
-	
-	
+
+	newSourceNodes.each(function(i, ele) {
+
+		if (ele.edgesTo(selectedNode).targets().data('id') == selectedNode.data('id') || ele.data('id') == selectedNode.data('id')) {
+
+			ele = ele + 1;
+		} else {
+
+			cy.add({
+				group: "edges",
+				data: {
+					source: ele.data('id'),
+					target: selectedNode.data('id')
+				}
+			})
+				.addClass('virtualEdges' + collapseOrder)
+		}
+	});
+
+
 
 }
 
 
 function removeCollapsedEdges(selectedNode, collapseOrder) {
 
-    selectedNode.connectedEdges().each(function(i, ele) {
-       
-        if (ele.hasClass('virtualEdges' + collapseOrder)) {
+	selectedNode.connectedEdges().each(function(i, ele) {
 
-            cy.remove(ele);
-        }
-    });
-   
+		if (ele.hasClass('virtualEdges' + collapseOrder)) {
+
+			cy.remove(ele);
+		}
+	});
+
 }
 
 
 function resetCollapse() {
 
-    for (var i = collapseOrder; i >= 0; i--) {
+	for (var i = collapseOrder; i >= 0; i--) {
 
-        cy.style()
-            .selector('.collapsedNode' + i)
-            .css({
-                'opacity': 0.8,
-                'background-color': '#888888',
-                'line-color': '#ddd',
-                'target-arrow-color': '#ddd'
-            })
-            .update();
+		cy.style()
+			.selector('.collapsedNode' + i)
+			.css({
+			'opacity': 0.8,
+			'background-color': '#888888',
+			'line-color': '#ddd',
+			'target-arrow-color': '#ddd'
+		})
+			.update();
 
-        cy.style()
-            .selector('.superNode')
-            .css({
-                'opacity': 0.8,
-                'background-color': '#888888', //
-                'border-width': 0
-            })
-            .update();
+		cy.style()
+			.selector('.superNode')
+			.css({
+			'opacity': 0.8,
+			'background-color': '#888888', //
+			'border-width': 0
+		})
+			.update();
 
-        cy.remove('.virtualEdges' + i);
+		cy.remove('.virtualEdges' + i);
 
-        cy.nodes().removeClass('superNode');
-        cy.nodes().removeClass('collapsedNode' + i);
-        cy.edges().removeClass('collapsedNode' + i);
-        cy.edges().removeClass('virtualEdges' + i);
-       
-    }
+		cy.nodes().removeClass('superNode');
+		cy.nodes().removeClass('collapsedNode' + i);
+		cy.edges().removeClass('collapsedNode' + i);
+		cy.edges().removeClass('virtualEdges' + i);
+
+	}
 }
 
 
 
 
-function countCollapse(nd){
+function countCollapse(nd) {
 
- 
-            if (nd.hasClass('superNode')) {
-                Tip('contains ' + nd.data().colNum + ' node(s)', PADDING, 10);
-            } else if (nd.hasClass('toBeExpaned')) {
 
-                var eles = allcy.nodes();
-                var selectedNodeId = nd.id();
-                selectedNodeId = selectedNodeId.replace(/[^0-9\.]+/g, "");
+	if (nd.hasClass('superNode')) {
+		Tip('contains ' + nd.data().colNum + ' node(s)', PADDING, 10);
+	} else if (nd.hasClass('toBeExpaned')) {
 
-                var nodeCount = eles[selectedNodeId].outdegree();
-                Tip('contains ' + nodeCount + ' node(s)', PADDING, 10);
+		var eles = allcy.nodes();
+		var selectedNodeId = nd.id();
+		selectedNodeId = selectedNodeId.replace(/[^0-9\.]+/g, "");
 
-            } else {
-                Tip('contains 0 node(s)', PADDING, 10);
-            }
+		var nodeCount = eles[selectedNodeId].outdegree();
+		Tip('contains ' + nodeCount + ' node(s)', PADDING, 10);
 
-        
+	} else {
+		Tip('contains 0 node(s)', PADDING, 10);
+	}
+
+
 
 }
