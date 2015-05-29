@@ -448,18 +448,25 @@ function resetHighlightIn(showIn, showOut) {
 function exportFunction() {
 
     var pngPic = cy.png();
-    downloadURI(pngPic, "graph");
    
+    
+    downloadURI(pngPic, "graph");  //// tested on Chrome and Firefox
+  
 
 }
 
-function downloadURI(uri, name) {
-    var link = document.createElement("a");
-    link.download = name;
-    link.href = uri;
-    link.click();
+function downloadURI(uri, fname) {
+   
+  var link = document.createElement("a");
+  link.download = fname;
+  
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  // Cleanup the DOM
+  document.body.removeChild(link);
+  delete link;
 }
-
 
 ///// restore Graph structure
 function restorGraphStructure() {
