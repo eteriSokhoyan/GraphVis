@@ -59,11 +59,8 @@ Line "1	 3 4 5" can be read as: source: node "1" , target: node "3" ("4","5")
 | Delete   | Deletes selected nodes and edges. Can be performed by using corresponding button or shortcut key 'd'     |
 | Restore   | Restores the deleted nodes and edges form the very last Deletion performed     |
 | Collapse   | Collapse feature can be performed on the selected node which has   outgoing edges. It hides all outgoing (child) nodes and edges of the selected node. Useful for compact view. Can be performed by using corresponding button or shortcut key 'c'. To uncollapse the node Expand or Restore Structure can be used.      |
-
-
-
-* Collapsing nodes for compact view
-* Displaying node metadata 
-* Displaying child/parent dependencies
-* Show/hide node(edge) labels
-* Export the graph as .png picture
+|Expand| Expand feature can be used to load more nodes in case if lazy loading was used or to uncollapse collapsed nodes.Can be performed by using corresponding button or shortcut key 'e'     |
+|Metadata | Node metadata is always displayed on the right Panel  |
+|Child/parent dependencies| To see incoming/outgoing nodes and edges of the selected node enable (check) corresponding feature on the left Panel |
+|Labels| Node and edge labels can be shown/hidden by enabling/disabling corresponding option on the left Panel |
+|Export PNG| It is possible to export the visualization of the graph as a png picture. To perform the action click on the corresponding button |
