@@ -53,10 +53,12 @@ $(function() { // on dom ready
 	$('#showOutNode').change(function() {
 		if ($('#showOutNode').is(":checked")) {
 			showOut = true;
-			cy.nodes().on("tap", highlightOut);
+			cy.nodes().on("tapend", highlightOut);
+			
 		} else {
 			showOut = false;
-			cy.nodes().off("tap", highlightOut);
+			cy.nodes().off("tapend", highlightOut);
+			
 			resetHighlightOut(showIn, showOut);
 		}
 	});
@@ -68,12 +70,14 @@ $(function() { // on dom ready
 
 		if ($('#showInNode').is(":checked")) {
 			showIn = true;
-			cy.nodes().on("tap", highlightIn);
+			cy.nodes().on("tapend", highlightIn);
+			
 
 		} else {
 			showIn = false;
-			cy.nodes().off("tap", highlightIn);
+			cy.nodes().off("tapend", highlightIn);
 			resetHighlightIn(showIn, showOut);
+			
 			cy.nodes().removeClass('connectedNodeIn');
 		}
 
@@ -242,7 +246,7 @@ function highlightOut() {
 
 	var selectedNode = this;
 
-	console.log("form Out = " + selectedNode.data('id'));
+	
 
 	var connectedNodes = selectedNode.outgoers();
 
@@ -259,9 +263,7 @@ function highlightOut() {
 		})
 			.update();
 	} else {
-		//connectedNodes.flashClass('connectedNodeOut',1500);			
-		//connectedEdges.flashClass('connectedNodeOut',1500);		
-
+		
 		cy.nodes().not(this).removeClass('connectedNodeOut');
 		cy.nodes().not(this).removeClass('selectedNodeOut');
 		cy.edges().not(this).removeClass('connectedNodeOut');
@@ -333,7 +335,7 @@ function highlightIn() {
 	//var selectedNode = cy.nodes(':selected');
 	var selectedNode = this;
 
-	console.log("form In = " + selectedNode.data('id'));
+	
 
 	var connectedNodes = selectedNode.incomers();
 
@@ -582,7 +584,7 @@ function restoreDeletedNodes() {
 
 function expandNodes(selectedNode) {
 
-	cy.nodes().unbind("tap");
+	cy.nodes().unbind("tapend");
 
 	//var selectedNode = cy.nodes(':selected');
 	//var selectedNode = this;
@@ -607,7 +609,7 @@ function expandNodes(selectedNode) {
 	});
 
 	checkBoxes();
-	cy.nodes().on("tap", function(e) {
+	cy.nodes().on("tapend", function(e) {
 
 		showNodeInfo(e.cyTarget);
 
@@ -633,21 +635,21 @@ function checkBoxes() {
 
 	if ($('#showInNode').is(":checked")) {
 		showIn = true;
-		cy.nodes().on("tap", highlightIn);
+		cy.nodes().on("tapend", highlightIn);
 
 	} else {
 		showIn = false;
-		cy.nodes().off("tap", highlightIn);
+		cy.nodes().off("tapend", highlightIn);
 		resetHighlightIn(showIn, showOut);
 		cy.nodes().removeClass('connectedNodeIn');
 	}
 	
 	if ($('#showOutNode').is(":checked")) {
 		showOut = true;
-		cy.nodes().on("tap", highlightOut);
+		cy.nodes().on("tapend", highlightOut);
 	} else {
 		showOut = false;
-		cy.nodes().off("tap", highlightOut);
+		cy.nodes().off("tapend", highlightOut);
 		resetHighlightOut(showIn, showOut);
 	}
 
