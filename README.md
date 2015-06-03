@@ -60,7 +60,7 @@ In between these panels is the main screen where the visualization is displayed.
 
 | Features      | Description                    |
 | ------------- | ------------------------------ |
-| Lazy loading      |    If the graph contains more than 50 nodes lazy loading will be performed. At first the framework will load only the root nodes(nodes that have no incoming edges) and their child nodes. The child nodes that can be expanded (contain other nodes) will have bigger size. To load the rest of the graph Expand feature must be used on the expandable nodes |
+| Lazy loading      |    If the graph contains more than 50 nodes lazy loading will be performed. At first the framework will load only the root nodes(nodes that have no incoming edges) and their child nodes. The child nodes that can be expanded (contain other nodes) will have bigger size. To load the rest of the graph Expand feature must be used on the expandable nodes. It's working only if the graph has at least 1 root node |
 | Delete   | Deletes selected nodes and edges. Can be performed by using corresponding button or shortcut key 'd'     |
 | Restore   | Restores the deleted nodes and edges form the very last Deletion performed     |
 | Collapse   | Collapse feature can be performed on the selected node which has   outgoing edges. It hides all outgoing (child) nodes and edges of the selected node. Useful for compact view. Can be performed by using corresponding button or shortcut key 'c'. To uncollapse the node Expand or Restore Structure can be used.      |
