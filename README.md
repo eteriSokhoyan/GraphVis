@@ -1,6 +1,6 @@
 # Galaxy Graph Visualization Framework  #
 
-The framework tries to easily visualize and manipulate graphs in Galaxy platform. 
+The framework visualizes graphs and tries to provide functionality to easily manipulate them in Galaxy platform. 
 For graph construction and visualization [Cytoscape.js](http://js.cytoscape.org/) library is used.
 
 ### Input formats ###
