@@ -91,15 +91,14 @@
  	});
  	allcy.load(data);
 
- 	if (allcy.nodes().length > 50) {
-
- 		var toAdd = allcy.nodes().roots().closedNeighborhood();
- 		allcy.nodes().roots().addClass("roots");
-
-
- 		showNodesToExpand(toAdd);
- 		cy.add(toAdd);
- 		cy.load(cy.elements('*').jsons());
+ 	if (allcy.nodes().length > 50 && allcy.nodes().roots().length != 0 ) {
+			
+			var toAdd = allcy.nodes().roots().closedNeighborhood();
+ 			allcy.nodes().roots().addClass("roots");
+ 			
+			showNodesToExpand(toAdd);
+	 		cy.add(toAdd);
+ 			cy.load(cy.elements('*').jsons());
 
  		cy.style()
  			.selector('.toBeExpaned')
@@ -108,8 +107,8 @@
  			'width': 50,
  			'height': 50
  		})
- 			.update();
-
+ 			.update(); 			
+ 			
  	} else {
 
  		cy.add(data);
