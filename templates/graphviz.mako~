@@ -43,13 +43,9 @@
                      //  createGraph(data);
                  },
                  'error': function(data) {
-                     console.log("error");
-                     
-                     
-                     
+                 
 							jQuery.get(dataUrl, function(data) {
-  		 						
-  
+  		 				
   							var lines = data.split('\n');
                          var chars;
                          for (var line = 0; line < lines.length; line++) {

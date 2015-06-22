@@ -154,7 +154,7 @@
         <input type="button" class="btn" name="export" id="export" value="Export PNG" onclick="exportFunction()">
         <br>
         <br>
-        <input type="button" class="btn" name="manual" id="manual" value="More Info" onclick="window.open('https://bitbucket.org/esokhoyan/graphvisualisation.git')">
+        <input type="button" class="btn" name="manual" id="manual" value="More Info" onclick="window.open('https://github.com/eteriSokhoyan/GraphVis')">
         <br>
         <br>
     </div>
