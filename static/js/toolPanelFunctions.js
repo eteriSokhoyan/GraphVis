@@ -243,17 +243,13 @@ $(function() { // on dom ready
 ///////// finding outgoing Nodes		
 function highlightOut() {
 
-
 	var selectedNode = this;
-
-	
 
 	var connectedNodes = selectedNode.outgoers();
 
 	if (selectedNode.hasClass('selectedNodeOut')) {
 
 		connectedNodes.removeClass('connectedNodeOut');
-		//connectedEdges.removeClass('connectedNodeOut');
 		selectedNode.removeClass('selectedNodeOut');
 
 		cy.style()
@@ -269,7 +265,6 @@ function highlightOut() {
 		cy.edges().not(this).removeClass('connectedNodeOut');
 
 		connectedNodes.addClass('connectedNodeOut');
-		//connectedEdges.addClass('connectedNodeOut');
 		selectedNode.addClass('selectedNodeOut');
 		cy.style()
 			.selector('.connectedNodeOut')
@@ -292,8 +287,6 @@ function highlightOut() {
 			'opacity': 0.8
 		})
 			.update();
-
-		//cy.nodes().removeClass('selectedNodeOut');
 	}
 }
 
@@ -331,12 +324,7 @@ function resetHighlightOut(showIn, showOut) {
 
 function highlightIn() {
 
-
-	//var selectedNode = cy.nodes(':selected');
 	var selectedNode = this;
-
-	
-
 	var connectedNodes = selectedNode.incomers();
 
 	if (selectedNode.hasClass('selectedNodeIn')) {
@@ -351,8 +339,6 @@ function highlightIn() {
 		selectedNode.removeClass('selectedNodeIn');
 
 	} else {
-
-
 
 		cy.nodes().not(this).removeClass('connectedNodeIn');
 		cy.nodes().not(this).removeClass('selectedNodeIn');
@@ -380,11 +366,7 @@ function highlightIn() {
 			'opacity': 0.8
 		})
 			.update();
-
-
-
 	}
-
 }
 
 
@@ -419,17 +401,11 @@ function resetHighlightIn(showIn, showOut) {
 }
 
 
-
-
 ////// export PNG 	
 function exportFunction() {
 
 	var pngPic = cy.png();
-
-
 	downloadURI(pngPic, "graph"); //// tested on Chrome and Firefox
-
-
 }
 
 function downloadURI(uri, fname) {
@@ -461,19 +437,9 @@ function restorGraphStructure() {
 
 }
 
-
-
-
-///// show node info
-/*
-$('#nodeInfoCheck').change(function() {
-	//checkBoxes();
-});
-*/
+// show node info on the right panel
 function showNodeInfo(node) {
 
-	//var node = cy.nodes(':selected');
-	// var node = this;
 	var str = "";
 	var nodeContent = node.data();
 
@@ -492,7 +458,6 @@ function showNodeInfo(node) {
 		i++;
 		values[j] = nodeContent[key];
 		j++;
-		//str += key + odeContent[key] +"\n" ;
 
 	}
 
@@ -560,8 +525,6 @@ function createTable(fieldName, values, degree, parentNum, childNum) {
 }
 
 
-
-
 /////// delete selected nodes
 
 var nodesToRemove;
@@ -582,14 +545,12 @@ function restoreDeletedNodes() {
 	edgesToRemove.restore();
 }
 
+// expand(load) nodes
 function expandNodes(selectedNode) {
 
 	cy.nodes().unbind("tapend");
-
-	//var selectedNode = cy.nodes(':selected');
-	//var selectedNode = this;
 	var selectedNodeId = selectedNode.id();
-	selectedNodeId = selectedNodeId.replace(/[^0-9\.]+/g, "");
+	selectedNodeId = selectedNodeId.replace(/[^0-9\.]+/g, ""); // removing "" 
 
 	var eles = allcy.nodes();
 

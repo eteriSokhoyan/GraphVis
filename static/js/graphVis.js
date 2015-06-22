@@ -18,10 +18,12 @@
 
  }); // END on dom ready
 
+// shape of the graph
  $("select option:selected").each(function() {
  	shape = $(this).val();
 
  });
+ 
  ///////// create graph
  function createGraph(data) {
 
@@ -34,7 +36,6 @@
  		container: document.getElementById('cy'),
 
  		layout: {
- 			// name: 'random',
  			name: shape
  			//avoidOverlap: true,
  			//padding: 10
@@ -43,7 +44,6 @@
  		hideLabelsOnViewport: true,
  		motionBlur: true,
  		textureOnViewport: true,
- 		// pixelRatio: 0.666,
 
  		ready: function() {
 
@@ -86,11 +86,11 @@
  			.css({
  			'outside-texture-bg-color': 'white'
 
- 			//'active-bg-size' : 100
  		})
  	});
  	allcy.load(data);
 
+// if graph contains more than 50 nodes load only root nodes 
  	if (allcy.nodes().length > 50 && allcy.nodes().roots().length != 0 ) {
 			
 			var toAdd = allcy.nodes().roots().closedNeighborhood();
@@ -123,8 +123,6 @@
  } // END create graph	
 
 
-
-
  //// parse function for matrix data
  function parseAndCreate(demoNodes, demoEdges) {
  	var data = {
@@ -138,8 +136,6 @@
  ///// parsing function for json: for link/egde and "" issues
  function parseJson(dataToParse) {
 
-
-
  	if (dataToParse.links == null) {
 
  		var links = dataToParse.edges;
@@ -150,8 +146,6 @@
  	}
 
  	var nodes = dataToParse.nodes;
-
-
 
  	for (var i = 0; i < nodes.length; i++) {
 

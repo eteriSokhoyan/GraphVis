@@ -243,17 +243,13 @@ $(function() { // on dom ready
 ///////// finding outgoing Nodes		
 function highlightOut() {
 
-
 	var selectedNode = this;
-
-	
 
 	var connectedNodes = selectedNode.outgoers();
 
 	if (selectedNode.hasClass('selectedNodeOut')) {
 
 		connectedNodes.removeClass('connectedNodeOut');
-		//connectedEdges.removeClass('connectedNodeOut');
 		selectedNode.removeClass('selectedNodeOut');
 
 		cy.style()
@@ -269,7 +265,6 @@ function highlightOut() {
 		cy.edges().not(this).removeClass('connectedNodeOut');
 
 		connectedNodes.addClass('connectedNodeOut');
-		//connectedEdges.addClass('connectedNodeOut');
 		selectedNode.addClass('selectedNodeOut');
 		cy.style()
 			.selector('.connectedNodeOut')
@@ -292,8 +287,6 @@ function highlightOut() {
 			'opacity': 0.8
 		})
 			.update();
-
-		//cy.nodes().removeClass('selectedNodeOut');
 	}
 }
 

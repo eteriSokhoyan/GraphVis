@@ -1,8 +1,8 @@
-var collapseOrder = 0;
-var collapseNodeCount = 0;
+var collapseOrder = 0;   // the order of collapsed nodes
+var collapseNodeCount = 0;  // the number of collapsed nodes 
 var num = 0;
 
-function colNode() { //// collapse node
+function colNode() { 	//// collapse node
 
 
 	var selectedNode = cy.nodes(':selected');
@@ -17,15 +17,16 @@ function colNode() { //// collapse node
 	connectedEdges.addClass('collapsedNode' + collapseOrder);
 	selectedNode.addClass('superNode');
 
-	addCollapsedEdges(selectedNode, collapseOrder);
+	addCollapsedEdges(selectedNode, collapseOrder);    
 
+// hide collapsed nodes
 	cy.style()
 		.selector('.collapsedNode' + collapseOrder)
 		.css({
 		'visibility': 'hidden'
 	})
 		.update();
-
+// change the size of superNode
 	cy.style()
 		.selector('.superNode')
 		.css({
@@ -46,7 +47,9 @@ function colNode() { //// collapse node
 
 }
 
-function unColNode() { //// uncollapse (expand) node
+/// uncollapse(expand) superNode
+
+function unColNode() { 
 
 	var selectedNode = cy.nodes(':selected');
 	var connectedEdges = selectedNode.connectedEdges(function() {
@@ -75,14 +78,12 @@ function unColNode() { //// uncollapse (expand) node
 	}
 
 	collapseOrder--;
-	//}
-
-	$('.btn.colNode').prop('disabled', true);
+	
+	$('.btn.colNode').prop('disabled', true);  // disable collapse button
 
 }
 
-
-
+/// creating edges from superNode to childNodes of the collapsed Nodes
 function addCollapsedEdges(selectedNode, collapseOrder) {
 
 	var connectedEdges = selectedNode.connectedEdges(function() {
@@ -145,7 +146,7 @@ function addCollapsedEdges(selectedNode, collapseOrder) {
 
 }
 
-
+// removes the edges created by addCollapsedEdges
 function removeCollapsedEdges(selectedNode, collapseOrder) {
 
 	selectedNode.connectedEdges().each(function(i, ele) {
@@ -158,7 +159,7 @@ function removeCollapsedEdges(selectedNode, collapseOrder) {
 
 }
 
-
+//reseting all superNodes
 function resetCollapse() {
 
 	for (var i = collapseOrder; i >= 0; i--) {
@@ -194,9 +195,8 @@ function resetCollapse() {
 
 
 
-
+// counts the number of collapsed nodes for the given superNode
 function countCollapse(nd) {
-
 
 	if (nd.hasClass('superNode')) {
 		Tip('contains ' + nd.data().colNum + ' node(s)', PADDING, 10);
@@ -212,7 +212,4 @@ function countCollapse(nd) {
 	} else {
 		Tip('contains 0 node(s)', PADDING, 10);
 	}
-
-
-
 }
